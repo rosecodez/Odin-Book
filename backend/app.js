@@ -5,8 +5,10 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const passport = require("passport");
 const bcrypt = require("bcrypt");
+const prisma = require("./prisma/prisma.js");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const LocalStrategy = require("passport-local").Strategy;
+const cors = require("cors");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
