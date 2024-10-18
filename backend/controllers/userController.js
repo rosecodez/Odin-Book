@@ -103,3 +103,37 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
     });
   });
 });
+
+exports.user_update_profile_picture = asyncHandler(async (req, res, next) => {
+  try {
+    const user = req.session.user;
+    console.log(user);
+    if (!user) {
+      return res.status(401).json({ message: "Unauthorized, please log in." });
+    }
+
+    console.log("Request file object:", req.file);
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    const userId = user.id;
+
+    // new cloudinary picture link
+    const newProfileImage = req.file.path;
+    console.log(newProfileImage);
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: { profile: newProfileImage },
+    });
+
+    return res.status(200).json({
+      message: "Image uploaded successfully!",
+      profileImage: updatedUser.profile,
+    });
+  } catch (err) {
+    console.error("Error updating profile picture", err);
+    return res.status(500).json({ error: "Failed to upload image" });
+  }
+});
