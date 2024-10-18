@@ -56,3 +56,35 @@ exports.user_signup_post = [
     }
   }),
 ];
+
+exports.user_login_post = [
+  asyncHandler(async (req, res, next) => {
+    const { username, password } = req.body;
+    try {
+      const user = await prisma.user.findUnique({
+        where: { username: username },
+      });
+      if (!user) {
+        return res
+          .status(401)
+          .json({ message: "Invalid username or password" });
+      }
+
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordValid) {
+        return res
+          .status(401)
+          .json({ message: "Invalid username or password" });
+      }
+
+      req.session.user = { id: user.id, username: user.username };
+      console.log("Session after login:", req.session);
+      return res
+        .status(200)
+        .json({ message: "Login successful", user: req.session.user });
+    } catch (error) {
+      next(error);
+    }
+  }),
+];
