@@ -104,6 +104,39 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
   });
 });
 
+exports.user_profile_get = asyncHandler(async (req, res, next) => {
+  try {
+    if (!req.session.user) {
+      return res.status(401).json({ message: "Unauthorized, please log in." });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: req.session.user.id },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({
+      message: "Profile data fetched successfully",
+      user: {
+        id: user.id,
+        username: user.username,
+        profile_image: user.profile_image,
+        bio: user.bio,
+        created_at: user.created_at,
+        likes: user.likes,
+        posts: user.posts,
+        messages: user.messages,
+        comments: user_comments,
+      },
+    });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 exports.user_update_profile_picture = asyncHandler(async (req, res, next) => {
   try {
     const user = req.session.user;
@@ -125,12 +158,12 @@ exports.user_update_profile_picture = asyncHandler(async (req, res, next) => {
 
     const updatedUser = await prisma.user.update({
       where: { id: userId },
-      data: { profile: newProfileImage },
+      data: { profile_image: newProfileImage },
     });
 
     return res.status(200).json({
       message: "Image uploaded successfully!",
-      profileImage: updatedUser.profile,
+      profileImage: updatedUser.profile_image,
     });
   } catch (err) {
     console.error("Error updating profile picture", err);

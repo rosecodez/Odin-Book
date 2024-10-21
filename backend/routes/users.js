@@ -3,6 +3,8 @@ const router = express.Router();
 const userController = require("..controllers./userController");
 const upload = require("../middleware/multer");
 
+// + sign in with authentication method
+// user can keep same profile picture
 router.post("/sign-up", userController.user_signup_post);
 
 router.get("/log-in", userController.user_login_get);
@@ -15,5 +17,12 @@ router.post(
   upload.single("file"),
   userController.user_update_profile_picture
 );
+
+router.get("/profile", userController.user_profile_get);
+
+/* routes to:
+- get user profile
+- send follow requests to other users
+*/
 
 module.exports = router;
