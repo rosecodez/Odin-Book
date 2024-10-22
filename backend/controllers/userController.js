@@ -112,6 +112,14 @@ exports.user_profile_get = asyncHandler(async (req, res, next) => {
 
     const user = await prisma.user.findUnique({
       where: { id: req.session.user.id },
+      include: {
+        likes: true,
+        posts: true,
+        messages: true,
+        comments: true,
+        followers: true,
+        following: true,
+      },
     });
 
     if (!user) {
@@ -129,7 +137,9 @@ exports.user_profile_get = asyncHandler(async (req, res, next) => {
         likes: user.likes,
         posts: user.posts,
         messages: user.messages,
-        comments: user_comments,
+        comments: user.comments,
+        followedBy: user.followedBy,
+        following: user.following,
       },
     });
   } catch (err) {
@@ -168,5 +178,41 @@ exports.user_update_profile_picture = asyncHandler(async (req, res, next) => {
   } catch (err) {
     console.error("Error updating profile picture", err);
     return res.status(500).json({ error: "Failed to upload image" });
+  }
+});
+
+exports.user_followers_post = asyncHandler(async (req, res, next) => {
+  try {
+    const user = req.session.user;
+    console.log(user);
+    if (!user) {
+      return res.status(401).json({ message: "Unauthorized, please log in." });
+    }
+
+    const userId = user.id;
+    const { followUserId } = req.body;
+
+    if (!followUserId) {
+      return res.status(400).json({ message: "User id to follow is required" });
+    }
+
+    if (userId === followUserId) {
+      return res.status(400).json({ message: "You cannot follow yourself" });
+    }
+
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        following: {
+          connect: { id: followUserId },
+        },
+      },
+    });
+    return res
+      .status(200)
+      .json({ message: "User followed successfully", followUserId });
+  } catch (err) {
+    console.error("Error following user", err);
+    return res.status(500).json({ error: "Failed to follow user" });
   }
 });

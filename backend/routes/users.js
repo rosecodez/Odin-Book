@@ -19,10 +19,6 @@ router.post(
 );
 
 router.get("/profile", userController.user_profile_get);
-
-/* routes to:
-- get user profile
-- send follow requests to other users
-*/
+router.post("/follow", userController.user_followers_post);
 
 module.exports = router;
