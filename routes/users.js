@@ -20,6 +20,6 @@ router.post(
 
 router.get("/profile", userController.user_profile_get);
 router.post("/follow", userController.user_followers_post);
-router.get("/all-users", userController.user_all_get);
+router.get("/all-users", userController.user_get_all_contacts);
 
 module.exports = router;
