@@ -1,6 +1,5 @@
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
-const bcrypt = require("bcrypt");
 const session = require("express-session");
 const prisma = require("../prisma/prisma");
 
@@ -40,18 +39,13 @@ exports.posts_all_get = asyncHandler(async (req, res, next) => {
       return res.status(401).json({ message: "Unauthorized, please log in." });
     }
 
-    const newPost = await prisma.post.create({
-      data: {
-        content: text,
-        userId: user.id,
-      },
-    });
+    const posts = await prisma.post.findMany();
 
-    return res.status(201).json(newPost);
+    return res.status(201).json(posts);
   } catch (error) {
-    console.error("Error creating new post:", error);
+    console.error("An error occurred while fetching posts", error);
     return res
       .status(500)
-      .json({ error: "An error occurred while creating a new post." });
+      .json({ error: "An error occurred while fetching posts" });
   }
 });
