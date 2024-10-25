@@ -20,7 +20,9 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "multer-storage-cloudinary": "^4.0.0",
-    "passport": "^0.7.0"
+    "passport": "^0.7.0",
+    "passport-google-oidc": "^0.1.0",
+    "session": "^0.1.0"
   },
   "devDependencies": {
     "prisma": "^5.21.1"

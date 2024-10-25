@@ -5,7 +5,11 @@ const upload = require("../middleware/multer");
 
 // + sign in with authentication method
 // user can keep same profile picture
-router.post("/sign-up", userController.user_signup_post);
+router.post(
+  "/sign-up",
+  passport.authenticate("google"),
+  userController.user_signup_post
+);
 
 router.get("/log-in", userController.user_login_get);
 router.post("/log-in", userController.user_login_post);
