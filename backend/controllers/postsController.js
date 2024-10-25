@@ -16,10 +16,16 @@ exports.post_new_post = asyncHandler(async (req, res, next) => {
       return res.status(400).json({ message: "Missing text" });
     }
 
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    console.log("Uploaded file details:", req.file);
     const newPost = await prisma.post.create({
       data: {
         content: text,
         userId: user.id,
+        post_image: req.file.path,
       },
     });
 

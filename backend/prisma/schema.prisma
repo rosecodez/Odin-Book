@@ -72,6 +72,7 @@ model post {
     userId     Int
     comment    comment[]
     like       like[]
+    post_image String
 }
 
 model like {
