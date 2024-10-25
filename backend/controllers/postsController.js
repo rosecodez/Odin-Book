@@ -25,7 +25,7 @@ exports.post_new_post = asyncHandler(async (req, res, next) => {
       data: {
         content: text,
         userId: user.id,
-        post_image: req.file.path,
+        post_image: req.file ? req.file.path : null,
       },
     });
 
