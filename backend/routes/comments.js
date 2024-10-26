@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const commentsController = require("../controllers/commentsController");
+const commentController = require("../controllers/commentsController");
 
 // create new comment
-router.post("/:postId/new-comment", commentsController.comment_new_post);
+router.post("/:postId/new-comment", commentController.comment_new_post);
 
 // all comments of a post
-router.get("/:postId/comments", commentsController.all_comments_get);
+router.get("/:postId/comments", commentController.all_comments_get);
