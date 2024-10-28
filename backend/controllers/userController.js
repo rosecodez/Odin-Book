@@ -12,6 +12,11 @@ exports.user_signup_post = [
     .escape(),
 
   asyncHandler(async (req, res, next) => {
+    if (req.user && req.user.googleId) {
+      return res.status(200).json({
+        user: { id: req.user.id, username: req.user.username },
+      });
+    }
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {

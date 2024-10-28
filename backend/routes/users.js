@@ -1,17 +1,26 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("..controllers./userController");
+const userController = require("..controllers./userController.js");
 const upload = require("../middleware/multer");
 
 // + sign in with authentication method
-// user can keep same profile picture
-router.post(
-  "/sign-up",
-  passport.authenticate("google"),
-  userController.user_signup_post
+// initiate google OAuth
+router.get("/auth/google", passport.authenticate("google"));
+
+// google redirection after authentication
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/log-in" }),
+  (req, res) => {
+    res.redirect("/profile");
+  }
 );
 
-router.get("/log-in", userController.user_login_get);
+router.get("/login/federated/google", passport.authenticate("google"));
+
+// user can keep same profile picture
+router.post("/sign-up", userController.user_signup_post);
+
 router.post("/log-in", userController.user_login_post);
 
 router.post("/log-out", userController.user_logout_post);
