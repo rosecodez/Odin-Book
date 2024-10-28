@@ -36,10 +36,12 @@ exports.user_signup_post = [
       }
 
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const { isVisitor } = req.body;
       const user = await prisma.user.create({
         data: {
           username: req.body.username,
           password: hashedPassword,
+          visitor: isVisitor,
         },
       });
 

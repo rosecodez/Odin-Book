@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userController = require("..controllers./userController.js");
+const userController = require("../controllers/userController");
 const upload = require("../middleware/multer");
 
 // + sign in with authentication method
@@ -16,12 +16,12 @@ router.get(
   }
 );
 
-router.get("/login/federated/google", passport.authenticate("google"));
-
-// user can keep same profile picture
+// sign in as visitor to bypass the logic screen, without creating an account or supplying credentials
 router.post("/sign-up", userController.user_signup_post);
 
 router.post("/log-in", userController.user_login_post);
+
+router.get("/login/federated/google", passport.authenticate("google"));
 
 router.post("/log-out", userController.user_logout_post);
 

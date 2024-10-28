@@ -9,8 +9,8 @@ datasource db {
 
 model user {
     id                        Int                         @id @default(autoincrement())
-    username                  String
-    password                  String
+    username                  String?
+    password                  String?
     googleId                  String?
     profile_image             String                      @default("https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png")
     bio                       String                      @default("Nothing about this user yet")
@@ -20,12 +20,12 @@ model user {
     messages                  message[]
     comment                   comment[]
     conversation_participants conversation_participants[]
-
-    // mamessageny to many relationship
+    visitor                   Boolean
+    // many to many relationship
     //  - each user can follow many other users
     //  - each user can be followed by many other users
-    followedBy user[] @relation("UserFollows")
-    following  user[] @relation("UserFollows")
+    followedBy                user[]                      @relation("UserFollows")
+    following                 user[]                      @relation("UserFollows")
 }
 
 model message {
