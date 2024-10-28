@@ -251,3 +251,27 @@ exports.user_get_all_contacts = asyncHandler(async (req, res, next) => {
     return res.status(500).json({ error: "Failed to get contacts" });
   }
 });
+
+exports.user_update_bio_post = asyncHandler(async (req, res, next) => {
+  try {
+    const user = req.session.user;
+    const bio = req.body;
+    if (!user) {
+      return res.status(401).json({ message: "Unauthorized, please log in." });
+    }
+
+    const userId = user.id;
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        bio: bio,
+      },
+    });
+
+    return res.status(200).json({ updatedUser });
+  } catch (err) {
+    console.error("Error updating bio", err);
+    return res.status(500).json({ error: "Failed to update bio" });
+  }
+});

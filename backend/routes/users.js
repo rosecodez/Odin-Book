@@ -16,7 +16,7 @@ router.get(
   }
 );
 
-// sign in as visitor to bypass the logic screen, without creating an account or supplying credentials
+// sign in as visitor to bypass the login screen, without creating an account or supplying credentials
 router.post("/sign-up", userController.user_signup_post);
 
 router.post("/log-in", userController.user_login_post);
@@ -34,5 +34,6 @@ router.post(
 router.get("/profile", userController.user_profile_get);
 router.post("/follow", userController.user_followers_post);
 router.get("/all-users", userController.user_get_all_contacts);
+router.post("/update-bio", userController.user_update_bio_post);
 
 module.exports = router;
