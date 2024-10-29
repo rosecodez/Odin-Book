@@ -7,7 +7,12 @@ const upload = require("../middleware/multer");
 
 // create new post
 // will be able to upload a picture as well
-router.post("/new-post", upload.single("file"), postController.post_new_post);
+router.post(
+  "/new-post",
+  isAuthenticated,
+  upload.single("file"),
+  postController.post_new_post
+);
 
 // all recent posts
-router.get("/posts", postController.posts_all_get);
+router.get("/posts", isAuthenticated, postController.posts_all_get);

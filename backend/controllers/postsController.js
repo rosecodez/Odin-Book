@@ -6,9 +6,6 @@ const prisma = require("../prisma/prisma");
 exports.post_new_post = asyncHandler(async (req, res, next) => {
   try {
     const user = req.session.user;
-    if (!user) {
-      return res.status(401).json({ message: "Unauthorized, please log in." });
-    }
 
     const { text } = req.body;
 

@@ -7,9 +7,6 @@ const prisma = require("../prisma/prisma");
 exports.comment_new_post = asyncHandler(async (req, res, next) => {
   try {
     const user = req.session.user;
-    if (!user) {
-      return res.status(401).json({ message: "Unauthorized, please log in." });
-    }
 
     const { text } = req.body;
     if (!text) {
@@ -34,9 +31,6 @@ exports.comment_new_post = asyncHandler(async (req, res, next) => {
 exports.all_comments_get = asyncHandler(async (req, res, next) => {
   try {
     const user = req.session.user;
-    if (!user) {
-      return res.status(401).json({ message: "Unauthorized, please log in" });
-    }
 
     const { postId } = parseInt(req.params);
 

@@ -23,17 +23,22 @@ router.post("/log-in", userController.user_login_post);
 
 router.get("/login/federated/google", passport.authenticate("google"));
 
-router.post("/log-out", userController.user_logout_post);
+router.post("/log-out", isAuthenticated, userController.user_logout_post);
 
 router.post(
   "/update-profile-picture",
   upload.single("file"),
+  isAuthenticated,
   userController.user_update_profile_picture
 );
 
-router.get("/profile", userController.user_profile_get);
-router.post("/follow", userController.user_followers_post);
-router.get("/all-users", userController.user_get_all_contacts);
-router.post("/update-bio", userController.user_update_bio_post);
+router.get("/profile", isAuthenticated, userController.user_profile_get);
+router.post("/follow", isAuthenticated, userController.user_followers_post);
+router.get("/all-users", isAuthenticated, userController.user_get_all_contacts);
+router.post(
+  "/update-bio",
+  isAuthenticated,
+  userController.user_update_bio_post
+);
 
 module.exports = router;

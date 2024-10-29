@@ -113,10 +113,6 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
 
 exports.user_profile_get = asyncHandler(async (req, res, next) => {
   try {
-    if (!req.session.user) {
-      return res.status(401).json({ message: "Unauthorized, please log in." });
-    }
-
     const user = await prisma.user.findUnique({
       where: { id: req.session.user.id },
       include: {
@@ -157,10 +153,6 @@ exports.user_profile_get = asyncHandler(async (req, res, next) => {
 exports.user_update_profile_picture = asyncHandler(async (req, res, next) => {
   try {
     const user = req.session.user;
-    console.log(user);
-    if (!user) {
-      return res.status(401).json({ message: "Unauthorized, please log in." });
-    }
 
     console.log("Request file object:", req.file);
     if (!req.file) {
@@ -191,10 +183,6 @@ exports.user_update_profile_picture = asyncHandler(async (req, res, next) => {
 exports.user_followers_post = asyncHandler(async (req, res, next) => {
   try {
     const user = req.session.user;
-    console.log(user);
-    if (!user) {
-      return res.status(401).json({ message: "Unauthorized, please log in." });
-    }
 
     const userId = user.id;
     const { followUserId } = req.body;
@@ -229,10 +217,6 @@ exports.user_followers_post = asyncHandler(async (req, res, next) => {
 exports.user_get_all_contacts = asyncHandler(async (req, res, next) => {
   try {
     const user = req.session.user;
-    console.log(user);
-    if (!user) {
-      return res.status(401).json({ message: "Unauthorized, please log in." });
-    }
 
     const userId = user.id;
 
@@ -256,9 +240,6 @@ exports.user_update_bio_post = asyncHandler(async (req, res, next) => {
   try {
     const user = req.session.user;
     const bio = req.body;
-    if (!user) {
-      return res.status(401).json({ message: "Unauthorized, please log in." });
-    }
 
     const userId = user.id;
 
