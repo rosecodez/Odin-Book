@@ -54,3 +54,7 @@ Data models diagram
 - register app with Google, done with API & Services at Google Cloud Platform with OAuth2
 
 ### Frontend
+
+#### Plan
+
+![alt text](image.png)
