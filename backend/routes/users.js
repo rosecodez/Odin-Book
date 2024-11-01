@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
 const upload = require("../middleware/multer");
-
+const passport = require("passport");
+const isAuthenticated = require("../middleware/authentication");
 // + sign in with authentication method
 // initiate google OAuth
 router.get("/auth/google", passport.authenticate("google"));
