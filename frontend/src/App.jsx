@@ -5,6 +5,7 @@ import Header from './components/header';
 import Footer from './components/footer';
 import ProfilePage from './pages/profilePage';
 import SignupPage from './pages/singupPage';
+
 function App() {
   return (
     <Router>
