@@ -3,6 +3,7 @@ import './App.css'
 import HomePage from './pages/homePage';
 import Header from './components/header';
 import Footer from './components/footer';
+import ProfilePage from './pages/profilePage';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <div className="flex flex-col min-h-[41rem]">
         <Routes>
           <Route path="/" element={<HomePage/>}/>
+          <Route path="/profile" element={<ProfilePage/>}/>
         </Routes>
       </div>
 
