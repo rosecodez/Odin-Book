@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const commentController = require("../controllers/commentsController");
+const commentController = require("../controllers/commentController");
+const isAuthenticated = require("../middleware/authentication");
 
 // create new comment
 router.post(
@@ -15,3 +16,4 @@ router.get(
   isAuthenticated,
   commentController.all_comments_get
 );
+module.exports = router;

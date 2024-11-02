@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/postsController");
+const isAuthenticated = require("../middleware/authentication");
+
 const upload = require("../middleware/multer");
 
 // should always display the post content, author, comments and likes
@@ -16,3 +18,5 @@ router.post(
 
 // all recent posts
 router.get("/posts", isAuthenticated, postController.posts_all_get);
+
+module.exports = router;

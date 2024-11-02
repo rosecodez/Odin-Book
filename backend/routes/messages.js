@@ -1,7 +1,8 @@
-const asyncHandler = require("express-async-handler");
-const session = require("express-session");
-const prisma = require("../prisma/prisma");
+const express = require("express");
+const router = express.Router();
 const messageController = require("../controllers/messageController");
+const isAuthenticated = require("../middleware/authentication");
+const upload = require("../middleware/multer");
 
 router.post(
   "/new-message",
@@ -9,3 +10,4 @@ router.post(
   upload.single("file"),
   messageController.message_new_post
 );
+module.exports = router;
