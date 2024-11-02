@@ -58,6 +58,18 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/check-authentication", (req, res) => {
+  console.log(req.session);
+
+  if (req.session && req.session.user) {
+    return res
+      .status(200)
+      .json({ isAuthenticated: true, user: req.session.user });
+  } else {
+    return res.status(200).json({ isAuthenticated: false });
+  }
+});
+
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
