@@ -39,11 +39,12 @@ export default function LoginForm() {
     const onSubmit = (data) => {
         setLoginError('');
         console.log("Form data submitted:", data);
-        loginUser(data);
+        
         if (isVisitor) {
-            navigate("/feed");
+            navigateTo("/feed");
         } else {
-            signupUser(data);
+            loginUser(data);
+        
         }
     };
     
