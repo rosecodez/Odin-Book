@@ -39,6 +39,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+prisma
+  .$connect()
+  .then(() => console.log("Connected to database"))
+  .catch(console.error);
+
 const prismaSessionStore = new PrismaSessionStore(prisma, {
   checkPeriod: 2 * 60 * 1000,
   dbRecordIdIsSessionId: true,
