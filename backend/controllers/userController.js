@@ -114,15 +114,16 @@ exports.user_profile_get = asyncHandler(async (req, res, next) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id: req.session.user.id },
-      include: {
-        likes: true,
-        posts: true,
-        messages: true,
-        comments: true,
-        followers: true,
-        following: true,
+      select: {
+        id: true,
+        username: true,
+        profile_image: true,
+        bio: true,
+        created_at: true,
       },
     });
+
+    console.log("SESSSSSSSSSION USER", user);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -130,21 +131,10 @@ exports.user_profile_get = asyncHandler(async (req, res, next) => {
 
     res.json({
       message: "Profile data fetched successfully",
-      user: {
-        id: user.id,
-        username: user.username,
-        profile_image: user.profile_image,
-        bio: user.bio,
-        created_at: user.created_at,
-        likes: user.likes,
-        posts: user.posts,
-        messages: user.messages,
-        comments: user.comments,
-        followedBy: user.followedBy,
-        following: user.following,
-      },
+      user,
     });
   } catch (err) {
+    console.log(err);
     return next(err);
   }
 });

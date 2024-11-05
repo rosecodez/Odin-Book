@@ -11,7 +11,7 @@ export default function LoginForm() {
 
     const loginUser = async (credentials) => {
         try {
-            const response = await fetch("http://localhost:3000/users/log-in", {
+            const response = await fetch("http://localhost:3000/users/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -20,21 +20,23 @@ export default function LoginForm() {
                 credentials: 'include',
             });
     
+            // Parse the JSON response once
             const data = await response.json();
-            console.log(data);
-
+    
             if (!response.ok) {
-                const errorData = await response.json();
-                setLoginError(`Login failed: ${errorData.message}`);
-                return
+                setLoginError(`Login failed: ${data.message}`);
+                return;
             }
-            
+    
+            console.log("Login successful:", data);
             navigateTo("/profile");
-            
+    
         } catch (error) {
             console.error("Error logging in:", error.message);
+            setLoginError("An error occurred. Please try again.");
         }
     };
+    
 
     const onSubmit = (data) => {
         setLoginError('');
@@ -53,7 +55,7 @@ export default function LoginForm() {
 
             <div id="login-container" className='text-[14px] pt-5 flex items-center justify-center gap-2'>
                 <h6>Don't have an account?</h6>
-                <a href='/sign-up' className='text-slate-400'>
+                <a href='/signup' className='text-slate-400'>
                     <p>Sign up</p>
                 </a>
             </div>

@@ -33,7 +33,7 @@ export default function Home() {
         <div>
             
             <p>Welcome to Odin Book</p>
-            <a href="/sign-up" className="text-[#6b7280]">Sign up today!</a>
+            <a href="/signup" className="text-[#6b7280]">Sign up today!</a>
         </div>
     )
 }

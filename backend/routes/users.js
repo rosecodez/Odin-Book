@@ -11,20 +11,20 @@ router.get("/auth/google", passport.authenticate("google"));
 // google redirection after authentication
 router.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/log-in" }),
+  passport.authenticate("google", { failureRedirect: "/login" }),
   (req, res) => {
     res.redirect("/profile");
   }
 );
 
 // sign in as visitor to bypass the login screen, without creating an account or supplying credentials
-router.post("/sign-up", userController.user_signup_post);
+router.post("/signup", userController.user_signup_post);
 
-router.post("/log-in", userController.user_login_post);
+router.post("/login", userController.user_login_post);
 
 router.get("/login/federated/google", passport.authenticate("google"));
 
-router.post("/log-out", isAuthenticated, userController.user_logout_post);
+router.post("/logout", isAuthenticated, userController.user_logout_post);
 
 router.post(
   "/update-profile-picture",
