@@ -27,6 +27,13 @@ model user {
     following                 user[]                      @relation("UserFollows")
 }
 
+model Session {
+    id        String   @id @default(cuid())
+    sid       String   @unique
+    data      String
+    expiresAt DateTime
+}
+
 model message {
     id              Int           @id @default(autoincrement())
     content         String

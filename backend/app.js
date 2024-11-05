@@ -47,6 +47,7 @@ prisma
 const prismaSessionStore = new PrismaSessionStore(prisma, {
   checkPeriod: 2 * 60 * 1000,
   dbRecordIdIsSessionId: true,
+  sessionModel: "Session",
 });
 
 app.use(
