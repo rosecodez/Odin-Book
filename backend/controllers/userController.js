@@ -142,21 +142,17 @@ exports.user_profile_get = asyncHandler(async (req, res, next) => {
 
 exports.user_update_profile_picture = asyncHandler(async (req, res, next) => {
   try {
-    const user = req.session.user;
-
     console.log("Request file object:", req.file);
     if (!req.file) {
       return res.status(400).json({ message: "No file uploaded" });
     }
-
-    const userId = user.id;
 
     // new cloudinary picture link
     const newProfileImage = req.file.path;
     console.log(newProfileImage);
 
     const updatedUser = await prisma.user.update({
-      where: { id: userId },
+      where: { id: req.user.id },
       data: { profile_image: newProfileImage },
     });
 
