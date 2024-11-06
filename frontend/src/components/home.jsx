@@ -18,16 +18,14 @@ export default function Home() {
             } else {
               setIsAuthenticated(false);
             }
-            
           } catch (error) {
             console.error("Error checking authentication:", error);
           }
         };
     
         checkAuth();
-      }, []);
+      }, [isAuthenticated]);
     
-    console.log(isAuthenticated);
 
     return (
         <div>

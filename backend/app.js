@@ -64,23 +64,12 @@ app.use(
   })
 );
 
-// Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
   console.log("Incoming Request:", req.method, req.url);
   next();
-});
-
-app.get("/check-authentication", (req, res) => {
-  console.log(req.session);
-
-  if (req.isAuthenticated()) {
-    return res.status(200).json({ isAuthenticated: true, user: req.user });
-  } else {
-    return res.status(200).json({ isAuthenticated: false });
-  }
 });
 
 passport.use(
@@ -145,17 +134,31 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
+  console.log("deserializeUser", id);
   try {
     const user = await prisma.user.findUnique({ where: { id } });
+    console.log("deserializeUser", user);
     done(null, user);
   } catch (err) {
     done(err);
   }
 });
+app.use((req, res, next) => {
+  console.log("req.session", req.session);
+  next();
+});
 
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
   next();
+});
+
+app.get("/check-authentication", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.status(200).json({ isAuthenticated: true, user: req.user });
+  } else {
+    res.status(200).json({ isAuthenticated: false });
+  }
 });
 
 app.use("/", indexRouter);

@@ -28,8 +28,8 @@ router.post("/logout", isAuthenticated, userController.user_logout_post);
 
 router.post(
   "/update-profile-picture",
-  upload.single("file"),
   isAuthenticated,
+  upload.single("file"),
   userController.user_update_profile_picture
 );
 

@@ -1,9 +1,9 @@
-// In authentication.js or similar file
 function isAuthenticated(req, res, next) {
-  if (req.session && req.session.user) {
+  console.log(req.user);
+  if (req.isAuthenticated() && req.user) {
     return next();
   } else {
-    res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: "Unauthorized" });
   }
 }
 

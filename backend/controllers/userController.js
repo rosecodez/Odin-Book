@@ -77,18 +77,18 @@ exports.user_login_post = [
       }
 
       const isPasswordValid = await bcrypt.compare(password, user.password);
-
       if (!isPasswordValid) {
         return res
           .status(401)
           .json({ message: "Invalid username or password" });
       }
 
-      req.session.user = { id: user.id, username: user.username };
-      console.log("Session after login:", req.session);
-      return res
-        .status(200)
-        .json({ message: "Login successful", user: req.session.user });
+      req.login(user, (err) => {
+        if (err) return next(err);
+
+        console.log("Session after login:", req.session);
+        return res.status(200).json({ message: "Login successful", user });
+      });
     } catch (error) {
       next(error);
     }
@@ -111,9 +111,13 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
 });
 
 exports.user_profile_get = asyncHandler(async (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
   try {
     const user = await prisma.user.findUnique({
-      where: { id: req.session.user.id },
+      where: { id: req.user.id },
       select: {
         id: true,
         username: true,
@@ -123,18 +127,15 @@ exports.user_profile_get = asyncHandler(async (req, res, next) => {
       },
     });
 
-    console.log("SESSSSSSSSSION USER", user);
-
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
     res.json({
       message: "Profile data fetched successfully",
-      user,
+      user: user,
     });
   } catch (err) {
-    console.log(err);
     return next(err);
   }
 });
