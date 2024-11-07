@@ -29,9 +29,16 @@ export default function Home() {
 
     return (
         <div>
+          {isAuthenticated ? (
+            <p>if user is logged in, will display user feed component</p>
             
-            <p>Welcome to Odin Book</p>
-            <a href="/signup" className="text-[#6b7280]">Sign up today!</a>
+          ) : (
+            <>
+              <p>Welcome to Odin Book</p>
+              <a href="/signup" className="text-[#6b7280]">Sign up today!</a>
+            </>
+          )
+        }
         </div>
     )
 }
