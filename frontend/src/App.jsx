@@ -11,12 +11,13 @@ function App() {
   return (
     <Router>
       <Header/>
-      <div className="flex flex-col min-h-[41rem]">
+      <div className="flex flex-row min-h-[41rem] justify-center">
         <Routes>
           <Route path="/" element={<HomePage/>}/>
           <Route path="/profile" element={<ProfilePage/>}/>
           <Route path="/signup" element={<SignupPage/>}/>
           <Route path="/login" element={<LoginPage/>}/>
+          <Route path='/logout' element={<HomePage/>}/>
         </Routes>
       </div>
 
