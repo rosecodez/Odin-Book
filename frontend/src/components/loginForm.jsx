@@ -30,7 +30,7 @@ export default function LoginForm() {
     
             console.log("Login successful:", data);
             navigateTo("/profile");
-    
+            window.location.reload();
         } catch (error) {
             console.error("Error logging in:", error.message);
             setLoginError("An error occurred. Please try again.");

@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+
 export default function Header() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -16,7 +18,7 @@ export default function Header() {
           if (!response.ok) {
             throw new Error("Logout request failed");
           }
-          navigate("/login");
+          window.location.reload();
         } catch (error) {
           console.error("Error logging out:", error.message);
         }
@@ -55,7 +57,7 @@ export default function Header() {
 
         {isAuthenticated  ? (
             <div id="header-left-panel" className="flex gap-6 font-medium flex-wrap">
-                <a href="/profile" className="text-black  decoration-2 decoration-sky-500 underline-offset-8">
+                <a href="/profile" className="text-black no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8">
                     Profile
                 </a>
                 <a href="/logout" onClick={handleLogout} className="text-black no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8">
@@ -64,7 +66,7 @@ export default function Header() {
             </div>
         ) : (
             <div id="header-right-panel" className="flex gap-6 font-medium flex-wrap">
-                <a href="/login" className="text-black  decoration-2 decoration-sky-500 underline-offset-8">
+                <a href="/login" className="text-black no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8">
                     Login
                 </a>
 

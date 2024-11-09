@@ -68,26 +68,27 @@ export default function Profile() {
   };
   
   return (
-    <div className="flex flex-row gap-2">
+    <div className="flex flex-row gap-6">
       <div className="relative w-[150px] h-[160px]">
         <img src={image} className="outline outline-offset-2 outline-gray-500 rounded-full w-[150px] h-[160px]" />
-        <img src={camera} alt="camera" onClick={showModal} className="absolute bottom-2 right-2 w-10 h-10 cursor-pointer bg-white rounded-full p-1"
-        />
-        {modalVisibility && (
-        <div id="profileModal" className="pt-6">
-        <form id="UpdateProfilePicture" onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2" method="POST" encType="multipart/form-data" action="">
-          <div className="flex flex-row gap-4">
-            <label htmlFor="profilePicture">Choose a profile picture:</label>
-            <input type="file" {...register("image")} id="profilePicture" name="file" accept="image/png, image/jpeg" required/>
-          </div>
+        <img src={camera} alt="camera" onClick={showModal} className="absolute bottom-2 right-2 w-10 h-10 cursor-pointer bg-white rounded-full p-1"/>
 
-          <div className="flex flex-row gap-2">
-            <button type="button" className="mt-6 bg-red-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={hideModal}>Cancel</button>
-            <button type="submit" className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update</button>
-          </div>
-        </form>
-      </div>
-      )}
+        {modalVisibility && (
+        <div id="profileModal" className="pt-6 w-fit">
+          <form id="UpdateProfilePicture" onSubmit={handleSubmit(onSubmit)} className="flex flex-col" method="POST" encType="multipart/form-data" action="">
+            <div className="flex flex-row gap-4">
+              <label htmlFor="profilePicture">Choose a profile picture:</label>
+              <input type="file" {...register("image")} id="profilePicture" name="file" accept="image/png, image/jpeg" required/>
+            </div>
+
+            <div className="flex flex-row gap-2">
+              <button type="button" className="mt-6 bg-red-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={hideModal}>Cancel</button>
+              <button type="submit" className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update</button>
+            </div>
+          </form>
+        </div>
+        )}
+
       </div>
       <h2 className="text-2xl bold pt-8">{username}</h2>
       
