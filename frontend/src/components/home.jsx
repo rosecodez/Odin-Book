@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import Feed from "./feed";
 export default function Home() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -30,7 +30,7 @@ export default function Home() {
     return (
         <div>
           {isAuthenticated ? (
-            <p>if user is logged in, will display user feed component</p>
+            <Feed/>
             
             ) : (
               <>
