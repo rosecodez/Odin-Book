@@ -61,6 +61,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: prismaSessionStore,
+    cookie: { secure: false },
   })
 );
 

@@ -85,7 +85,7 @@ exports.user_login_post = [
 
       req.login(user, (err) => {
         if (err) return next(err);
-
+        req.session.user = { id: user.id, username: user.username };
         console.log("Session after login:", req.session);
         return res.status(200).json({ message: "Login successful", user });
       });

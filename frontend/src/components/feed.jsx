@@ -8,6 +8,7 @@ export default function Feed() {
     const [username, setUsername] = useState('');
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
+    let [postText, setPostText] = useState("");
 
 
     useEffect(() => {
@@ -34,12 +35,57 @@ export default function Feed() {
     
     }, [navigate]);
     
+    const sendPostText = async () => {
+      if (postText === "") {
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://localhost:3000/posts/new-post`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: "include",
+            body: JSON.stringify({
+                text: postText
+            }),
+        });
+
+        if (!response.ok) {
+        console.error("Failed to send post");
+        }
+        const newPost = await response.json();
+
+        console.log(newPost)
+        setPostText("");
+      } catch (error) {
+          console.error("Error in sendPostText:", error);
+      }
+  };
     return (
         <div className="flex flex-row gap-6">
             <img src={image} className="rounded-full w-[70px] h-[70px]" />
-            <form className="flex flex-col" method="POST" encType="multipart/form-data" action="/new-post">
+            <form className="flex flex-col" method="POST" encType="multipart/form-data" onSubmit={handleSubmit(sendPostText)}>
                 <div className="flex flex-row gap-2">
-                    <textarea name="text">What is happening?</textarea>
+                <textarea
+                            name="text"
+                            value={postText}
+                            onInput={(e) => {
+                              setPostText(e.target.value);
+                                if (e.target.value === '') {
+                                    e.target.style.height = '30px'
+                                } else {
+                                    e.target.style.height = 'auto';
+                                    e.target.style.height = `${e.target.scrollHeight}px`;
+                                }
+                            }}
+                            
+                            className="min-h-[100px] max-h-[200px] w-[400px] px-4 py-2 bg-white border shadow-sm border-slate-300 
+                                placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 
+                                block rounded-md sm:text-sm focus:ring-1 overflow-auto resize-none"
+                            placeholder="What is happening?"
+                  ></textarea>
                 </div>
 
                 <div className="flex flex-row gap-2 items-center justify-between">
