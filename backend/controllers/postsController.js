@@ -33,13 +33,7 @@ exports.post_new_post = asyncHandler(async (req, res, next) => {
 
 exports.posts_all_get = asyncHandler(async (req, res, next) => {
   try {
-    const user = req.session.user;
-    if (!user) {
-      return res.status(401).json({ message: "Unauthorized, please log in." });
-    }
-
     const posts = await prisma.post.findMany();
-
     return res.status(201).json(posts);
   } catch (error) {
     console.error("An error occurred while fetching posts", error);

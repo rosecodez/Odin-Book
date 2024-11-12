@@ -17,6 +17,6 @@ router.post(
 );
 
 // all recent posts
-router.get("/posts", isAuthenticated, postController.posts_all_get);
+router.get("/all-posts", isAuthenticated, postController.posts_all_get);
 
 module.exports = router;
