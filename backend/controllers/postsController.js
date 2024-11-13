@@ -20,7 +20,12 @@ exports.post_new_post = asyncHandler(async (req, res, next) => {
         userId: user.id,
         post_image: req.file ? req.file.path : null,
       },
+      include: {
+        user: true,
+      },
     });
+
+    console.log(newPost);
 
     return res.status(201).json(newPost);
   } catch (error) {
@@ -32,8 +37,19 @@ exports.post_new_post = asyncHandler(async (req, res, next) => {
 });
 
 exports.posts_all_get = asyncHandler(async (req, res, next) => {
+  const user = req.user;
+  console.log(user);
   try {
-    const posts = await prisma.post.findMany();
+    const posts = await prisma.post.findMany({
+      where: {
+        userId: {
+          not: user.id,
+        },
+      },
+      include: {
+        user: true,
+      },
+    });
     return res.status(201).json(posts);
   } catch (error) {
     console.error("An error occurred while fetching posts", error);

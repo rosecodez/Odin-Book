@@ -68,11 +68,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res, next) => {
-  console.log("Incoming Request:", req.method, req.url);
-  next();
-});
-
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
@@ -135,18 +130,12 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  console.log("deserializeUser", id);
   try {
     const user = await prisma.user.findUnique({ where: { id } });
-    console.log("deserializeUser", user);
     done(null, user);
   } catch (err) {
     done(err);
   }
-});
-app.use((req, res, next) => {
-  console.log("req.session", req.session);
-  next();
 });
 
 app.use((req, res, next) => {
