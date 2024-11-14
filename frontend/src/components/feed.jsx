@@ -88,7 +88,7 @@ export default function Feed() {
 
 
   return (
-      <div className="flex flex-col gap-2 max-w-[600px]">
+      <div className="flex flex-col gap-2 max-w-[600px] w-[600px] text-left">
           <form className="flex flex-col" method="POST" encType="multipart/form-data" onSubmit={handleSubmit(sendPostText)}>
               <div className="flex flex-row gap-2">
               <img src={image} className="rounded-full w-[70px] h-[70px]" />
@@ -112,13 +112,13 @@ export default function Feed() {
                   placeholder="What is happening?"
                 ></textarea>
               </div>
-              <div className="flex flex-row gap-2 items-center justify-between pl-[75px]">
+              <div className="flex flex-row gap-2 justify-between pl-[75px]">
                 <img src={camera} alt="camera" className="w-10 h-10 cursor-pointer bg-white p-1"/>
                 <button type="submit" className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-2 rounded focus:outline-none focus:shadow-outline">Post</button>
               </div>
           </form>
 
-          <ul className="flex flex-col gap-5 justify-between">
+          <ul className="flex flex-col gap-4">
             {posts.map((post) => {
               let formattedDate = DateTime.fromISO(post.created_at).toLocaleString({ month: 'short', day: '2-digit' });
 
@@ -127,22 +127,24 @@ export default function Feed() {
 
                     <div className="flex flex-row gap-4">
                       <img src={post.user.profile_image} className="rounded-full w-[50px] h-[50px]"/>
-                      <a href="/profile">{post.user.username}</a>
-                      <p>{formattedDate}</p>
+                      <div className="flex gap-2 items-center">
+                        <a href="/profile">{post.user.username}</a>
+                        <p>{formattedDate}</p>
+                      </div>
                     </div>
 
-                    <div className="flex flex-col gap-2 pl-16 items-start">
-                      <p>{post.content}</p>
+                    <div className="flex flex-col gap-2 pl-16">
+                      <p className="max-w-[540px] break-words">{post.content}</p>
                       <img src={post.post_image}/>
                     </div>
-                    <div className="flex flex-row justify-between">
-                      <div className="flex flex-row gap-2">
-                        <img src={message} alt="messages"/>
+                    <div className="flex flex-row justify-between pl-[64px]">
+                      <div className="flex flex-row gap-2 items-center">
+                        <img src={message} className="w-[25px] h-[25px]" alt="messages"/>
                         <p>0</p>
                       </div>
 
-                      <div className="flex flex-row gap-2">
-                        <img src={heart} alt="likes"/>
+                      <div className="flex flex-row gap-2 items-center pr-[3px]">
+                        <img src={heart} className="w-[25px] h-[25px]" alt="likes"/>
                         <p>0</p>
                       </div>
                     </div>
