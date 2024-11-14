@@ -112,7 +112,7 @@ export default function Feed() {
                   placeholder="What is happening?"
                 ></textarea>
               </div>
-              <div className="flex flex-row gap-2 justify-between pl-[75px]">
+              <div className="flex flex-row gap-2 justify-between pl-[75px] items-center">
                 <img src={camera} alt="camera" className="w-10 h-10 cursor-pointer bg-white p-1"/>
                 <button type="submit" className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-2 rounded focus:outline-none focus:shadow-outline">Post</button>
               </div>

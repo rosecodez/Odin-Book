@@ -58,3 +58,23 @@ exports.posts_all_get = asyncHandler(async (req, res, next) => {
       .json({ error: "An error occurred while fetching posts" });
   }
 });
+
+exports.posts_user_all_get = asyncHandler(async (req, res, next) => {
+  const user = req.user;
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        userId: user.id,
+      },
+      include: {
+        user: true,
+      },
+    });
+    return res.status(201).json(posts);
+  } catch (error) {
+    console.error("An error occurred while fetching posts", error);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while fetching posts" });
+  }
+});
