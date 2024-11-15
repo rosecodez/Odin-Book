@@ -42,11 +42,10 @@ export default function LoginForm() {
         setLoginError('');
         console.log("Form data submitted:", data);
         
-        if (isVisitor) {
-            navigateTo("/feed");
+        if (data.isVisitor) {
+            loginUser({ visitor: true });
         } else {
             loginUser(data);
-        
         }
     };
     

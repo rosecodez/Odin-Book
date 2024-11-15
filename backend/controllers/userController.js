@@ -10,7 +10,6 @@ exports.user_signup_post = [
     .trim()
     .isLength({ min: 10 })
     .escape(),
-
   asyncHandler(async (req, res, next) => {
     if (req.user && req.user.googleId) {
       return res.status(200).json({
@@ -65,11 +64,24 @@ exports.user_signup_post = [
 
 exports.user_login_post = [
   asyncHandler(async (req, res, next) => {
-    const { username, password } = req.body;
-    try {
-      const user = await prisma.user.findUnique({
-        where: { username: username },
+    const { username, password, visitor } = req.body;
+    console.log("request body:", req.body);
+
+    if (visitor) {
+      req.session.user = { isVisitor: true };
+      req.session.save((err) => {
+        if (err) {
+          console.error(err);
+          return next(err);
+        }
+        console.log(req.session.user);
+        return res.status(200).json({ user: req.session.user });
       });
+      return;
+    }
+
+    try {
+      const user = await prisma.user.findUnique({ where: { username } });
       if (!user) {
         return res
           .status(401)
@@ -86,6 +98,7 @@ exports.user_login_post = [
       req.login(user, (err) => {
         if (err) return next(err);
         req.session.user = { id: user.id, username: user.username };
+        console.log(req.session.user);
         return res.status(200).json({ message: "Login successful", user });
       });
     } catch (error) {
