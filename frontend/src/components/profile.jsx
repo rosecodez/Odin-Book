@@ -7,7 +7,7 @@ import message from "../assets/message.png";
 
 import { DateTime } from "luxon";
 
-export default function Profile() {
+export default function Profile({ isVisitor, setIsVisitor }) {
   const { register, handleSubmit } = useForm();
   const [username, setUsername] = useState('');
   const [image, setImage] = useState('');
@@ -29,12 +29,19 @@ export default function Profile() {
         return response.json();
       })
       .then(data => {
-        setUsername(data.user.username);
-        setImage(data.user.profile_image);
-        console.log("Profile data:", data);
+        if (data.user.isVisitor) {
+          setIsVisitor(true);
+          setUsername("visitor");
+          setImage(data.user.profile_image);
+        } else {
+          setIsVisitor(false);
+          setUsername(data.user.username);
+          setImage(data.user.profile_image);
+        }
       })
       .catch(error => {
         console.error("Error fetching profile data:", error);
+        navigate("/login");
       });
 
   }, [navigate]);

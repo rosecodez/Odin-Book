@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import './App.css'
+
 import HomePage from './pages/homePage';
 import Header from './components/header';
 import Footer from './components/footer';
@@ -9,17 +11,39 @@ import LoginPage from './pages/loginPage';
 import FeedPage from './pages/feedPage';
 
 function App() {
+  const [isVisitor, setIsVisitor] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/check-authentication", {
+          credentials: "include",
+        });
+        const data = await response.json();
+        setIsAuthenticated(data.isAuthenticated || false);
+        setIsVisitor(data.user?.isVisitor || false);
+      } catch (error) {
+        console.error("Error checking authentication:", error);
+      }
+    };
+    checkAuth();
+  }, []);
+  
+  
+
   return (
     <Router>
-      <Header/>
+      <Header isVisitor={isVisitor} setIsVisitor={setIsVisitor} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+      
       <div className="flex flex-row min-h-[41rem] justify-center">
         <Routes>
-          <Route path="/" element={<HomePage/>}/>
-          <Route path="/profile" element={<ProfilePage/>}/>
+          <Route path="/" element={isVisitor ? (<FeedPage isVisitor={isVisitor} setIsVisitor={setIsVisitor} />) : (<HomePage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />)}/>
+          <Route path="/profile" element={<ProfilePage isVisitor={isVisitor} setIsVisitor={setIsVisitor} />} />
           <Route path="/signup" element={<SignupPage/>}/>
           <Route path="/login" element={<LoginPage/>}/>
-          <Route path='/logout' element={<HomePage/>}/>
-          <Route path='/feed' element={<FeedPage/>}/>
+          <Route path='/logout' element={<HomePage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />}/>
+
         </Routes>
       </div>
 

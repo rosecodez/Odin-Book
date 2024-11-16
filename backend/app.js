@@ -143,16 +143,16 @@ app.use((req, res, next) => {
 });
 
 app.get("/check-authentication", (req, res) => {
-  console.log("check authentication app get", req.session);
-
-  if (
-    req.isAuthenticated() ||
-    (req.session.user && req.session.user.isVisitor)
-  ) {
-    res.status(200).json({ isAuthenticated: true, user: req.session.user });
-  } else {
-    res.status(200).json({ isAuthenticated: false });
+  if (req.session && req.session.user) {
+    return res.status(200).json({
+      isAuthenticated: true,
+      user: {
+        username: req.session.user.username,
+        isVisitor: req.session.user.isVisitor || false,
+      },
+    });
   }
+  return res.status(200).json({ isAuthenticated: false });
 });
 
 app.use("/", indexRouter);

@@ -1,7 +1,7 @@
 import Home from "../components/home"
 
-export default function HomePage() {
+export default function HomePage({ isAuthenticated, setIsAuthenticated, isVisitor, setIsVisitor} ) {
     return(
-        <Home />
+        <Home isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} isVisitor={isVisitor} setIsVisitor={setIsVisitor} />
     )
 }

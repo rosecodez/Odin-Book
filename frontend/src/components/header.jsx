@@ -1,10 +1,8 @@
-import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-export default function Header() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+export default function Header({ isVisitor, setIsVisitor, isAuthenticated, setIsAuthenticated }) {
+    const navigateTo = useNavigate();
     const handleLogout = async (event) => {
         event.preventDefault();
         try {
@@ -18,6 +16,7 @@ export default function Header() {
           if (!response.ok) {
             throw new Error("Logout request failed");
           }
+          navigateTo("/");
           window.location.reload();
         } catch (error) {
           console.error("Error logging out:", error.message);
@@ -35,9 +34,12 @@ export default function Header() {
             
             if (data.isAuthenticated) {
               setIsAuthenticated(true);
+              setIsVisitor(data.user.isVisitor || false);
               console.log(isAuthenticated);
             } else {
               setIsAuthenticated(false);
+              setIsVisitor(false);
+
             }
           } catch (error) {
             console.error("Error checking authentication:", error);
@@ -57,9 +59,12 @@ export default function Header() {
 
         {isAuthenticated  ? (
             <div id="header-left-panel" className="flex gap-6 font-medium flex-wrap">
+
+              {!isVisitor && (
                 <a href="/profile" className="text-black no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8">
-                    Profile
+                  Profile
                 </a>
+              )}
                 <a href="/logout" onClick={handleLogout} className="text-black no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8">
                     Log out
                 </a>

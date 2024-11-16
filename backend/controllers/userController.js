@@ -69,15 +69,8 @@ exports.user_login_post = [
 
     if (visitor) {
       req.session.user = { isVisitor: true };
-      req.session.save((err) => {
-        if (err) {
-          console.error(err);
-          return next(err);
-        }
-        console.log(req.session.user);
-        return res.status(200).json({ user: req.session.user });
-      });
-      return;
+      await req.session.save();
+      return res.status(200).json({ user: req.session.user });
     }
 
     try {
@@ -123,6 +116,11 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
 });
 
 exports.user_profile_get = asyncHandler(async (req, res, next) => {
+  if (req.session.user.isVisitor) {
+    return res.status(200).json({
+      user: { username: "visitor", isVisitor: true },
+    });
+  }
   if (!req.user) {
     return res.status(401).json({ message: "Unauthorized" });
   }

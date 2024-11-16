@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Feed from "./feed";
-export default function Home() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+export default function Home({ isAuthenticated, setIsAuthenticated }) {
     useEffect(() => {
         const checkAuth = async () => {
           try {
@@ -13,9 +12,11 @@ export default function Home() {
             console.log("Auth Data:", data);
             
             if (data.isAuthenticated) {
+              console.log("data is authenticated true")
               setIsAuthenticated(true);
               console.log(isAuthenticated);
             } else {
+              console.log("data is authenticated false")
               setIsAuthenticated(false);
             }
           } catch (error) {
@@ -24,13 +25,13 @@ export default function Home() {
         };
     
         checkAuth();
-      }, [isAuthenticated]);
+      }, [isAuthenticated, setIsAuthenticated]);
     
 
     return (
         <div>
           {isAuthenticated ? (
-            <Feed/>
+            <Feed isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
             
             ) : (
               <>

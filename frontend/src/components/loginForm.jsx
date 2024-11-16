@@ -20,16 +20,16 @@ export default function LoginForm() {
                 credentials: 'include',
             });
     
-            // Parse the JSON response once
             const data = await response.json();
     
             if (!response.ok) {
                 setLoginError(`Login failed: ${data.message}`);
+                navigateTo("/login");
                 return;
             }
     
             console.log("Login successful:", data);
-            navigateTo("/profile");
+            navigateTo("/");
             window.location.reload();
         } catch (error) {
             console.error("Error logging in:", error.message);
@@ -37,15 +37,16 @@ export default function LoginForm() {
         }
     };
     
-
     const onSubmit = (data) => {
         setLoginError('');
         console.log("Form data submitted:", data);
         
         if (data.isVisitor) {
             loginUser({ visitor: true });
+            navigateTo("/feed");
         } else {
             loginUser(data);
+            navigateTo("/profile");
         }
     };
     
