@@ -151,8 +151,8 @@ export default function Feed({ isVisitor, setIsVisitor }) {
 
                 <li key={post.id} className="flex flex-col">
                   <div className="flex flex-row gap-4">
-                    <img src={post.user?.profile_image || camera} className="rounded-full w-[50px] h-[50px]" alt="Profile" />
-                    <div className="flex gap-2 items-center">
+                    <img src={post.user?.profile_image || camera} className="rounded-full w-[50px] h-[50px] pt-[15px]" alt="Profile" />
+                    <div className="flex gap-2 items-start mt-[7px]">
                       <a href="/profile">{post.user?.username || "Unknown User"}</a>
                       <p>{formattedDate}</p>
                     </div>
