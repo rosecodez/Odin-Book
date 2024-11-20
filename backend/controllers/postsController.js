@@ -96,3 +96,41 @@ exports.posts_user_all_get = asyncHandler(async (req, res, next) => {
       .json({ error: "An error occurred while fetching posts" });
   }
 });
+
+exports.get_post_by_id = asyncHandler(async (req, res, next) => {
+  const postId = parseInt(req.params.postId, 10);
+
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        id: postId,
+      },
+    });
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+    res.json(post);
+  } catch (err) {
+    next(err);
+  }
+});
+
+exports.delete_post = asyncHandler(async (req, res, next) => {
+  const postId = parseInt(req.params.postId, 10);
+
+  try {
+    const post = await prisma.post.delete({
+      where: {
+        id: postId,
+      },
+    });
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    res.sendStatus(200);
+  } catch (err) {
+    next(err);
+  }
+});

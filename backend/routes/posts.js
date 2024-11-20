@@ -26,4 +26,10 @@ router.get(
   postController.posts_user_all_get
 );
 
+// get post by id
+router.get("/:postId", postController.get_post_by_id);
+
+// delete post
+router.delete("/:postId", isAuthenticated, postController.delete_post);
+
 module.exports = router;
