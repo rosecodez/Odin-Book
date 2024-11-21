@@ -14,6 +14,12 @@ export default function Profile({ isVisitor, setIsVisitor }) {
   const [image, setImage] = useState('');
   const [posts, setPosts] = useState([])
 
+  const [post, setPost] = useState(null);
+  const [postTitle, setPostTitle] = useState("");
+  const [postText, setPostText] = useState("");
+  const [likesCount, setLikesCount] = useState(0);
+  const [commentsCount, setCommentsCount] = useState(0);
+
   const [modalVisibility, setModalVisibility] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   
@@ -99,10 +105,70 @@ export default function Profile({ isVisitor, setIsVisitor }) {
     }
   };
   
+  async function getPostById() {
+    useEffect(() => {
+      fetch(`http://localhost:3000/posts/${postId}`, { mode: "cors" })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error("Server error");
+          }
+          return response.json();
+      })
+      .then(data => {
+          setPost(data);
+          setPostTitle(data.title);
+          setPostText(data.content);
+      })
+      .catch(error => setError(error.message))
+      .finally(() => setLoading(false));
+    }, [postId]);
+  }
+
   const handleEditToggle = () => {
     setIsEditMode(prev => !prev);
   };
 
+  const editPost = async (data) => {
+    try {
+      const response = await fetch(`http://localhost:3000/posts/${data.postId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ content: data.content }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Error updating post");
+      }
+  
+      const updatedPost = await response.json();
+  
+      setIsEditMode(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+        },
+        mode: 'cors',
+      });
+  
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(`Failed to delete the post: ${errorMessage}`);
+      }
+      navigate('/'); 
+    } catch (error) {
+      setError(error.message);
+    }
+};
   return (
     <div className="flew flex-col max-w-[600px] w-[600px] text-left">
       <div className="flex flex-row gap-4">

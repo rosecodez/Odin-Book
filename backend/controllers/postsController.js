@@ -134,3 +134,17 @@ exports.delete_post = asyncHandler(async (req, res, next) => {
     next(err);
   }
 });
+
+exports.update_post = asyncHandler(async (req, res, next) => {
+  const postId = parseInt(req.params.postId, 10);
+  const { postContent } = req.body;
+  try {
+    const updatePost = await prisma.post.update({
+      content: postContent,
+    });
+
+    res.status(200).json("updated post", updatePost);
+  } catch (err) {
+    next(err);
+  }
+});

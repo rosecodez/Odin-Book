@@ -32,4 +32,7 @@ router.get("/:postId", postController.get_post_by_id);
 // delete post
 router.delete("/:postId", isAuthenticated, postController.delete_post);
 
+// update post
+router.put("/:postId", isAuthenticated, postController.update_post);
+
 module.exports = router;
