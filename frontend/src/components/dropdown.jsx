@@ -7,11 +7,11 @@ function DropdownComponent({ editPost, deletePost}) {
 
   return (
     <Dropdown className="d-inline mx-2">
-      <Dropdown.Toggle as="img" src={threedots} onClick={editPost} id="dropdown-autoclose-true" className="w-[25px] h-[25px] cursor-pointer" alt="Menu" />
+      <Dropdown.Toggle as="img" src={threedots} id="dropdown-autoclose-true" className="w-[25px] h-[25px] cursor-pointer" alt="Menu" />
       
       <Dropdown.Menu>
-        <Dropdown.Item onClick={deletePost} href="#">Edit</Dropdown.Item>
-        <Dropdown.Item href="#">Delete</Dropdown.Item>
+      <Dropdown.Item onClick={() => editPost()} href="#">Edit</Dropdown.Item>
+      <Dropdown.Item onClick={() => deletePost()} href="#">Delete</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
