@@ -30,6 +30,7 @@ export default function Home({ isAuthenticated, setIsAuthenticated }) {
 
     return (
         <div>
+          
           {isAuthenticated ? (
             <Feed isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
             

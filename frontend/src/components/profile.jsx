@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import camera from "../assets/camera.png";
 import Posts from "./posts";
+import NewPost from "./newPost";
 
 export default function Profile({ isVisitor, setIsVisitor }) {
   const { register, handleSubmit } = useForm();
@@ -44,8 +45,6 @@ export default function Profile({ isVisitor, setIsVisitor }) {
 
   }, [navigate]);
 
-  
-
   const showModal = () => setModalVisibility(true);
   const hideModal = () => setModalVisibility(false);
 
@@ -81,6 +80,12 @@ export default function Profile({ isVisitor, setIsVisitor }) {
 
   return (
     <div className="flew flex-col max-w-[600px] w-[600px] text-left">
+      <div className="flex gap-3">
+        <img src={image} className="rounded-full w-[70px] h-[70px]" />
+
+        <NewPost isVisitor={isVisitor} setIsVisitor={setIsVisitor}/>
+      </div>
+
       <div className="flex flex-row gap-4">
         <div className="relative w-[150px] h-[160px]">
           <img src={image} className="outline outline-offset-2 outline-gray-500 rounded-full w-[150px] h-[160px]" />
