@@ -110,11 +110,11 @@ export default function Feed({ isVisitor, setIsVisitor }) {
                 </div>
 
                 <div className="flex flex-row justify-between pl-[64px]">
-                  <div className="flex flex-row gap-2 items-center">
+                  <div className="flex flex-row gap-2 items-start">
                     <img src={message} className="w-[25px] h-[25px]" alt="Messages" />
                     <p>0</p>
                   </div>
-                  <div className="flex flex-row gap-2 items-center pr-[3px]">
+                  <div className="flex flex-row gap-2 items-start pr-[3px]">
                     <img src={heart} className="w-[25px] h-[25px]" alt="Likes" />
                     <p>0</p>
                   </div>
