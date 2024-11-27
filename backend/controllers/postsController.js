@@ -105,6 +105,9 @@ exports.get_post_by_id = asyncHandler(async (req, res, next) => {
       where: {
         id: postId,
       },
+      include: {
+        user: true,
+      },
     });
     if (!post) {
       return res.status(404).json({ message: "Post not found" });

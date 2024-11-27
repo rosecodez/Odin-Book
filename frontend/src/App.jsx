@@ -9,6 +9,7 @@ import ProfilePage from './pages/profilePage';
 import SignupPage from './pages/singupPage';
 import LoginPage from './pages/loginPage';
 import FeedPage from './pages/feedPage';
+import PostDetailsPage from './pages/postDetailsPage';
 
 function App() {
   const [isVisitor, setIsVisitor] = useState(false);
@@ -37,14 +38,16 @@ function App() {
       <Header isVisitor={isVisitor} setIsVisitor={setIsVisitor} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
       
       <div className="flex flex-row min-h-[41rem] justify-center">
+
         <Routes>
           <Route path="/" element={isVisitor ? (<FeedPage isVisitor={isVisitor} setIsVisitor={setIsVisitor} />) : (<HomePage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />)}/>
           <Route path="/profile" element={<ProfilePage isVisitor={isVisitor} setIsVisitor={setIsVisitor} />} />
           <Route path="/signup" element={<SignupPage/>}/>
           <Route path="/login" element={<LoginPage/>}/>
           <Route path='/logout' element={<HomePage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />}/>
-
+          <Route path="/:postId" element={<PostDetailsPage />}/>
         </Routes>
+        
       </div>
 
       <Footer/>

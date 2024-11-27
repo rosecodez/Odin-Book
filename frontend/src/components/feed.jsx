@@ -151,47 +151,49 @@ export default function Feed({ isVisitor, setIsVisitor }) {
 
             const formattedDate = DateTime.fromISO(post.created_at).toLocaleString({ month: 'short', day: '2-digit' });
             return (
+              <a href={`/${post.id}`}>
+                <li key={post.id} className="flex flex-col">
 
-              <li key={post.id} className="flex flex-col">
-
-                <div className="flex flex-row gap-4 w-full">
+                  <div className="flex flex-row gap-4 w-full">
                   <img src={post.user?.profile_image || camera} className="rounded-full w-[50px] h-[50px] pt-[15px]" alt="Profile" />
-                  <div className="flex gap-2 items-start mt-[7px]">
-                    <a href="/profile">{post.user?.username || "Unknown User"}</a>
-                    <p>{formattedDate}</p>
+                  <div className="flex gap-2 mt-[7px] w-full justify-between">
+                  <a href="/profile">{post.user?.username || "Unknown User"}</a>
+                  <p>{formattedDate}</p>
                   </div>
                   <DropdownComponent editPost={()=>handleEditToggle(post.id)} deletePost={()=>handleDelete(post.id)}/>
-                </div>
+                  </div>
 
-                <div className="flex flex-col gap-2 pl-16">
+                  <div className="flex flex-col gap-2 pl-16">
 
                   {editPostId === post.id ? (
-                    <div>
-                        <textarea value={editedContent} onChange={(e) => setEditedContent(e.target.value)} className="w-full p-2 border rounded"/>
-                        <div className="flex gap-2 mt-2">
-                        <button onClick={() => {saveEdit(post.id), setIsEditing(false);}}className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded">Save</button>
-                        <button onClick={cancelEdit} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded">Cancel</button>
-                        </div>
-                    </div>
-                    ) : (
-                        <p className="w-full break-words">{post.content}</p>
-                    )
+                  <div>
+                      <textarea value={editedContent} onChange={(e) => setEditedContent(e.target.value)} className="w-full p-2 border rounded"/>
+                      <div className="flex gap-2 mt-2">
+                      <button onClick={() => {saveEdit(post.id), setIsEditing(false);}}className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded">Save</button>
+                      <button onClick={cancelEdit} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded">Cancel</button>
+                      </div>
+                  </div>
+                  ) : (
+                      <p className="w-full break-words">{post.content}</p>
+                  )
                   }
                   {post.post_image && <img src={post.post_image} alt="post image" />}
-                </div>
+                  </div>
 
-                <div className="flex flex-row justify-between pl-[64px]">
+                  <div className="flex flex-row justify-between pl-[64px]">
                   <div className="flex flex-row gap-2 items-start">
-                    <img src={message} className="w-[25px] h-[25px]" alt="Messages" />
-                    <p>0</p>
+                  <img src={message} className="w-[25px] h-[25px]" alt="Messages" />
+                  <p>0</p>
                   </div>
                   <div className="flex flex-row gap-2 items-start pr-[3px]">
-                    <img src={heart} className="w-[25px] h-[25px]" alt="Likes" />
-                    <p>0</p>
+                  <img src={heart} className="w-[25px] h-[25px]" alt="Likes" />
+                  <p>0</p>
                   </div>
-                </div>
+                  </div>
 
-              </li>
+                </li>
+              </a>
+              
 
             );
           })
