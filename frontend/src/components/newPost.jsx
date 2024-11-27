@@ -38,7 +38,7 @@ export default function NewPost({ isVisitor }) {
     
     
     return (
-        <div className="flex flex-col gap-2 max-w-[600px] w-[600px] text-left">
+        <div className="flex flex-col gap-2 w-full text-left">
             {!isVisitor && (
                 <form className="flex flex-col" method="POST" encType="multipart/form-data" onSubmit={handleSubmit(sendPostText)}>
                 <div className="flex flex-row gap-2">
@@ -56,7 +56,7 @@ export default function NewPost({ isVisitor }) {
                         }
                     }}
                     
-                    className="min-h-[100px] max-h-[400px] w-[600px] px-4 py-2 bg-white border shadow-sm border-slate-300 
+                    className="min-h-[100px] max-h-[400px] w-full px-4 py-2 bg-white border shadow-sm border-slate-300 
                         placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 
                         block rounded-md sm:text-sm focus:ring-1 overflow-auto resize-none"
                     placeholder="What is happening?"
