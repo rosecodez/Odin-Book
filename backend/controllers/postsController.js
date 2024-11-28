@@ -48,6 +48,11 @@ exports.posts_all_get = asyncHandler(async (req, res, next) => {
           not: user.id,
         },
       },
+      orderBy: [
+        {
+          created_at: "desc",
+        },
+      ],
       include: {
         user: true,
       },
@@ -64,6 +69,11 @@ exports.posts_all_get = asyncHandler(async (req, res, next) => {
 exports.posts_all_get_visitor = asyncHandler(async (req, res, next) => {
   try {
     const posts = await prisma.post.findMany({
+      orderBy: [
+        {
+          created_at: "desc",
+        },
+      ],
       include: {
         user: true,
       },
