@@ -16,4 +16,5 @@ router.get(
   isAuthenticated,
   commentController.all_comments_get
 );
+
 module.exports = router;

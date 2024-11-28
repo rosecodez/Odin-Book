@@ -55,6 +55,8 @@ exports.posts_all_get = asyncHandler(async (req, res, next) => {
       ],
       include: {
         user: true,
+        comment: true,
+        like: true,
       },
     });
     return res.status(201).json(posts);
@@ -76,6 +78,8 @@ exports.posts_all_get_visitor = asyncHandler(async (req, res, next) => {
       ],
       include: {
         user: true,
+        comment: true,
+        like: true,
       },
     });
     return res.status(201).json(posts);
@@ -101,6 +105,8 @@ exports.posts_user_all_get = asyncHandler(async (req, res, next) => {
       ],
       include: {
         user: true,
+        comment: true,
+        like: true,
       },
     });
     return res.status(201).json(posts);
@@ -122,6 +128,8 @@ exports.get_post_by_id = asyncHandler(async (req, res, next) => {
       },
       include: {
         user: true,
+        like: true,
+        comment: true,
       },
     });
     if (!post) {

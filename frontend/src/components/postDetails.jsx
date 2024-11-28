@@ -8,6 +8,8 @@ import message from "../assets/message.png";
 
 export default function PostDetails () {
     const [post, setPost] = useState(null);
+    const [postMessages, setPostMessages] = useState([]);
+    const [postLikes, setPostLikes] = useState([]);
     const { postId } = useParams();
     
     useEffect(() => {
@@ -19,7 +21,10 @@ export default function PostDetails () {
                 const data = await response.json();
                 console.log("Fetched post data:", data);
                 setPost(data);
+                setPostMessages(data.message);
+                setPostLikes(data.like);
                 
+
             } catch (error) {
                 console.error("Error fetching post data:", error);
             }
@@ -28,8 +33,8 @@ export default function PostDetails () {
         getPostDetails();
     }, [postId]);
     
-    const formattedDate = post?.created_at? DateTime.fromISO(post.created_at).toLocaleString({ month: "short", day: "2-digit" }) : "";
     
+    const formattedDate = post?.created_at? DateTime.fromISO(post.created_at).toLocaleString({ month: "short", day: "2-digit" }) : "";
     return (
         
         <div className="flex flex-col">
@@ -51,6 +56,10 @@ export default function PostDetails () {
                     </div>
 
                     <div className="flex flex-col gap-2 pl-16">
+                        <p className="w-full break-words">{post.content}</p>
+                    </div>
+                    
+                    <div className="flex flex-col gap-2 pl-16">
                         {post.post_image && <img src={post.post_image} alt="post image" />}
                     </div>
 
@@ -58,12 +67,12 @@ export default function PostDetails () {
 
                         <div className="flex flex-row gap-2 items-start">
                             <img src={message} className="w-[25px] h-[25px]" alt="Messages" />
-                            <p>0</p>
+                            <p>{post.message?.length || 0}</p>
                         </div>
 
                         <div className="flex flex-row gap-2 items-start pr-[3px]">
                             <img src={heart} className="w-[25px] h-[25px]" alt="Likes" />
-                            <p>0</p>
+                            <p>{post.like?.length || 0}</p>
                         </div>
                         
                     </div>
