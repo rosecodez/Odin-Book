@@ -87,7 +87,7 @@ export default function Profile({ isVisitor, setIsVisitor }) {
         <NewPost isVisitor={isVisitor} setIsVisitor={setIsVisitor}/>
       </div>
 
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-row gap-[14px]">
         <div className="relative w-[150px] h-[160px]">
           <img src={image} className="outline outline-offset-2 outline-gray-500 rounded-full w-[150px] h-[160px]" />
           <img src={camera} alt="camera" onClick={showModal} className="absolute bottom-2 right-2 w-10 h-10 cursor-pointer bg-white rounded-full p-1"/>

@@ -102,7 +102,7 @@ export default function Posts() {
                             <a href={`/${post.id}`}>
                                 <li key={post.id}>
 
-                                    <div className="flex flex-row gap-4 w-full">
+                                    <div className="flex flex-row gap-[19px] w-full">
                                         <a href="/profile">
                                             <img src={post.user.profile_image} className="rounded-full w-[50px] h-[50px]"/>
                                         </a>

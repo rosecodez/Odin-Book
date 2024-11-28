@@ -84,6 +84,11 @@ exports.posts_user_all_get = asyncHandler(async (req, res, next) => {
       where: {
         userId: user.id,
       },
+      orderBy: [
+        {
+          created_at: "desc",
+        },
+      ],
       include: {
         user: true,
       },
