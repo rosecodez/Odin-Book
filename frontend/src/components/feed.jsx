@@ -155,12 +155,13 @@ export default function Feed({ isVisitor, setIsVisitor }) {
                 <li key={post.id} className="flex flex-col">
 
                   <div className="flex flex-row gap-[14px] w-full">
-                  <img src={post.user?.profile_image || camera} className="rounded-full w-[50px] h-[50px] pt-[15px]" alt="Profile" />
-                  <div className="flex gap-2 mt-[7px] w-full justify-between">
-                  <a href="/profile">{post.user?.username || "Unknown User"}</a>
-                  <p>{formattedDate}</p>
-                  </div>
-                  <DropdownComponent editPost={()=>handleEditToggle(post.id)} deletePost={()=>handleDelete(post.id)}/>
+                    <img src={post.user?.profile_image || camera} className="rounded-full w-[50px] h-[50px] pt-[15px]" alt="Profile" />
+                    
+                    <div className="flex gap-2 mt-[7px] w-full justify-start">
+                      <a href="/profile">{post.user?.username || "Unknown User"}</a>
+                      <p>{formattedDate}</p>
+                    </div>
+
                   </div>
 
                   <div className="flex flex-col gap-2 pl-16">

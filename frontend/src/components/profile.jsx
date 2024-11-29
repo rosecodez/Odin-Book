@@ -99,7 +99,7 @@ export default function Profile({ isVisitor, setIsVisitor }) {
         <div id="profileModal" className="pt-6 w-fit">
           <form id="UpdateProfilePicture" onSubmit={handleSubmit(onSubmit)} className="flex flex-col" method="POST" encType="multipart/form-data" action="">
             <div className="flex flex-row gap-4">
-              <label htmlFor="profilePicture">Choose a profile picture:</label>
+              <label htmlFor="profilePicture">Choose a new profile picture:</label>
               <input type="file" {...register("image")} id="profilePicture" name="file" accept="image/png, image/jpeg" required/>
             </div>
 

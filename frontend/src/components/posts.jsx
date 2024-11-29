@@ -4,19 +4,19 @@ import DropdownComponent from "./dropdown";
 import { DateTime } from "luxon";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 export default function Posts() {
     const [posts, setPosts] = useState([])
-    const [postId, setPostId] = useState("");
     const [post, setPost] = useState(null);
     const [postTitle, setPostTitle] = useState("");
     const [postText, setPostText] = useState("");
     const [likesCount, setLikesCount] = useState(0);
     const [commentsCount, setCommentsCount] = useState(0);
     const [isEditMode, setIsEditMode] = useState(false);
-    const [error, setError] = useState([]);
     const [editPostId, setEditPostId] = useState(null);
     const [editedContent, setEditedContent] = useState("");
+    const { postId } = useParams();
 
     useEffect(() => {
         const getAllPosts = async () => {
@@ -31,9 +31,9 @@ export default function Posts() {
             console.error("Posts error", error);
           }
         };
-    
+        console.log(postId, "postid, params")
         getAllPosts();
-    }, [])
+    }, [postId])
     
     const editPost = async (data) => {
         try {
@@ -62,10 +62,8 @@ export default function Posts() {
         try {
           const response = await fetch(`http://localhost:3000/posts/${postId}/delete`, {
             method: 'DELETE',
-            headers: {
-              'Authorization': `Bearer ${localStorage.getItem('token')}`,
-              'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json'},
+            credentials: "include",
             mode: 'cors',
           });
       
@@ -74,21 +72,15 @@ export default function Posts() {
             throw new Error(`Failed to delete the post: ${errorMessage}`);
           }
           
-          setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
-          setIsEditMode(false);
+            setIsEditMode(false);
         } catch (error) {
-          setError(error.message);
+          console.log(error)
         }
     }
 
     const handleEditToggle = (id) => {
         setPostId(id)
         setIsEditMode(prev => !prev);
-    }
-
-    const cancelEdit = () => {
-        setEditPostId(null);
-        setEditedContent("");
     }
 
     return (
@@ -99,20 +91,25 @@ export default function Posts() {
 
                     return (
                         <div>
+
                             <a href={`/${post.id}`}>
+
                                 <li key={post.id}>
 
                                     <div className="flex flex-row gap-[19px] w-full">
+
                                         <a href="/profile">
                                             <img src={post.user.profile_image} className="rounded-full w-[50px] h-[50px]"/>
                                         </a>
+
                                         <div className="flex gap-2 mt-[7px] w-full justify-between">
                                             <div className="flex gap-2">
                                                 <a href="/profile">{post.user.username}</a>
                                                 <p>{formattedDate}</p>
                                             </div>
-                                            <DropdownComponent editPost={()=>handleEditToggle(post.id)} deletePost={()=>handleDelete(post.id)}/>
+
                                         </div>
+
                                     </div>
 
                                     <div className="flex flex-col gap-2 pl-16">
@@ -129,10 +126,13 @@ export default function Posts() {
                                                 <p className="w-full break-words">{post.content}</p>
                                             )
                                         }
+
                                         {post.post_image && <img src={post.post_image} alt="post image" />}
+
                                     </div>
 
                                     <div className="flex flex-row justify-between pl-[64px]">
+
                                         <div className="flex flex-row gap-2 items-start">
                                             <img src={message} className="w-[25px] h-[25px]" alt="Messages" />
                                             <p>0</p>
@@ -142,9 +142,13 @@ export default function Posts() {
                                             <img src={heart} className="w-[25px] h-[25px]" alt="Likes" />
                                             <p>0</p>
                                         </div>
+
                                     </div>
+
                                 </li>
+
                             </a>
+
                         </div>
                         
                     );

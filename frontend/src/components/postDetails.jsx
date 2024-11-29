@@ -11,7 +11,8 @@ export default function PostDetails () {
     const [postMessages, setPostMessages] = useState([]);
     const [postLikes, setPostLikes] = useState([]);
     const { postId } = useParams();
-    
+    const [isEditMode, setIsEditMode] = useState(false);
+
     useEffect(() => {
         const getPostDetails = async () => {
             try {
@@ -29,12 +30,59 @@ export default function PostDetails () {
                 console.error("Error fetching post data:", error);
             }
         };
-
+        console.log(postId, "postid, params")
         getPostDetails();
     }, [postId]);
-    
-    
+
+    const editPost = async (data) => {
+        try {
+            const response = await fetch(`http://localhost:3000/posts/${postId}/update`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({ content: editedContent }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Error updating post");
+            }
+
+            const updatedPost = await response.json();
+            cancelEdit();
+            setEditPostId(null);
+            setEditedContent("");
+            setIsEditMode(false);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleDelete = async (id) => {
+        try {
+          const response = await fetch(`http://localhost:3000/posts/${postId}/delete`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json'},
+            credentials: "include",
+            mode: 'cors',
+          });
+      
+          if (!response.ok) {
+            const errorMessage = await response.text();
+            throw new Error(`Failed to delete the post: ${errorMessage}`);
+          }
+          
+        setIsEditMode(false);
+        } catch (error) {
+          setError(error.message);
+        }
+    }
+
+    const handleEditToggle = (id) => {
+        setIsEditMode(prev => !prev);
+    }
+
     const formattedDate = post?.created_at? DateTime.fromISO(post.created_at).toLocaleString({ month: "short", day: "2-digit" }) : "";
+    
     return (
         
         <div className="flex flex-col">
@@ -50,7 +98,7 @@ export default function PostDetails () {
                                 <a href="/profile">{post.user.username}</a>
                                 <p>{formattedDate}</p>
                             </div>
-                            <DropdownComponent editPost={()=>handleEditToggle(post.id)} deletePost={()=>handleDelete(post.id)}/>
+                            <DropdownComponent editPost = {() => handleEditToggle(postId) } deletePost = {() => handleDelete(postId) }/>
                         </div>
 
                     </div>
@@ -69,12 +117,12 @@ export default function PostDetails () {
                             <img src={message} className="w-[25px] h-[25px]" alt="Messages" />
                             <p>{post.message?.length || 0}</p>
                         </div>
-
+                        
                         <div className="flex flex-row gap-2 items-start pr-[3px]">
                             <img src={heart} className="w-[25px] h-[25px]" alt="Likes" />
                             <p>{post.like?.length || 0}</p>
                         </div>
-                        
+ 
                     </div>
                 </div>
             ) : null }
