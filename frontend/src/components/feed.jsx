@@ -9,7 +9,7 @@ import DropdownComponent from "./dropdown";
 
 import { DateTime } from "luxon";
 
-export default function Feed({ isVisitor, setIsVisitor }) {
+export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
   const [image, setImage] = useState('');
   const [username, setUsername] = useState('');
   const navigate = useNavigate();
@@ -150,6 +150,7 @@ export default function Feed({ isVisitor, setIsVisitor }) {
           posts.map((post) => {
 
             const formattedDate = DateTime.fromISO(post.created_at).toLocaleString({ month: 'short', day: '2-digit' });
+            
             return (
               <a href={`/${post.id}`}>
                 <li key={post.id} className="flex flex-col">
@@ -166,30 +167,31 @@ export default function Feed({ isVisitor, setIsVisitor }) {
 
                   <div className="flex flex-col gap-2 pl-16">
 
-                  {editPostId === post.id ? (
-                  <div>
-                      <textarea value={editedContent} onChange={(e) => setEditedContent(e.target.value)} className="w-full p-2 border rounded"/>
-                      <div className="flex gap-2 mt-2">
-                      <button onClick={() => {saveEdit(post.id), setIsEditing(false);}}className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded">Save</button>
-                      <button onClick={cancelEdit} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded">Cancel</button>
+                    {editPostId === post.id ? (
+                      <div>
+                        <textarea value={editedContent} onChange={(e) => setEditedContent(e.target.value)} className="w-full p-2 border rounded"/>
+                        <div className="flex gap-2 mt-2">
+                          <button onClick={() => {saveEdit(post.id), setIsEditing(false);}}className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded">Save</button>
+                          <button onClick={cancelEdit} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded">Cancel</button>
+                        </div>
                       </div>
-                  </div>
-                  ) : (
-                      <p className="w-full break-words">{post.content}</p>
-                  )
-                  }
-                  {post.post_image && <img src={post.post_image} alt="post image" />}
+                      ) : (
+                        <p className="w-full break-words">{post.content}</p>
+                      )
+                    }
+                    {post.post_image && <img src={post.post_image} alt="post image" />}
                   </div>
 
                   <div className="flex flex-row justify-between pl-[64px]">
-                  <div className="flex flex-row gap-2 items-start">
-                  <img src={message} className="w-[25px] h-[25px]" alt="Messages" />
-                  <p>0</p>
-                  </div>
-                  <div className="flex flex-row gap-2 items-start pr-[3px]">
-                  <img src={heart} className="w-[25px] h-[25px]" alt="Likes" />
-                  <p>0</p>
-                  </div>
+                    <div className="flex flex-row gap-2 items-start">
+                      <img src={message} className="w-[25px] h-[25px]" alt="Messages" />
+                      <p>0</p>
+                    </div>
+
+                    <div className="flex flex-row gap-2 items-start pr-[3px]">
+                      <img src={heart} className="w-[25px] h-[25px]" alt="Likes" />
+                      <p>0</p>
+                    </div>
                   </div>
 
                 </li>

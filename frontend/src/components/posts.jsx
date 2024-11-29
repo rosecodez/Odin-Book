@@ -17,7 +17,7 @@ export default function Posts() {
     const [editPostId, setEditPostId] = useState(null);
     const [editedContent, setEditedContent] = useState("");
     const { postId } = useParams();
-
+    
     useEffect(() => {
         const getAllPosts = async () => {
           try {

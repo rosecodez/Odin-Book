@@ -5,14 +5,16 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import heart from "../assets/heart.png";
 import message from "../assets/message.png";
+import { useNavigate } from 'react-router-dom';
 
-export default function PostDetails () {
+export default function PostDetails ({username}) {
     const [post, setPost] = useState(null);
     const [postMessages, setPostMessages] = useState([]);
     const [postLikes, setPostLikes] = useState([]);
     const { postId } = useParams();
     const [isEditMode, setIsEditMode] = useState(false);
-
+    const navigate = useNavigate();
+    
     useEffect(() => {
         const getPostDetails = async () => {
             try {
@@ -24,7 +26,6 @@ export default function PostDetails () {
                 setPost(data);
                 setPostMessages(data.message);
                 setPostLikes(data.like);
-                
 
             } catch (error) {
                 console.error("Error fetching post data:", error);
@@ -72,8 +73,9 @@ export default function PostDetails () {
           }
           
         setIsEditMode(false);
+        navigate(-1)
         } catch (error) {
-          setError(error.message);
+          console.log(error)
         }
     }
 
@@ -98,7 +100,11 @@ export default function PostDetails () {
                                 <a href="/profile">{post.user.username}</a>
                                 <p>{formattedDate}</p>
                             </div>
-                            <DropdownComponent editPost = {() => handleEditToggle(postId) } deletePost = {() => handleDelete(postId) }/>
+                            
+                            {username === post.user.username? (
+                                <DropdownComponent editPost = {() => handleEditToggle(postId) } deletePost = {() => handleDelete(postId) }/>
+                            ) :  (<div></div>)
+                        }
                         </div>
 
                     </div>

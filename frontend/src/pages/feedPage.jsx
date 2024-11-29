@@ -1,5 +1,5 @@
 import Feed from "../components/feed";
 
-export default function FeedPage({ isVisitor, setIsVisitor }) {
-  return <Feed isVisitor={isVisitor} setIsVisitor={setIsVisitor} />;
+export default function FeedPage({ isAuthenticated, isVisitor, setIsVisitor }) {
+  return <Feed isAuthenticated={isAuthenticated} isVisitor={isVisitor} setIsVisitor={setIsVisitor} />;
 }

@@ -14,7 +14,7 @@ import PostDetailsPage from './pages/postDetailsPage';
 function App() {
   const [isVisitor, setIsVisitor] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const [username, setUsername] = useState("")
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -23,6 +23,7 @@ function App() {
         });
         const data = await response.json();
         setIsAuthenticated(data.isAuthenticated || false);
+        setUsername(data.user.username)
         setIsVisitor(data.user?.isVisitor || false);
       } catch (error) {
         console.error("Error checking authentication:", error);
@@ -40,12 +41,12 @@ function App() {
       <div className="flex flex-row min-h-[41rem] justify-center">
 
         <Routes>
-          <Route path="/" element={isVisitor ? (<FeedPage isVisitor={isVisitor} setIsVisitor={setIsVisitor} />) : (<HomePage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />)}/>
+          <Route path="/" element={isVisitor ? (<FeedPage isAuthenticated={isAuthenticated} isVisitor={isVisitor} setIsVisitor={setIsVisitor} />) : (<HomePage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />)}/>
           <Route path="/profile" element={<ProfilePage isVisitor={isVisitor} setIsVisitor={setIsVisitor} />} />
           <Route path="/signup" element={<SignupPage/>}/>
           <Route path="/login" element={<LoginPage/>}/>
           <Route path='/logout' element={<HomePage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />}/>
-          <Route path="/:postId" element={<PostDetailsPage />}/>
+          <Route path="/:postId" element={<PostDetailsPage username={username} />}/>
         </Routes>
         
       </div>
