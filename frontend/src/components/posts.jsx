@@ -78,10 +78,12 @@ export default function Posts() {
         }
     }
 
-    const handleEditToggle = (id) => {
-        setPostId(id)
-        setIsEditMode(prev => !prev);
-    }
+    const handleEditToggle = (id, content) => {
+        setEditPostId(id); 
+        setEditedContent(content); 
+        setIsEditMode((prev) => !prev);
+      };
+      
 
     return (
         <ul className="flex flex-col gap-6 pt-[40px]">

@@ -13,6 +13,7 @@ export default function PostDetails ({username}) {
     const [postLikes, setPostLikes] = useState([]);
     const { postId } = useParams();
     const [isEditMode, setIsEditMode] = useState(false);
+    const [editedContent, setEditedContent] = useState("");
     const navigate = useNavigate();
     
     useEffect(() => {
@@ -49,12 +50,9 @@ export default function PostDetails ({username}) {
             }
 
             const updatedPost = await response.json();
-            cancelEdit();
-            setEditPostId(null);
-            setEditedContent("");
             setIsEditMode(false);
         } catch (error) {
-            console.error(error);
+            console.log(error);
         }
     }
 
@@ -75,13 +73,14 @@ export default function PostDetails ({username}) {
         setIsEditMode(false);
         navigate(-1)
         } catch (error) {
-          console.log(error)
+          console.log(error);
         }
     }
 
-    const handleEditToggle = (id) => {
-        setIsEditMode(prev => !prev);
-    }
+    const handleEditToggle = (content) => {
+        setEditedContent(content);
+        setIsEditMode((prev) => !prev);
+    };
 
     const formattedDate = post?.created_at? DateTime.fromISO(post.created_at).toLocaleString({ month: "short", day: "2-digit" }) : "";
     
@@ -102,7 +101,8 @@ export default function PostDetails ({username}) {
                             </div>
                             
                             {username === post.user.username? (
-                                <DropdownComponent editPost = {() => handleEditToggle(postId) } deletePost = {() => handleDelete(postId) }/>
+                                <DropdownComponent  editPost={() => handleEditToggle(post.content)} 
+                                                    deletePost = {() => handleDelete(postId) }/>
                             ) :  (<div></div>)
                         }
                         </div>
@@ -110,7 +110,17 @@ export default function PostDetails ({username}) {
                     </div>
 
                     <div className="flex flex-col gap-2 pl-16">
+                        {isEditMode ? (
+                            <div>
+                                <textarea value={editedContent} onChange={((e) => setEditedContent(e.target.value))} className="w-full p-2 border rounded"/>
+                                <div className="flex gap-2 mt-2">
+                                    <button onClick={editPost} className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded" >Save</button>
+                                    <button onClick={() => setIsEditMode(false)}className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded">Cancel</button>
+                                </div>
+                            </div>
+                        ) : (
                         <p className="w-full break-words">{post.content}</p>
+                        )}
                     </div>
                     
                     <div className="flex flex-col gap-2 pl-16">

@@ -4,12 +4,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 
 function DropdownComponent({ editPost, deletePost}) {
-  const handleClick = (e) => {
-    e.preventDefault();
-  };
+
 
   return (
-    <Dropdown onClick={handleClick} className="d-inline mx-2">
+    <Dropdown  className="d-inline mx-2">
       <Dropdown.Toggle as="img" src={threedots} id="dropdown-autoclose-true" className="w-[25px] h-[25px] cursor-pointer" alt="Menu" />
       
       <Dropdown.Menu>
