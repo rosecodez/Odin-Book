@@ -140,7 +140,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
   return (
       <div className="flex flex-col w-[800px] max-w-[800px] text-left">
         <div className="flex gap-3">
-          <img src={image} className="rounded-full w-[70px] h-[70px]" />
+          { !isVisitor  &&  <img src={image} className="rounded-full w-[70px] h-[70px]" />}
 
           <NewPost isVisitor={isVisitor} setIsVisitor={setIsVisitor}/>
       </div>
