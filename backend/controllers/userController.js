@@ -252,3 +252,28 @@ exports.user_update_bio_post = asyncHandler(async (req, res, next) => {
     return res.status(500).json({ error: "Failed to update bio" });
   }
 });
+
+exports.user_get_by_username = asyncHandler(async (req, res, next) => {
+  const username = req.params.username;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: username,
+      },
+      include: {
+        post: true,
+        like: true,
+        comment: true,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "user not found" });
+    }
+
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+});

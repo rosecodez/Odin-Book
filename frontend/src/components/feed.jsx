@@ -5,8 +5,7 @@ import camera from "../assets/camera.png";
 import heart from "../assets/heart.png";
 import message from "../assets/message.png";
 import NewPost from "./newPost";
-import DropdownComponent from "./dropdown";
-
+import { Link } from "react-router-dom";
 import { DateTime } from "luxon";
 
 export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
@@ -152,17 +151,11 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
             const formattedDate = DateTime.fromISO(post.created_at).toLocaleString({ month: 'short', day: '2-digit' });
             
             return (
-              <a href={`/${post.id}`}>
-                <li key={post.id} className="flex flex-col">
-
+              <li key={post.id} className="flex flex-col">
+                <Link to={`/posts/${post.id}`} className="flex flex-col">
+                  
                   <div className="flex flex-row gap-[14px] w-full">
                     <img src={post.user?.profile_image || camera} className="rounded-full w-[50px] h-[50px] pt-[15px]" alt="Profile" />
-                    
-                    <div className="flex gap-2 mt-[7px] w-full justify-start">
-                      <a href="/profile">{post.user?.username || "Unknown User"}</a>
-                      <p>{formattedDate}</p>
-                    </div>
-
                   </div>
 
                   <div className="flex flex-col gap-2 pl-16">
@@ -183,6 +176,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
                   </div>
 
                   <div className="flex flex-row justify-between pl-[64px]">
+
                     <div className="flex flex-row gap-2 items-start">
                       <img src={message} className="w-[25px] h-[25px]" alt="Messages" />
                       <p>0</p>
@@ -192,11 +186,18 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
                       <img src={heart} className="w-[25px] h-[25px]" alt="Likes" />
                       <p>0</p>
                     </div>
+                    
                   </div>
 
-                </li>
-              </a>
-              
+                </Link>
+
+                <div className="flex gap-2 mt-[7px] w-full justify-start">
+                  <Link to={`/${post.user.username}`}>{post.user.username}</Link>
+                  <p>{formattedDate}</p>
+                </div>
+
+              </li>
+                
 
             );
           })

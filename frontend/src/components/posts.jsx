@@ -106,7 +106,7 @@ export default function Posts() {
 
                                         <div className="flex gap-2 mt-[7px] w-full justify-between">
                                             <div className="flex gap-2">
-                                                <a href="/profile">{post.user.username}</a>
+                                                <p>{post.user.username}</p>
                                                 <p>{formattedDate}</p>
                                             </div>
 
@@ -120,8 +120,8 @@ export default function Posts() {
                                             <div>
                                                 <textarea value={editedContent} onChange={(e) => setEditedContent(e.target.value)} className="w-full p-2 border rounded"/>
                                                 <div className="flex gap-2 mt-2">
-                                                <button onClick={() => {saveEdit(post.id), setIsEditing(false);}} className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded">Save</button>
-                                                <button onClick={cancelEdit} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded">Cancel</button>
+                                                    <button onClick={() => {saveEdit(post.id), setIsEditing(false);}} className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded">Save</button>
+                                                    <button onClick={cancelEdit} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded">Cancel</button>
                                                 </div>
                                             </div>
                                             ) : (

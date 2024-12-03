@@ -43,4 +43,6 @@ router.post(
   userController.user_update_bio_post
 );
 
+router.get("/:username", userController.user_get_by_username);
+
 module.exports = router;

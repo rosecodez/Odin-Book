@@ -10,11 +10,13 @@ import SignupPage from './pages/singupPage';
 import LoginPage from './pages/loginPage';
 import FeedPage from './pages/feedPage';
 import PostDetailsPage from './pages/postDetailsPage';
+import UserDetailsPage from './pages/userDetailsPage';
 
 function App() {
   const [isVisitor, setIsVisitor] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [username, setUsername] = useState("")
+  const [username, setUsername] = useState("");
+  
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -47,6 +49,8 @@ function App() {
           <Route path="/login" element={<LoginPage/>}/>
           <Route path='/logout' element={<HomePage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />}/>
           <Route path="/:postId" element={<PostDetailsPage username={username} />}/>
+          <Route path="/:userId" element={<UserDetailsPage/>}/>
+
         </Routes>
         
       </div>
