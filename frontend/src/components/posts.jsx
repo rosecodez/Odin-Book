@@ -8,12 +8,6 @@ import { useParams } from "react-router-dom";
 
 export default function Posts() {
     const [posts, setPosts] = useState([])
-    const [post, setPost] = useState(null);
-    const [postTitle, setPostTitle] = useState("");
-    const [postText, setPostText] = useState("");
-    const [likesCount, setLikesCount] = useState(0);
-    const [commentsCount, setCommentsCount] = useState(0);
-    const [isEditMode, setIsEditMode] = useState(false);
     const [editPostId, setEditPostId] = useState(null);
     const [editedContent, setEditedContent] = useState("");
     const { postId } = useParams();
@@ -83,8 +77,7 @@ export default function Posts() {
         setEditedContent(content); 
         setIsEditMode((prev) => !prev);
       };
-      
-
+    
     return (
         <ul className="flex flex-col gap-6 pt-[40px]">
             {posts.length ? (
@@ -94,19 +87,21 @@ export default function Posts() {
                     return (
                         <div>
 
-                            <a href={`/${post.id}`}>
+                            <a href={`/posts/${post.id}`}>
 
                                 <li key={post.id}>
 
                                     <div className="flex flex-row gap-[19px] w-full">
 
-                                        <a href="/profile">
+                                        <a href={`/users/${post.user.username}`}>
                                             <img src={post.user.profile_image} className="rounded-full w-[50px] h-[50px]"/>
                                         </a>
 
                                         <div className="flex gap-2 mt-[7px] w-full justify-between">
                                             <div className="flex gap-2">
-                                                <p>{post.user.username}</p>
+                                                <a href={`/users/${post.user.username}`}>
+                                                    {post.user.username}
+                                                </a>
                                                 <p>{formattedDate}</p>
                                             </div>
 

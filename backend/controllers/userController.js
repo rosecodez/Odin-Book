@@ -259,7 +259,7 @@ exports.user_get_by_username = asyncHandler(async (req, res, next) => {
   try {
     const user = await prisma.user.findUnique({
       where: {
-        id: username,
+        username: username,
       },
       include: {
         post: true,

@@ -1,7 +1,7 @@
 import UserDetails from "../components/userDetails";
 
-export default function UserDetailsPage() {
+export default function UserDetailsPage( {username}) {
     return (
-        <UserDetails/>
+        <UserDetails username={username}/>
     );
 }

@@ -79,7 +79,7 @@ export default function Profile({ isVisitor, setIsVisitor }) {
   
 
   return (
-    <div className="flew flex-col w-[800px] max-w-[800px] text-left">
+    <div className="flex flex-col w-[800px] max-w-[800px] text-left">
 
       <div className="flex gap-3">
         <img src={image} className="rounded-full w-[70px] h-[70px]" />

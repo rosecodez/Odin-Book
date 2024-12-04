@@ -1,12 +1,32 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
+import Posts from "../components/posts"
+import { useNavigate } from "react-router-dom";
 export default function UserDetails () {
-    const { userId } = useParams();
+    const navigate = useNavigate();
     const [user, setUser]= useState("");
     const { username } = useParams();
-    console.log("userId param:", userId);
+    
+    useEffect(() => {
+        const checkAuth = async () => {
+        try {
+            const response = await fetch("http://localhost:3000/check-authentication", {
+                credentials: "include",
+            });
+            const data = await response.json();
+            // if user details username is the same as authenticated user, go directly to authenticated profile
+            if(username === data.user.username) {
+                navigate("/profile");
+            }
+
+            console.log(data)
+        } catch (error) {
+            console.error("Error checking authentication:", error);
+        }
+        };
+        checkAuth();
+    }, []);
     
     useEffect(() => {
         const getUserDetails = async () => {
@@ -25,23 +45,28 @@ export default function UserDetails () {
                 console.error("error fetching user", error);
             }
         };
-        console.log(userId, "userId params")
+        console.log(username, "userId params")
         getUserDetails();
-    }, [userId]);
+    }, [username]);
 
 
     return (
-        <div className="flex flex-col">
-            {user ? (
-                <>
-                    <h1>{user.username}</h1>
+        <div className="flew flex-col w-[800px] max-w-[800px] text-left">
+            <div className="flex flex-row gap-[14px] pb-[10px] w-full">
+                <div className=" w-[150px] h-[160px]">
+                    <img src={user.profile_image} className="outline outline-offset-2 outline-gray-500 rounded-full w-[150px] h-[160px]" />
+                </div>
+
+                <div className="h-[160px]">
+                    <h2 className="text-2xl bold pt-8">{username}</h2>
                     <p>{user.bio}</p>
-                    <img src={user.profile_image} alt={`${user.username}'s profile`} />
-                </>
-            ) : (
-                <p>Loading user details...</p>
-            )}
+                </div>
+                
+            </div>
+            
+            // will need to switch posts to its specific owner, for now its only displaying authenticated user posts
+            // could pass props for user posts owner 
+            <Posts/>
         </div>
-    );
-    
+    )
 }

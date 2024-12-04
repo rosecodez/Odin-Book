@@ -7,7 +7,7 @@ import heart from "../assets/heart.png";
 import message from "../assets/message.png";
 import { useNavigate } from 'react-router-dom';
 
-export default function PostDetails ({username}) {
+export default function PostDetails ({username }) {
     const [post, setPost] = useState(null);
     const [postMessages, setPostMessages] = useState([]);
     const [postLikes, setPostLikes] = useState([]);
@@ -67,7 +67,7 @@ export default function PostDetails ({username}) {
       
           if (!response.ok) {
             const errorMessage = await response.text();
-            throw new Error(`Failed to delete the post: ${errorMessage}`);
+            throw new Error(`Failed to delete the post: ${errorMessage}`);            
           }
           
         setIsEditMode(false);
@@ -90,13 +90,17 @@ export default function PostDetails ({username}) {
             {post ? (
                 <div className="flew flex-col w-[800px] max-w-[800px] text-left">
                     <div className="flex flex-row gap-4 w-full ">
+
+                    
                         <a href="/profile">
                             <img src={post.user.profile_image} className="rounded-full w-[50px] h-[50px]"/>
                         </a>
 
                         <div className="flex gap-2 mt-[7px] w-full justify-between">
                             <div className="flex gap-2">
-                                <a href="/profile">{post.user.username}</a>
+                                <a href={`/users/${post.user.username}`}>
+                                    {post.user.username}
+                                </a>
                                 <p>{formattedDate}</p>
                             </div>
                             

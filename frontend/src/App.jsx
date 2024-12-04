@@ -48,9 +48,8 @@ function App() {
           <Route path="/signup" element={<SignupPage/>}/>
           <Route path="/login" element={<LoginPage/>}/>
           <Route path='/logout' element={<HomePage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />}/>
-          <Route path="/:postId" element={<PostDetailsPage username={username} />}/>
-          <Route path="/:userId" element={<UserDetailsPage/>}/>
-
+          <Route path="/posts/:postId" element={<PostDetailsPage username={username} />}/>
+          <Route path="/users/:username" element={<UserDetailsPage username={username}/>}/>
         </Routes>
         
       </div>
