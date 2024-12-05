@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-export default function Posts() {
+export default function Posts({ userId, loggedInUserId}) {
     const [posts, setPosts] = useState([])
     const [editPostId, setEditPostId] = useState(null);
     const [editedContent, setEditedContent] = useState("");
@@ -15,19 +15,22 @@ export default function Posts() {
     useEffect(() => {
         const getAllPosts = async () => {
           try {
-            const response = await fetch("http://localhost:3000/posts/profile-all-posts", { 
+            const endpoint = userId === loggedInUserId ? "http://localhost:3000/posts/profile-all-posts" : "http://localhost:3000/posts/all-posts";
+            const response = await fetch(endpoint, { 
               credentials: "include" 
             });
             const data = await response.json();""
             console.log("posts:", data);
+            console.log(endpoint, "endpoint")
             setPosts(data);
           } catch (error) {
             console.error("Posts error", error);
           }
         };
-        console.log(postId, "postid, params")
-        getAllPosts();
-    }, [postId])
+        if (userId) {
+            getAllPosts();
+        }
+    }, [userId, loggedInUserId]);
     
     const editPost = async (data) => {
         try {

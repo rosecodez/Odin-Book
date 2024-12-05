@@ -7,7 +7,7 @@ export default function UserDetails () {
     const navigate = useNavigate();
     const [user, setUser]= useState("");
     const { username } = useParams();
-    
+    const [loggedInUser, setLoggedInUser] = useState("");
     useEffect(() => {
         const checkAuth = async () => {
         try {
@@ -19,7 +19,7 @@ export default function UserDetails () {
             if(username === data.user.username) {
                 navigate("/profile");
             }
-
+            setLoggedInUser(data.user.id)
             console.log(data)
         } catch (error) {
             console.error("Error checking authentication:", error);
@@ -65,8 +65,10 @@ export default function UserDetails () {
             </div>
             
             // will need to switch posts to its specific owner, for now its only displaying authenticated user posts
-            // could pass props for user posts owner 
-            <Posts/>
+            // could pass props for user posts owner +++
+             
+            <Posts userId={user.id} loggedInUserId={loggedInUser.id} />
+
         </div>
     )
 }

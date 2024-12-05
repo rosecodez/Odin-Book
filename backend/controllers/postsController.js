@@ -39,9 +39,6 @@ exports.post_new_post = asyncHandler(async (req, res, next) => {
 exports.posts_all_get = asyncHandler(async (req, res, next) => {
   const user = req.user;
   try {
-    if (!user) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
     const posts = await prisma.post.findMany({
       where: {
         userId: {
@@ -92,7 +89,11 @@ exports.posts_all_get_visitor = asyncHandler(async (req, res, next) => {
 });
 
 exports.posts_user_all_get = asyncHandler(async (req, res, next) => {
-  const user = req.user;
+  const userId = parseInt(req.params.userId, 10);
+
+  if (!userId) {
+    return res.status(400).json({ message: "userId params not found" });
+  }
   try {
     const posts = await prisma.post.findMany({
       where: {

@@ -17,7 +17,7 @@ router.post(
 );
 
 // all recent posts
-router.get("/all-posts", isAuthenticated, postController.posts_all_get);
+router.get("/all-posts", postController.posts_all_get);
 router.get("/all-posts-visitor", postController.posts_all_get_visitor);
 
 router.get(
