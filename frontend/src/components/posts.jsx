@@ -10,15 +10,16 @@ export default function Posts({ userId, loggedInUserId}) {
     const [posts, setPosts] = useState([])
     const [editPostId, setEditPostId] = useState(null);
     const [editedContent, setEditedContent] = useState("");
-    const { postId } = useParams();
-    
+
     useEffect(() => {
         const getAllPosts = async () => {
           try {
             const endpoint = userId === loggedInUserId ? "http://localhost:3000/posts/profile-all-posts" : "http://localhost:3000/posts/all-posts";
+            
             const response = await fetch(endpoint, { 
               credentials: "include" 
             });
+            console.log(userId, loggedInUserId)
             const data = await response.json();""
             console.log("posts:", data);
             console.log(endpoint, "endpoint")
@@ -32,7 +33,7 @@ export default function Posts({ userId, loggedInUserId}) {
         }
     }, [userId, loggedInUserId]);
     
-    const editPost = async (data) => {
+    const editPost = async (postId) => {
         try {
             const response = await fetch(`http://localhost:3000/posts/${postId}/update`, {
                 method: "PUT",
