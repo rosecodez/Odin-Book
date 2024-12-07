@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/postsController");
 const isAuthenticated = require("../middleware/authentication");
-
 const upload = require("../middleware/multer");
 
 // should always display the post content, author, comments and likes
@@ -12,7 +11,7 @@ const upload = require("../middleware/multer");
 router.post(
   "/new-post",
   isAuthenticated,
-  upload.single("file"),
+  upload.single("image"),
   postController.post_new_post
 );
 

@@ -8,8 +8,8 @@ exports.post_new_post = asyncHandler(async (req, res, next) => {
     const user = req.user;
     const { text } = req.body;
 
-    if (!text) {
-      return res.status(400).json({ message: "Missing text" });
+    if (!text && !req.file) {
+      return res.status(400).json({ message: "Missing text or image" });
     }
 
     console.log(req.file);

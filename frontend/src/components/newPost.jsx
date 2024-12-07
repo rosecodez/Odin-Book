@@ -7,30 +7,44 @@ import message from "../assets/message.png";
 export default function NewPost({ isVisitor }) {
     let [postText, setPostText] = useState("");
     const [posts, setPosts] = useState([]);
-    const { register, handleSubmit } = useForm();
+    const { handleSubmit } = useForm();
+    const [postImage, setPostImage] = useState(null);
 
-    const sendPostText = async (e) => {
-        if (postText === "") {
+    const sendPostText = async (data) => {
+        if (postText === "" && !postImage) {
           return;
         }
     
         try {
-          const response = await fetch(`http://localhost:3000/posts/new-post`, {
-              method: "POST",
-              headers: { 'Content-Type': 'application/json',},
-              credentials: "include",
-              body: JSON.stringify({ text: postText }),
-          });
-    
-          if (!response.ok) {
-            console.error("Failed to send post");
-          }
-    
-          const newPost = await response.json();
-          setPosts((prevPosts) => [newPost, ...prevPosts]);
-          console.log(newPost)
-          setPostText("");
-          window.location.reload();
+            const formData = new FormData();
+
+            if(postText) {
+                formData.append("text", postText)
+            }
+
+            if(postImage) {
+                formData.append("image", postImage)
+            }
+
+            const response = await fetch(`http://localhost:3000/posts/new-post`, {
+                method: "POST",
+                credentials: "include",
+                body: formData,
+            });
+
+            if (!response.ok) {
+                const errorResponse = await response.text();
+                console.error("Server Error:", errorResponse);
+                alert(`Error: ${response.status} - ${response.statusText}`);
+                return;
+            }
+
+            const newPost = await response.json();
+            setPosts((prevPosts) => [newPost, ...prevPosts]);
+            console.log(newPost)
+            setPostText("");
+            setPostImage(null);
+            window.location.reload();
         } catch (error) {
             console.error("Error in sendPostText:", error);
         }
@@ -64,7 +78,10 @@ export default function NewPost({ isVisitor }) {
                     
                 </div>
                 <div className="flex flex-row gap-2 justify-between items-center">
-                    <img src={camera} alt="camera" className="w-10 h-10 cursor-pointer bg-white p-1"/>
+                    <label>
+                        <img src={camera} alt="camera" className="w-10 h-10 cursor-pointer bg-white p-1"/>
+                        <input type="file" name="image" className="hidden" accept="image/*" onChange={(e) => setPostImage(e.target.files[0])}/>
+                    </label>
                     <button type="submit" className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-2 rounded focus:outline-none focus:shadow-outline">Post</button>
                 </div>
                 </form>
