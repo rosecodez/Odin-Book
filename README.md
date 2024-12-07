@@ -52,8 +52,9 @@ Data models diagram
 
 - passport-google-oidc - Sign In With Google
 - register app with Google, done with API & Services at Google Cloud Platform with OAuth2
-
-npm packages:
+- cloudinary.v2 multer image upload to posts/profile picture
+- data modeling
+  npm packages:
 
 - bcrypt, dotenv, cors, express-session, path, express-async-handler, express-validator for body, multer, cloudinaryStorage, passport
 
@@ -64,4 +65,13 @@ npm packages:
 
 #### Plan
 
+#### Data modeling
+
+![alt text](Odin-Book.png)
+
+#### Basic page structure
+
 ![alt text](image.png)
+
+- footer and header are always displayed
+- page content displays rendered component/s according to specific page
