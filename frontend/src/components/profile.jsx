@@ -9,9 +9,9 @@ export default function Profile({ isVisitor, setIsVisitor }) {
   const { register, handleSubmit } = useForm();
   const [username, setUsername] = useState('');
   const [image, setImage] = useState('');
-  const [errors, setErrors] = useState([]);
-  const [modalVisibility, setModalVisibility] = useState(false);
   
+  const [modalVisibility, setModalVisibility] = useState(false);
+  const [user, setUser]= useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,6 +36,8 @@ export default function Profile({ isVisitor, setIsVisitor }) {
           setIsVisitor(false);
           setUsername(data.user.username);
           setImage(data.user.profile_image);
+          setUser(data.user);
+          console.log(data.user)
         }
       })
       .catch(error => {
@@ -43,7 +45,7 @@ export default function Profile({ isVisitor, setIsVisitor }) {
         navigate("/login");
       });
 
-  }, [navigate]);
+  }, [navigate, setIsVisitor]);
 
   const showModal = () => setModalVisibility(true);
   const hideModal = () => setModalVisibility(false);
@@ -111,7 +113,8 @@ export default function Profile({ isVisitor, setIsVisitor }) {
         </div>
       )}
 
-      <Posts/>
+      
+      {user && <Posts userId={user.id || null} loggedInUserId={user.id | null} />}
 
     </div>
     

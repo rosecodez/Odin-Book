@@ -89,7 +89,7 @@ exports.posts_all_get_visitor = asyncHandler(async (req, res, next) => {
 });
 
 exports.posts_user_all_get = asyncHandler(async (req, res, next) => {
-  const userId = parseInt(req.params.userId, 10);
+  const userId = req.user.id;
 
   if (!userId) {
     return res.status(400).json({ message: "userId params not found" });
@@ -97,7 +97,7 @@ exports.posts_user_all_get = asyncHandler(async (req, res, next) => {
   try {
     const posts = await prisma.post.findMany({
       where: {
-        userId: user.id,
+        userId,
       },
       orderBy: [
         {

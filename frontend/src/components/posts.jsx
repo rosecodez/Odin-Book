@@ -10,27 +10,37 @@ export default function Posts({ userId, loggedInUserId}) {
     const [posts, setPosts] = useState([])
     const [editPostId, setEditPostId] = useState(null);
     const [editedContent, setEditedContent] = useState("");
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const getAllPosts = async () => {
           try {
-            const endpoint = userId === loggedInUserId ? "http://localhost:3000/posts/profile-all-posts" : "http://localhost:3000/posts/all-posts";
-            
-            const response = await fetch(endpoint, { 
+            let endpoint
+            if(userId === loggedInUserId) {
+                endpoint = "http://localhost:3000/posts/profile-all-posts"
+            } else {
+                endpoint = "http://localhost:3000/posts/all-posts"
+            }
+            console.log("Fetching posts from:", endpoint);
+
+            const response = await fetch(endpoint, {
               credentials: "include" 
             });
             console.log(userId, loggedInUserId)
-            const data = await response.json();""
+            const data = await response.json();
             console.log("posts:", data);
             console.log(endpoint, "endpoint")
             setPosts(data);
           } catch (error) {
             console.error("Posts error", error);
+            setError(error.message);
           }
         };
+
         if (userId) {
             getAllPosts();
         }
+        
     }, [userId, loggedInUserId]);
     
     const editPost = async (postId) => {
