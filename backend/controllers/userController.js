@@ -277,3 +277,44 @@ exports.user_get_by_username = asyncHandler(async (req, res, next) => {
     next(err);
   }
 });
+
+exports.user_follow = asyncHandler(async (req, res, next) => {
+  const user = req.session.user;
+  const { username } = req.params;
+
+  try {
+    const userToFollow = await prisma.user.findUnique({
+      where: {
+        username: username,
+      },
+    });
+
+    if (!userToFollow) {
+      return res.status(404).json({ message: "user not found" });
+    }
+
+    const existingFollow = await prisma.follows.findUnique({
+      where: {
+        followerId_followingId: {
+          followerId: user,
+          followingId: userToFollow.id,
+        },
+      },
+    });
+
+    if (existingFollow) {
+      return res.status(400).json({ message: "already following user" });
+    }
+
+    await prisma.follows.create({
+      data: {
+        followerId: user,
+        followingId: userToFollow.id,
+      },
+    });
+
+    res.status(200).json({ message: "followed user" });
+  } catch (error) {
+    res.status(500).json({ message: "error occurder while following user" });
+  }
+});
