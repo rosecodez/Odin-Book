@@ -24,8 +24,17 @@ model user {
     // many to many relationship
     //  - each user can follow many other users
     //  - each user can be followed by many other users
-    followedBy                user[]                      @relation("UserFollows")
-    following                 user[]                      @relation("UserFollows")
+    followers                 Follows[]                   @relation("following")
+    following                 Follows[]                   @relation("follower")
+}
+
+model Follows {
+    follower    user @relation("follower", fields: [followerId], references: [id])
+    followerId  Int
+    following   user @relation("following", fields: [followingId], references: [id])
+    followingId Int
+
+    @@id([followerId, followingId])
 }
 
 model Session {

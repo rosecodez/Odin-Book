@@ -56,7 +56,7 @@ export default function UserDetails () {
 
     return (
         <div className="flew flex-col w-[800px] max-w-[800px] text-left">
-            <div className="flex flex-row gap-[14px] pb-[10px] w-full">
+            <div className="flex flex-row gap-[40px] pb-[10px] w-full">
                 <div className=" w-[150px] h-[160px]">
                     <img src={user.profile_image} className="outline outline-offset-2 outline-gray-500 rounded-full w-[150px] h-[160px]" />
                 </div>
@@ -64,6 +64,7 @@ export default function UserDetails () {
                 <div className="h-[160px]">
                     <h2 className="text-2xl bold pt-8">{username}</h2>
                     <p>{user.bio}</p>
+                    <a href="">Follow user</a>
                 </div>
                 
             </div>
