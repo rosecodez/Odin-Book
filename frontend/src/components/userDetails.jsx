@@ -9,6 +9,7 @@ export default function UserDetails () {
     const [user, setUser]= useState("");
     const { username } = useParams();
     const [loggedInUser, setLoggedInUser] = useState("");
+    const [isFollowing, setIsFollowing] = useState(false);
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -44,7 +45,8 @@ export default function UserDetails () {
                 const data = await response.json();
                 console.log("get user details", data);
                 setUser(data);
-
+                setIsFollowing(data.isFollowing);
+                console.log(data.isFollowing)
             } catch (error) {
                 console.error("error fetching user", error);
             }
@@ -53,6 +55,28 @@ export default function UserDetails () {
         getUserDetails();
     }, [username]);
 
+
+    const followUser = async() => {
+        try {
+            const response = await fetch(`http://localhost:3000/users/${username}/follow`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if(!response.ok) {
+                throw new Error('failed to follow/unfollow user')
+            }
+
+            const data = await response.json();
+            console.log(data);
+            setIsFollowing(data.following);
+        } catch (error) {
+            console.log("error following user")
+        }
+    }
 
     return (
         <div className="flew flex-col w-[800px] max-w-[800px] text-left">
@@ -64,7 +88,11 @@ export default function UserDetails () {
                 <div className="h-[160px]">
                     <h2 className="text-2xl bold pt-8">{username}</h2>
                     <p>{user.bio}</p>
-                    <a href="">Follow user</a>
+                    {loggedInUser && loggedInUser.username !== username && (
+                        <button onClick={followUser}>
+                            {isFollowing ? 'Unfollow' : 'Follow'} user
+                        </button>
+                    )}
                 </div>
                 
             </div>

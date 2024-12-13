@@ -261,10 +261,25 @@ exports.user_get_by_username = asyncHandler(async (req, res, next) => {
       where: {
         username: username,
       },
-      include: {
+      select: {
+        id: true,
+        username: true,
+        profile_image: true,
+        bio: true,
+        created_at: true,
         post: true,
         like: true,
         comment: true,
+        followers: {
+          include: {
+            follower: true,
+          },
+        },
+        following: {
+          include: {
+            following: true,
+          },
+        },
       },
     });
 
@@ -279,7 +294,7 @@ exports.user_get_by_username = asyncHandler(async (req, res, next) => {
 });
 
 exports.user_follow = asyncHandler(async (req, res, next) => {
-  const user = req.session.user;
+  const userId = req.session.user.id;
   const { username } = req.params;
 
   try {
@@ -296,24 +311,31 @@ exports.user_follow = asyncHandler(async (req, res, next) => {
     const existingFollow = await prisma.follows.findUnique({
       where: {
         followerId_followingId: {
-          followerId: user,
+          followerId: userId,
           followingId: userToFollow.id,
         },
       },
     });
 
     if (existingFollow) {
-      return res.status(400).json({ message: "already following user" });
+      await prisma.follows.delete({
+        where: {
+          followerId_followingId: {
+            followerId: followerId,
+            followingId: userToFollow.id,
+          },
+        },
+      });
+      return res.json({ following: false });
+    } else {
+      await prisma.follows.create({
+        data: {
+          followerId: followerId,
+          followingId: userToFollow,
+        },
+      });
+      return res.json({ following: false });
     }
-
-    await prisma.follows.create({
-      data: {
-        followerId: user,
-        followingId: userToFollow.id,
-      },
-    });
-
-    res.status(200).json({ message: "followed user" });
   } catch (error) {
     res.status(500).json({ message: "error occurder while following user" });
   }

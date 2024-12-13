@@ -45,6 +45,6 @@ router.post(
 
 router.get("/:username", userController.user_get_by_username);
 
-router.get("/username/follow", userController.user_follow);
+router.post("/:username/follow", isAuthenticated, userController.user_follow);
 
 module.exports = router;
