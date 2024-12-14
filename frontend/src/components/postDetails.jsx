@@ -6,15 +6,18 @@ import { useParams } from "react-router-dom";
 import heart from "../assets/heart.png";
 import message from "../assets/message.png";
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 export default function PostDetails ({username }) {
     const [post, setPost] = useState(null);
+    const [textComment, setTextComment] = useState("");
     const [postMessages, setPostMessages] = useState([]);
     const [postLikes, setPostLikes] = useState([]);
     const { postId } = useParams();
     const [isEditMode, setIsEditMode] = useState(false);
     const [editedContent, setEditedContent] = useState("");
     const navigate = useNavigate();
+    const { handleSubmit } = useForm();
     
     useEffect(() => {
         const getPostDetails = async () => {
@@ -23,7 +26,7 @@ export default function PostDetails ({username }) {
                     credentials: "include",
                 });
                 const data = await response.json();
-                console.log("Fetched post data:", data);
+                console.log(data);
                 setPost(data);
                 setPostMessages(data.message);
                 setPostLikes(data.like);
@@ -35,6 +38,46 @@ export default function PostDetails ({username }) {
         console.log(postId, "postid, params")
         getPostDetails();
     }, [postId]);
+
+    async function createNewComment() {
+        if (postText === "" && !postImage) {
+          return;
+        }
+    
+        try {
+            const formData = new FormData();
+
+            if(postText) {
+                formData.append("text", postText)
+            }
+
+            if(postImage) {
+                formData.append("image", postImage)
+            }
+
+            const response = await fetch(`http://localhost:3000/posts/new-post`, {
+                method: "POST",
+                credentials: "include",
+                body: formData,
+            });
+
+            if (!response.ok) {
+                const errorResponse = await response.text();
+                console.error("Server Error:", errorResponse);
+                alert(`Error: ${response.status} - ${response.statusText}`);
+                return;
+            }
+
+            const newPost = await response.json();
+            setPosts((prevPosts) => [newPost, ...prevPosts]);
+            console.log(newPost)
+            setPostText("");
+            setPostImage(null);
+            window.location.reload();
+        } catch (error) {
+            console.error("Error in sendPostText:", error);
+        }
+    };
 
     const editPost = async (data) => {
         try {
@@ -131,7 +174,7 @@ export default function PostDetails ({username }) {
                         {post.post_image && <img src={post.post_image} alt="post image" />}
                     </div>
 
-                    <div className="flex flex-row justify-between pl-[64px]">
+                    <div className="flex flex-row justify-between pl-[64px] py-[15px]">
 
                         <div className="flex flex-row gap-2 items-start">
                             <img src={message} className="w-[25px] h-[25px]" alt="Messages" />
@@ -142,10 +185,40 @@ export default function PostDetails ({username }) {
                             <img src={heart} className="w-[25px] h-[25px]" alt="Likes" />
                             <p>{post.like?.length || 0}</p>
                         </div>
- 
+                            
                     </div>
-                </div>
+                    <form className="pl-[60px] flex flex-col" method="POST" encType="multipart/form-data" onSubmit={handleSubmit(createNewComment)}>
+                        <p>Comments</p>
+                        <p>Map comments placeholder</p>
+                        <h4>Leave a comment</h4>
+                        <div className="flex flex-row gap-2">
+                            
+                            <textarea
+                            name="text"
+                            value={textComment} maxLength={8000}
+                            onInput={(e) => {
+                                setTextComment(e.target.value);
+                                if (e.target.value === '') {
+                                    e.target.style.height = '30px'
+                                } else {
+                                    e.target.style.height = 'auto';
+                                    e.target.style.height = `${e.target.scrollHeight}px`;
+                                }
+                            }}
+                            
+                            className="min-h-[100px] max-h-[400px] w-full px-4 py-2 bg-white border shadow-sm border-slate-300 
+                                placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 
+                                block rounded-md sm:text-sm focus:ring-1 overflow-auto resize-none"
+                            placeholder="Leave a comment, max 8000 characters">
+                            </textarea>
+                            
+                        </div>
+                        <button type="submit" className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-2 rounded focus:outline-none focus:shadow-outline">Comment</button>
+
+                    </form>
+                </div>    
             ) : null }
+            
         </div>
     )
 }
