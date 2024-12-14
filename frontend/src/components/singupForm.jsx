@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignupForm() {
-    const navigate = useNavigate();
+    const navigateTo = useNavigate();
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
     const [signupError, setSignupError] = useState('');
 
@@ -17,30 +17,32 @@ export default function SignupForm() {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify(credentials),
+                credentials: 'include',
             });
     
             const data = await response.json();
     
             if (!response.ok) {
-                setSignupError(data.message);
-                return;
+              setSignupError(`signup failed: ${data.message}`);
+              return;
             }
     
             console.log("Signup successful:", data);
-            navigate("/profile");
         } catch (error) {
             console.error("Signup error:", error);
             setSignupError("An unexpected error occurred.");
         }
     };
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         setSignupError('');
 
-        if (isVisitor) {
-            navigate("/feed");
+        if (data.isVisitor) {
+          await signupUser({ visitor: true });
+          navigateTo("/");
         } else {
-            signupUser(data);
+          await signupUser(data);
+          navigateTo("/profile");
         }
     };
 
@@ -71,7 +73,7 @@ export default function SignupForm() {
                   })}
                   placeholder="Username"
                 />
-                {errors.username && <span className='pt-2' style={{ color: "red" }}>{errors.username.message}</span>}
+             {errors.username && <span className='pt-2' style={{ color: "red" }}>{errors.username.message}</span>}
                 
                 <input
                   className='mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md shadow-sm placeholder-slate-400
