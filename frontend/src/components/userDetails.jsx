@@ -43,10 +43,9 @@ export default function UserDetails () {
                     throw new Error(`error fetching user details`);
                 }
                 const data = await response.json();
-                console.log("get user details", data);
+                console.log(data);
                 setUser(data);
                 setIsFollowing(data.isFollowing);
-                console.log(data.isFollowing)
             } catch (error) {
                 console.error("error fetching user", error);
             }
@@ -71,8 +70,9 @@ export default function UserDetails () {
             }
 
             const data = await response.json();
-            console.log(data);
+            console.log("followUser", data);
             setIsFollowing(data.following);
+            window.location.reload();
         } catch (error) {
             console.log("error following user")
         }
@@ -89,7 +89,7 @@ export default function UserDetails () {
                     <h2 className="text-2xl bold pt-8">{username}</h2>
                     <p>{user.bio}</p>
                     {loggedInUser && loggedInUser.username !== username && (
-                        <button onClick={followUser}>
+                        <button className="mt-4 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 rounded focus:outline-none focus:shadow-outline self-center w-[150px]" onClick={followUser}>
                             {isFollowing ? 'Unfollow' : 'Follow'} user
                         </button>
                     )}

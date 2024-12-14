@@ -94,6 +94,7 @@ exports.posts_user_all_get = asyncHandler(async (req, res, next) => {
   if (!userId) {
     return res.status(400).json({ message: "userId params not found" });
   }
+
   try {
     const posts = await prisma.post.findMany({
       where: {

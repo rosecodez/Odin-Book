@@ -254,40 +254,39 @@ exports.user_update_bio_post = asyncHandler(async (req, res, next) => {
 });
 
 exports.user_get_by_username = asyncHandler(async (req, res, next) => {
-  const username = req.params.username;
+  const { username } = req.params;
 
   try {
     const user = await prisma.user.findUnique({
-      where: {
-        username: username,
-      },
-      select: {
-        id: true,
-        username: true,
-        profile_image: true,
-        bio: true,
-        created_at: true,
+      where: { username },
+      include: {
         post: true,
-        like: true,
-        comment: true,
         followers: {
-          include: {
-            follower: true,
-          },
+          include: { follower: true },
         },
         following: {
-          include: {
-            following: true,
-          },
+          include: { following: true },
         },
       },
     });
 
     if (!user) {
-      return res.status(404).json({ message: "user not found" });
+      return res.status(404).json({ message: "User not found" });
     }
 
-    res.json(user);
+    const loggedInUserId = req.session.user.id;
+    const isFollowing = user.followers.some(
+      (follow) => follow.follower.id === loggedInUserId
+    );
+
+    res.json({
+      id: user.id,
+      username: user.username,
+      profile_image: user.profile_image,
+      bio: user.bio,
+      isFollowing: !!loggedInUserId && isFollowing,
+      post: user.post,
+    });
   } catch (err) {
     next(err);
   }
@@ -318,25 +317,27 @@ exports.user_follow = asyncHandler(async (req, res, next) => {
     });
 
     if (existingFollow) {
+      // unfollow user
       await prisma.follows.delete({
         where: {
           followerId_followingId: {
-            followerId: followerId,
+            followerId: userId,
             followingId: userToFollow.id,
           },
         },
       });
       return res.json({ following: false });
     } else {
+      // follow the user
       await prisma.follows.create({
         data: {
-          followerId: followerId,
-          followingId: userToFollow,
+          followerId: userId,
+          followingId: userToFollow.id,
         },
       });
       return res.json({ following: false });
     }
   } catch (error) {
-    res.status(500).json({ message: "error occurder while following user" });
+    res.status(500).json({ message: "error occured while following user" });
   }
 });
