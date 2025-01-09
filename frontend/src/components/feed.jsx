@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { useForm } from 'react-hook-form';
-import camera from "../assets/camera.png";
 import heart from "../assets/heart.png";
 import message from "../assets/message.png";
 import NewPost from "./newPost";
-import DropdownComponent from "./dropdown";
 
 import { DateTime } from "luxon";
 

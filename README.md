@@ -1,50 +1,40 @@
 # Odin-Book
 
-## Planning
+Odin-Book is a full-stack social media application where users can post, follow, comment, and explore other profiles. It includes user authentication and a visitor mode for browsing without signing in.
+Description
 
-Data models diagram
-![alt text](image-1.png)
-
-## Core functionality
+## Technologies used
 
 ### Backend
 
-- nodejs.skeleton ✔️
-- data models ✔️
-- signup, logic, logout logic ✔️
+#### Node.js with Express
+
+- for a scalable, event driven architecture, perfect for handling numerous requests, such as user authentication and data fetching
+
+#### PostgreSQL with Prisma ORM
+
+- offers a robust relational database for structured data like user and post interactions
+- prisma simplifies database interactions, offering type safety and rapid development
+
+#### Authentication (Passport.js)
+
+- passport.js is a versatile middleware for handling secure user authentication
+
+#### Cloudinary and multer for image management
+
+- cloudinary handles image uploads with easiness, ensuring optimized image delivery. multer integrates it with express for handling multipart form data
 
 ### Frontend
 
-- frontend react setup
-- pages(home, feed, login, signup, profile)
-- components(signup, login, update profile picture forms, posts, header, footer, profile, dropdown to update, delete post)
+#### React with TailwindCSS
 
-- users:
+- react's component based architecture simplifies building reusable UI elements, while Tailwind provides a modern, utility-first approach for styling, enabling faster, consistent designs
 
-  - must sign in to see anything except the sign-in page ✔️
-  - should be able to sign in using your chosen authentication method ✔️
-  - can send follow requests to other users ✔️
-  - can create posts ✔️
-  - can like posts ✔️
-  - can comment on posts ✔️
-  - can create a profile with a profile picture, depending on how you handle authentication, for example with passport-github2, you may be able to use their accounts existing profile picture ✔️
-  - profile page should contain their profile information, photo and posts
+## Planning
 
-- posts:
-  - should always display the post content, author, comments and likes ✔️
-  - index page for posts(shows all recent posts from the current user and users they are following)
-- index page for users, which shows all users and buttons for sending follow requests to users the user is not already following or have a pending request ✔️
+Data models diagram
 
-- deploy
-
-## Ideas
-
-- make posts allow images ✔️
-- allow users to send images as text ✔️
-- allow users to update their profile photo ✔️
-- create a sign-in functionality that allows visitors to bypass the logic screen without creating an account or supplying credentials ✔️
-- check if user is authenticated middleware ✔️
-- pretty!
+![alt text](<Odin-Book (1).png>)
 
 ## Dependencies
 
@@ -52,26 +42,39 @@ Data models diagram
 
 - passport-google-oidc - Sign In With Google
 - register app with Google, done with API & Services at Google Cloud Platform with OAuth2
-- cloudinary.v2 multer image upload to posts/profile picture
+- cloudinary.v2 + multer to upload image to posts/profile picture
 - data modeling
-  npm packages:
 
-- bcrypt, dotenv, cors, express-session, path, express-async-handler, express-validator for body, multer, cloudinaryStorage, passport
+#### npm packages:
+
+- bcrypt, dotenv, cors, express-session, path, express-async-handler, express-validator, multer, cloudinaryStorage
 
 ### Frontend
 
 - React
-- CSS, Tailwind, Bootstrap
-
-#### Plan
-
-#### Data modeling
-
-![alt text](Odin-Book.png)
+- Tailwind
 
 #### Basic page structure
 
 ![alt text](image.png)
 
-- footer and header are always displayed
-- page content displays rendered component/s according to specific page
+#### Layout:
+
+- Footer and header are always displayed
+- Dynamic page content is rendered based on the current route
+
+## Challenges faced
+
+- CORS errors, between the `backend(localhost:3000)` and frontend `(localhost:5173)`
+- complex data relationships ( many to many, followers/following)
+- visitor mode logic (without compromising security or user experience posed unique challenges in middleware and state management)
+- responsive design (for all devices)
+
+## Features for improvement
+
+- better design
+- small frontend tweaking for visitor
+- WebSocket for real time notifications
+- direct private conversations between users
+- google log in and signup finalisation
+- deploy

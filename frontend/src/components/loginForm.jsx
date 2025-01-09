@@ -52,7 +52,7 @@ export default function LoginForm() {
     return (
         <div className='w-full max-w-xs'>
 
-            <div id="login-container" className='text-[14px] pt-5 flex items-center justify-center gap-2'>
+            <div id="login-container" className='text-[14px] pt-5 flex justify-center gap-2'>
                 <h6>Don't have an account?</h6>
                 <a href='/signup' className='text-slate-400'>
                     <p>Sign up</p>
@@ -98,7 +98,7 @@ export default function LoginForm() {
                 <label htmlFor="isVisitor" className='pt-[20px]'>Visitor</label>
                 <input type="checkbox" name="isVisitor" {...register("isVisitor")} />
                 
-                <button className='mt-4 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline self-center w-[84px]' type="submit">Log in</button>
+                <button className='mt-4 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline self-center w-[100px]' type="submit">Log in</button>
             </form>
 
         </div>

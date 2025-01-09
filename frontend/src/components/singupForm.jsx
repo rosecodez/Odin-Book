@@ -48,7 +48,7 @@ export default function SignupForm() {
 
     return (
         <div className='w-full max-w-xs'>
-            <div id="signup-container" className='text-[14px] pt-5 flex items-center justify-center gap-2'>
+            <div id="signup-container" className='text-[14px] pt-5 flex justify-center gap-2'>
                 <h6>Already have an account?</h6>
                 <a href='/login' className='text-slate-400'>Log in</a>
             </div>
