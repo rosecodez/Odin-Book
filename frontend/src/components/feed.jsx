@@ -136,7 +136,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
   }
 
   return (
-      <div className="flex flex-col w-[800px] max-w-[800px] text-left">
+      <div className="flex flex-col w-[fit-content] text-left">
         <div className="flex gap-3">
           { !isVisitor  &&  <img src={image} className="rounded-full w-[70px] h-[70px]" />}
 
@@ -174,7 +174,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
 
                     </div>
 
-                    <div className="flex flex-col gap-2 pl-16">
+                    <div className="flex flex-col gap-2 pl-16 max-w-[400px]">
 
                       {editPostId === post.id ? (
                         <div>
@@ -189,7 +189,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
                         )
                       }
 
-                      {post.post_image && <img src={post.post_image} alt="post image" />}
+                      {post.post_image && <img src={post.post_image}  alt="post image" />}
 
                     </div>
 

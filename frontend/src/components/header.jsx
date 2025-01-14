@@ -50,7 +50,7 @@ export default function Header({ isVisitor, setIsVisitor, isAuthenticated, setIs
       }, [isAuthenticated]);
 
     return(
-    <header className="flex flex-row items-center justify-between pb-[40px] text-xl">
+    <header className="flex flex-row justify-between pb-[40px] text-xl ">
         <div id="header-left-panel" className="flex gap-6 font-medium flex-wrap">
             <a href="/">
                 <p>Odin book</p>
