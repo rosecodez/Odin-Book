@@ -29,8 +29,7 @@ export default function Home({ isAuthenticated, setIsAuthenticated }) {
     
 
     return (
-        <div>
-          
+        <div className="flex flex-col w-[800px] max-w-[800px] text-left">
           {isAuthenticated ? (
             <Feed isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
             

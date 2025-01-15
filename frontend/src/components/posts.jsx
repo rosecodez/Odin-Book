@@ -108,7 +108,7 @@ export default function Posts({ userId, loggedInUserId}) {
                                     <div className="flex flex-row gap-[19px] w-full">
 
                                         <a href={`/users/${post.user.username}`}>
-                                            <img src={post.user.profile_image} className="rounded-full w-[50px] h-[50px]"/>
+                                            <img src={post.user.profile_image} className="rounded-full w-[50px] h-[50px] sm:w-[45px] sm:h-[45px] md:w-[60px] md:h-[50px]"/>
                                         </a>
 
                                         <div className="flex gap-2 mt-[7px] w-full justify-between">
@@ -123,7 +123,7 @@ export default function Posts({ userId, loggedInUserId}) {
 
                                     </div>
 
-                                    <div className="flex flex-col gap-2 pl-16">
+                                    <div className="flex flex-col pl-4 md:pl-8">
 
                                         {editPostId === post.id ? (
                                             <div>
@@ -134,23 +134,23 @@ export default function Posts({ userId, loggedInUserId}) {
                                                 </div>
                                             </div>
                                             ) : (
-                                                <p className="w-full break-words">{post.content}</p>
+                                                <p className="w-full break-words pl-[44px]">{post.content}</p>
                                             )
                                         }
 
-                                        {post.post_image && <img src={post.post_image} alt="post image" />}
+                                        {post.post_image && <img src={post.post_image} className="mt-4 max-w-full h-auto rounded-md" alt="post image" />}
 
                                     </div>
 
                                     <div className="flex flex-row justify-between pl-[64px]">
 
                                         <div className="flex flex-row gap-2 items-start">
-                                            <img src={message} className="w-[25px] h-[25px]" alt="Messages" />
+                                            <img src={message} className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px]" alt="Messages" />
                                             <p>0</p>
                                         </div>
 
                                         <div className="flex flex-row gap-2 items-start pr-[3px]">
-                                            <img src={heart} className="w-[25px] h-[25px]" alt="Likes" />
+                                            <img src={heart} className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px]" alt="Likes" />
                                             <p>0</p>
                                         </div>
 

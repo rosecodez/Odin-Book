@@ -81,20 +81,23 @@ export default function Profile({ isVisitor, setIsVisitor }) {
   
 
   return (
-    <div className="flex flex-col w-[800px] max-w-[800px] text-left">
+    <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left">
 
       <div className="flex gap-3">
-        <img src={image} className="rounded-full w-[70px] h-[70px]" />
+        <img src={image} className="rounded-full w-16 h-16 sm:w-20 sm:h-20" alt="profile"/>
 
         <NewPost isVisitor={isVisitor} setIsVisitor={setIsVisitor}/>
       </div>
 
-      <div className="flex flex-row gap-[30px]">
-        <div className="relative w-[150px] h-[160px]">
-          <img src={image} className="outline outline-offset-2 outline-gray-500 rounded-full w-[150px] h-[160px]" />
+      <div className="flex flex-col sm:flex-row items-center  sm:gap-6 mt-6">
+
+        <div className="relative w-28 h-28 sm:w-36 sm:h-36">
+          <img src={image} className="outline outline-offset-2 outline-gray-500 rounded-full w-full h-full" />
           <img src={camera} alt="camera" onClick={showModal} className="absolute bottom-2 right-2 w-10 h-10 cursor-pointer bg-white rounded-full p-1"/>
         </div>
-        <h2 className="text-2xl bold pt-8">{username}</h2>
+
+        <h2 className="text-xl sm:text-2xl font-bold mt-4 sm:mt-8">{username}</h2>
+
       </div>
 
       {modalVisibility && (

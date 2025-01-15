@@ -129,12 +129,11 @@ export default function PostDetails ({username }) {
     
     return (
         
-        <div className="flex flex-col">
+        <div className="flex flex-col w-[800px] max-w-[800px] text-left">
             {post ? (
-                <div className="flew flex-col w-[800px] max-w-[800px] text-left">
+                <div >
                     <div className="flex flex-row gap-4 w-full ">
 
-                    
                         <a href="/profile">
                             <img src={post.user.profile_image} className="rounded-full w-[50px] h-[50px]"/>
                         </a>
@@ -187,6 +186,7 @@ export default function PostDetails ({username }) {
                         </div>
                             
                     </div>
+
                     <form className="pl-[60px] flex flex-col" method="POST" encType="multipart/form-data" onSubmit={handleSubmit(createNewComment)}>
                         <p>Comments</p>
                         <p>Map comments placeholder</p>
