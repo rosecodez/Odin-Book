@@ -108,7 +108,7 @@ export default function Posts({ userId, loggedInUserId}) {
                                     <div className="flex flex-row gap-[19px] w-full">
 
                                         <a href={`/users/${post.user.username}`}>
-                                            <img src={post.user.profile_image} className="rounded-full w-[50px] h-[50px] sm:w-[45px] sm:h-[45px] md:w-[60px] md:h-[50px]"/>
+                                            <img src={post.user.profile_image} className="rounded-full w-[60px] h-[55px]"/>
                                         </a>
 
                                         <div className="flex gap-2 mt-[7px] w-full justify-between">
@@ -138,7 +138,7 @@ export default function Posts({ userId, loggedInUserId}) {
                                             )
                                         }
 
-                                        {post.post_image && <img src={post.post_image} className="mt-4 max-w-full h-auto rounded-md" alt="post image" />}
+                                        {post.post_image && <img src={post.post_image} className="max-w-full  rounded-md object-contain" alt="post image" />}
 
                                     </div>
 
