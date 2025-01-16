@@ -28,7 +28,7 @@ export default function PostDetails ({username }) {
                 const data = await response.json();
                 console.log(data);
                 setPost(data);
-                setPostMessages(data.message);
+                setPostMessages(data.comment);
                 setPostLikes(data.like);
 
             } catch (error) {
@@ -40,44 +40,37 @@ export default function PostDetails ({username }) {
     }, [postId]);
 
     async function createNewComment() {
-        if (postText === "" && !postImage) {
-          return;
+        console.log(textComment);
+    
+        if (!textComment.trim()) {
+            alert("Comment cannot be empty!");
+            return;
         }
     
         try {
             const formData = new FormData();
-
-            if(postText) {
-                formData.append("text", postText)
-            }
-
-            if(postImage) {
-                formData.append("image", postImage)
-            }
-
-            const response = await fetch(`http://localhost:3000/posts/new-post`, {
+            formData.append("text", textComment);
+            const response = await fetch(`http://localhost:3000/comments/${postId}/new-comment`, {
                 method: "POST",
                 credentials: "include",
                 body: formData,
             });
-
+    
             if (!response.ok) {
                 const errorResponse = await response.text();
                 console.error("Server Error:", errorResponse);
                 alert(`Error: ${response.status} - ${response.statusText}`);
                 return;
             }
-
-            const newPost = await response.json();
-            setPosts((prevPosts) => [newPost, ...prevPosts]);
-            console.log(newPost)
-            setPostText("");
-            setPostImage(null);
+    
+            const newComment = await response.json();
+            console.log(newComment)
+            setTextComment("");
             window.location.reload();
         } catch (error) {
-            console.error("Error in sendPostText:", error);
+            console.error("Failed to create new comment:", error);
         }
-    };
+    }
 
     const editPost = async (data) => {
         try {
@@ -94,6 +87,7 @@ export default function PostDetails ({username }) {
 
             const updatedPost = await response.json();
             setIsEditMode(false);
+            window.location.reload();
         } catch (error) {
             console.log(error);
         }
@@ -120,16 +114,18 @@ export default function PostDetails ({username }) {
         }
     }
 
+    
     const handleEditToggle = (content) => {
         setEditedContent(content);
         setIsEditMode((prev) => !prev);
+        
     };
 
     const formattedDate = post?.created_at? DateTime.fromISO(post.created_at).toLocaleString({ month: "short", day: "2-digit" }) : "";
     
     return (
         
-        <div className="flex flex-col w-[800px] max-w-[800px] text-left">
+        <div className="flex flex-col w-[800px] max-w-[800px] text-left shadow-md p-4">
             {post ? (
                 <div >
                     <div className="flex flex-row gap-4 w-full ">
@@ -189,27 +185,76 @@ export default function PostDetails ({username }) {
 
                     <form className="pl-[60px] flex flex-col" method="POST" encType="multipart/form-data" onSubmit={handleSubmit(createNewComment)}>
                         <p>Comments</p>
-                        <p>Map comments placeholder</p>
+                        
+                        {postMessages.length ? (
+                            postMessages.map((comment) => {
+                            const formattedDate = DateTime.fromISO(comment.created_at).toLocaleString({ month: 'short', day: '2-digit' });
+
+                                return (
+                                    <div>
+                                        <li key={comment.id} className="list-none">
+
+                                            <div className="flex flex-row gap-[19px] w-full">
+
+                                                <a href={`/users/${post.user.username}`}>
+                                                    <img src={post.user.profile_image} className="rounded-full w-[60px] h-[55px]"/>
+                                                </a>
+
+                                                <div className="flex gap-2 mt-[7px] w-full justify-between">
+                                                    <div className="flex gap-2">
+                                                        <a href={`/users/${post.user.username}`}>
+                                                            {post.user.username}
+                                                        </a>
+                                                        <p>{formattedDate}</p>
+                                                    </div>
+                                                    
+                                                </div>
+                                            
+                                            </div>
+
+                                            <div className="flex flex-col pl-4 md:pl-8">
+                                                <p className="w-full break-words pl-[44px]">{comment.content}</p>
+                                            </div>
+
+                                            <div className="flex flex-row justify-between pl-[64px]">
+                                                
+                                                <div className="flex flex-row gap-2 items-start pr-[3px]">
+                                                    <img src={heart} className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px]" alt="Likes" />
+                                                    <p>0</p>
+                                                </div>
+
+                                            </div>
+                                            
+
+                                        </li>
+                                    </div>
+                                    
+                                );
+                                })
+                        ) : (
+                            <p>No comments available</p>
+                        )}
+
                         <h4>Leave a comment</h4>
                         <div className="flex flex-row gap-2">
                             
                             <textarea
-                            name="text"
-                            value={textComment} maxLength={8000}
-                            onInput={(e) => {
-                                setTextComment(e.target.value);
-                                if (e.target.value === '') {
-                                    e.target.style.height = '30px'
-                                } else {
-                                    e.target.style.height = 'auto';
-                                    e.target.style.height = `${e.target.scrollHeight}px`;
-                                }
-                            }}
-                            
-                            className="min-h-[100px] max-h-[400px] w-full px-4 py-2 bg-white border shadow-sm border-slate-300 
-                                placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 
-                                block rounded-md sm:text-sm focus:ring-1 overflow-auto resize-none"
-                            placeholder="Leave a comment, max 8000 characters">
+                                name="textComment"
+                                value={textComment} maxLength={8000}
+                                onInput={(e) => {
+                                    setTextComment(e.target.value);
+                                    if (e.target.value === '') {
+                                        e.target.style.height = '30px'
+                                    } else {
+                                        e.target.style.height = 'auto';
+                                        e.target.style.height = `${e.target.scrollHeight}px`;
+                                    }
+                                }}
+                                
+                                className="min-h-[100px] max-h-[400px] w-full px-4 py-2 bg-white border shadow-sm border-slate-300 
+                                    placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 
+                                    block rounded-md sm:text-sm focus:ring-1 overflow-auto resize-none"
+                                placeholder="Leave a comment, max 8000 characters">
                             </textarea>
                             
                         </div>

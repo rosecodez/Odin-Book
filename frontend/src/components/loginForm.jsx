@@ -50,7 +50,7 @@ export default function LoginForm() {
     };
     
     return (
-        <div className='w-full max-w-xs'>
+        <div className='w-full max-w-xs shadow-md p-4'>
 
             <div id="login-container" className='text-[14px] pt-5 flex justify-center gap-2'>
                 <h6>Don't have an account?</h6>
@@ -67,13 +67,13 @@ export default function LoginForm() {
                     invalid:border-pink-500 invalid:text-pink-600
                     focus:invalid:border-pink-500 focus:invalid:ring-pink-500 w-[270px]' type="text" {...register("username", {
                         validate: (value) => {
-                          if (!isVisitor) {
+                            if (!isVisitor) {
                             if (!value) return "Username is required";
                             if (value.length < 6) return "Minimum 6 letters";
-                          }
-                          return true;
+                            }
+                            return true;
                         }
-                      })}
+                        })}
                     placeholder="Username" />
                 {errors.username && <span style={{ color: "red" }}>Username is required</span>}
 
@@ -83,11 +83,11 @@ export default function LoginForm() {
                     invalid:border-pink-500 invalid:text-pink-600
                     focus:invalid:border-pink-500 focus:invalid:ring-pink-500 w-[270px]' type="password" {...register("password", {
                         validate: (value) => {
-                          if (!isVisitor) {
+                            if (!isVisitor) {
                             if (!value) return "Password is required";
                             if (value.length < 10) return "Minimum 10 letters";
-                          }
-                          return true;
+                            }
+                            return true;
                         }
                     })}
                     placeholder="Password" />

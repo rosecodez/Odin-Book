@@ -12,11 +12,16 @@ exports.comment_new_post = asyncHandler(async (req, res, next) => {
     if (!text) {
       return res.status(400).json({ message: "Comment does not have a text" });
     }
-    const { postId } = parseInt(req.params);
+
+    const postId = parseInt(req.params.postId, 10);
+    const post = await prisma.post.findUnique({ where: { id: postId } });
+    if (!post) {
+      return res.status(404).json({ message: "no post found" });
+    }
 
     const newComment = await prisma.comment.create({
       data: {
-        content: text,
+        content: text.trim(),
         userId: user.id,
         postId: postId,
       },

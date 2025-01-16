@@ -70,14 +70,13 @@ export default function UserDetails () {
             }
 
             const data = await response.json();
-            console.log("followUser", data);
             setIsFollowing(data.following);
             window.location.reload();
         } catch (error) {
             console.log("error following user")
         }
     }
-
+    
     return (
         <div className="flew flex-col w-[800px] max-w-[800px] text-left">
             <div className="flex flex-row gap-[40px] pb-[10px] w-full">
@@ -90,7 +89,7 @@ export default function UserDetails () {
                     <p>{user.bio}</p>
                     {loggedInUser && loggedInUser.username !== username && (
                         <button className="mt-4 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 rounded focus:outline-none focus:shadow-outline self-center w-[150px]" onClick={followUser}>
-                            {isFollowing ? 'Unfollow' : 'Follow'} user
+                            {isFollowing ? 'Unfollow' : 'Follow'}
                         </button>
                     )}
                 </div>
