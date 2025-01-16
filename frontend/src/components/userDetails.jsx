@@ -31,7 +31,8 @@ export default function UserDetails () {
         };
 
         checkAuth();
-    }, []);
+        // rerun code only when username or navigate changes
+    }, [username, navigate]);
     
     useEffect(() => {
         const getUserDetails = async () => {

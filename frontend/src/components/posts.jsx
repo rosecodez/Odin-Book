@@ -142,22 +142,8 @@ export default function Posts({ userId, loggedInUserId}) {
 
                                     </div>
 
-                                    <div className="flex flex-row justify-between pl-[64px]">
-
-                                        <div className="flex flex-row gap-2 items-start">
-                                            <img src={message} className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px]" alt="Messages" />
-                                            <p>0</p>
-                                        </div>
-
-                                        <div className="flex flex-row gap-2 items-start pr-[3px]">
-                                            <img src={heart} className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px]" alt="Likes" />
-                                            <p>0</p>
-                                        </div>
-
-                                    </div>
-
                                 </li>
-
+                                
                             </a>
 
                         </div>
