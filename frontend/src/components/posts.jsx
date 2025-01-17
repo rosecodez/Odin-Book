@@ -18,6 +18,8 @@ export default function Posts({ userId, loggedInUserId}) {
             let endpoint
             if(userId === loggedInUserId) {
                 endpoint = "http://localhost:3000/posts/profile-all-posts"
+            } else if(userId) {
+                endpoint = `http://localhost:3000/posts/users/${userId}`;
             } else {
                 endpoint = "http://localhost:3000/posts/all-posts"
             }
@@ -143,6 +145,8 @@ export default function Posts({ userId, loggedInUserId}) {
                                     </div>
 
                                 </li>
+
+                            
                                 
                             </a>
 

@@ -25,6 +25,9 @@ router.get(
   postController.posts_user_all_get
 );
 
+// posts for a specific user
+router.get("/users/:userId", isAuthenticated, postController.posts_user_by_id);
+
 // get post by id
 router.get("/:postId", postController.get_post_by_id);
 

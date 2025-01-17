@@ -88,6 +88,29 @@ exports.posts_all_get_visitor = asyncHandler(async (req, res, next) => {
   }
 });
 
+exports.posts_user_by_id = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const posts = await prisma.post.findMany({
+      where: { userId: parseInt(userId) },
+      include: {
+        user: true,
+        comment: true,
+        like: true,
+      },
+    });
+
+    if (!posts.length) {
+      return res.status(404).json({ message: "posts not found" });
+    }
+
+    res.json(posts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "failed to fetch posts" });
+  }
+});
+
 exports.posts_user_all_get = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
 

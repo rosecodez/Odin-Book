@@ -51,7 +51,7 @@ export default function UserDetails () {
                 console.error("error fetching user", error);
             }
         };
-        console.log(username, "userId params")
+        console.log(username)
         getUserDetails();
     }, [username]);
 
