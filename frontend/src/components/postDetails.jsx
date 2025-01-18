@@ -26,7 +26,7 @@ export default function PostDetails ({username }) {
                     credentials: "include",
                 });
                 const data = await response.json();
-                console.log(data);
+                console.log(data.comment);
                 setPost(data);
                 setPostMessages(data.comment);
                 setPostLikes(data.like);
@@ -197,13 +197,13 @@ export default function PostDetails ({username }) {
                                             <div className="flex flex-row gap-[19px] w-full">
 
                                                 <a href={`/users/${post.user.username}`}>
-                                                    <img src={post.user.profile_image} className="rounded-full w-[60px] h-[55px]"/>
+                                                    <img src={comment.user.profile_image} className="rounded-full w-[60px] h-[55px]"/>
                                                 </a>
 
                                                 <div className="flex gap-2 mt-[7px] w-full justify-between">
                                                     <div className="flex gap-2">
                                                         <a href={`/users/${post.user.username}`}>
-                                                            {post.user.username}
+                                                            {comment.user.username}
                                                         </a>
                                                         <p>{formattedDate}</p>
                                                     </div>

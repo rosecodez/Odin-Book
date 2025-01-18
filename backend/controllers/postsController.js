@@ -154,7 +154,11 @@ exports.get_post_by_id = asyncHandler(async (req, res, next) => {
       include: {
         user: true,
         like: true,
-        comment: true,
+        comment: {
+          include: {
+            user: true,
+          },
+        },
       },
     });
     if (!post) {

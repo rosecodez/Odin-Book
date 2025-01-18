@@ -26,6 +26,7 @@ exports.comment_new_post = asyncHandler(async (req, res, next) => {
         postId: postId,
       },
     });
+    console.log(newComment);
     return res.status(200).json(newComment);
   } catch (error) {
     console.log(error);
