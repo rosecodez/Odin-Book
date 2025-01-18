@@ -210,3 +210,61 @@ exports.update_post = asyncHandler(async (req, res, next) => {
     next(err);
   }
 });
+
+exports.like_post = asyncHandler(async (req, res, next) => {
+  const postId = parseInt(req.params.postId, 10);
+  const userId = req.user.id;
+
+  try {
+    const existingLike = await prisma.like.findFirst({
+      where: {
+        postId: postId,
+        userId: userId,
+      },
+    });
+    if (existingLike) {
+      return res.status(400).json({ message: "post already liked" });
+    }
+
+    const likedPost = await prisma.like.create({
+      data: {
+        userId: userId,
+        postId,
+      },
+    });
+
+    res.sendStatus(200).json(likedPost);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+exports.unlike_post = asyncHandler(async (req, res, next) => {
+  const postId = parseInt(req.params.postId, 10);
+  const userId = req.user.id;
+
+  try {
+    const like = await prisma.like.findFirst({
+      where: {
+        postId: postId,
+        userId: userId,
+      },
+    });
+
+    if (!like) {
+      return res.status(404).json({ message: "like not found" });
+    }
+
+    await prisma.like.delete({
+      where: {
+        id: like.id,
+      },
+    });
+
+    res.sendStatus(200).json({ message: "like deleted" });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});

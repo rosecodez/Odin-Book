@@ -37,4 +37,8 @@ router.delete("/:postId/delete", isAuthenticated, postController.delete_post);
 // update post
 router.put("/:postId/update", isAuthenticated, postController.update_post);
 
+router.post("/:postId/like", isAuthenticated, postController.like_post);
+
+router.delete("/:postId/unlike", isAuthenticated, postController.unlike_post);
+
 module.exports = router;
