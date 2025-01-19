@@ -12,12 +12,15 @@ export default function PostDetails ({username }) {
     const [post, setPost] = useState(null);
     const [textComment, setTextComment] = useState("");
     const [postMessages, setPostMessages] = useState([]);
+    const [postLiked, setPostLiked] = useState(false)
     const [postLikes, setPostLikes] = useState([]);
     const { postId } = useParams();
     const [isEditMode, setIsEditMode] = useState(false);
     const [editedContent, setEditedContent] = useState("");
+    const [backgroundColor, setBackgroundColor] = useState("transparent");
     const navigate = useNavigate();
     const { handleSubmit } = useForm();
+    
     
     useEffect(() => {
         const getPostDetails = async () => {
@@ -26,18 +29,23 @@ export default function PostDetails ({username }) {
                     credentials: "include",
                 });
                 const data = await response.json();
-                console.log(data.comment);
+                console.log(data);
                 setPost(data);
                 setPostMessages(data.comment);
-                setPostLikes(data.like);
-
+                setPostLikes(data.like.user);
+                // if logged in user is the same as likedUsername, make logic to unlike
+                const likedUsernames = data.like.map((like) => like.user.username);
+                if (likedUsernames.includes(username)) {
+                    setPostLiked(true);
+                    setBackgroundColor("lightblue");
+                }
             } catch (error) {
                 console.error("Error fetching post data:", error);
             }
         };
         console.log(postId, "postid, params")
         getPostDetails();
-    }, [postId]);
+    }, [postId, username]);
 
     async function createNewComment() {
         console.log(textComment);
@@ -69,6 +77,55 @@ export default function PostDetails ({username }) {
             window.location.reload();
         } catch (error) {
             console.error("Failed to create new comment:", error);
+        }
+    }
+
+    async function likePost() {
+        try {
+            const response = await fetch(`http://localhost:3000/posts/${postId}/like`, {
+                method: "POST",
+                credentials: "include",
+            });
+    
+            if (!response.ok) {
+                const errorResponse = await response.text();
+                console.error("Server Error:", errorResponse);
+                alert(`Error: ${response.status} - ${response.statusText}`);
+                return;
+            }
+    
+            console.log("post liked")
+            setPostLiked(true)
+            console.log(true)
+            setBackgroundColor("lightblue");
+            window.location.reload();
+        } catch (error) {
+            console.error();
+        }
+    }
+
+    async function unlikePost() {
+        try {
+            const response = await fetch(`http://localhost:3000/posts/${postId}/unlike`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json'},
+                credentials: "include",
+                mode: 'cors',
+            });
+    
+            if (!response.ok) {
+                const errorResponse = await response.text();
+                console.error("Server Error:", errorResponse);
+                alert(`Error: ${response.status} - ${response.statusText}`);
+                return;
+            }
+    
+            setPostLiked(false);
+            console.log("post liked")
+            setBackgroundColor("transparent");
+            window.location.reload();
+        } catch (error) {
+            console.error();
         }
     }
 
@@ -177,7 +234,24 @@ export default function PostDetails ({username }) {
                         </div>
                         
                         <div className="flex flex-row gap-2 items-start pr-[3px]">
-                            <img src={heart} className="w-[25px] h-[25px]" alt="Likes" />
+                            <button type="button" onClick={(e) =>
+                                {   e.preventDefault();
+                                    console.log(username)
+                                    const likedUsernames = post.like.map((like) => like.user.username);
+                                    
+                                    if (!likedUsernames.includes(username)) {
+                                        likePost();
+                                        
+                                        console.log("liked post")
+                                    } else {
+                                        console.log("unliked post")
+                                        unlikePost()
+                                    }
+                                    
+                                }
+                            }>
+                                <img src={heart} className="w-[25px] h-[25px]" alt="Likes" style={{ backgroundColor, borderRadius:"50%" }}/>
+                            </button>
                             <p>{post.like?.length || 0}</p>
                         </div>
                             

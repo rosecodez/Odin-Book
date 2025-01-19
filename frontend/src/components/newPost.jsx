@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from 'react-hook-form';
 import camera from "../assets/camera.png";
-import heart from "../assets/heart.png";
-import message from "../assets/message.png";
 
 export default function NewPost({ isVisitor }) {
     let [postText, setPostText] = useState("");

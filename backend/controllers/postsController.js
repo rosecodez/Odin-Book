@@ -145,7 +145,6 @@ exports.posts_user_all_get = asyncHandler(async (req, res, next) => {
 
 exports.get_post_by_id = asyncHandler(async (req, res, next) => {
   const postId = parseInt(req.params.postId, 10);
-
   try {
     const post = await prisma.post.findUnique({
       where: {
@@ -153,7 +152,11 @@ exports.get_post_by_id = asyncHandler(async (req, res, next) => {
       },
       include: {
         user: true,
-        like: true,
+        like: {
+          include: {
+            user: true,
+          },
+        },
         comment: {
           include: {
             user: true,
@@ -233,7 +236,7 @@ exports.like_post = asyncHandler(async (req, res, next) => {
       },
     });
 
-    res.sendStatus(200).json(likedPost);
+    res.status(200).json(likedPost);
   } catch (err) {
     console.error(err);
     next(err);
@@ -251,7 +254,6 @@ exports.unlike_post = asyncHandler(async (req, res, next) => {
         userId: userId,
       },
     });
-
     if (!like) {
       return res.status(404).json({ message: "like not found" });
     }
@@ -262,7 +264,7 @@ exports.unlike_post = asyncHandler(async (req, res, next) => {
       },
     });
 
-    res.sendStatus(200).json({ message: "like deleted" });
+    res.status(200).json({ message: "like deleted" });
   } catch (err) {
     console.error(err);
     next(err);
