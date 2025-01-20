@@ -27,7 +27,6 @@ export default function SignupForm() {
               return;
             }
     
-            console.log("Signup successful:", data);
         } catch (error) {
             console.error("Signup error:", error);
             setSignupError("An unexpected error occurred.");

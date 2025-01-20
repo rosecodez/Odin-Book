@@ -9,14 +9,10 @@ export default function Home({ isAuthenticated, setIsAuthenticated }) {
               credentials: "include",
             });
             const data = await response.json();
-            console.log("Auth Data:", data);
-            
+
             if (data.isAuthenticated) {
-              console.log("data is authenticated true")
               setIsAuthenticated(true);
-              console.log(isAuthenticated);
             } else {
-              console.log("data is authenticated false")
               setIsAuthenticated(false);
             }
           } catch (error) {
@@ -29,7 +25,7 @@ export default function Home({ isAuthenticated, setIsAuthenticated }) {
     
 
     return (
-        <div className="flex flex-col w-[800px] max-w-[800px] shadow-md p-4">
+        <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left shadow-md p-4">
           {isAuthenticated ? (
             <Feed isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
             

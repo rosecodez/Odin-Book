@@ -29,7 +29,6 @@ export default function PostDetails ({username }) {
                     credentials: "include",
                 });
                 const data = await response.json();
-                console.log(data);
                 setPost(data);
                 setPostMessages(data.comment);
                 setPostLikes(data.like.user);
@@ -43,12 +42,10 @@ export default function PostDetails ({username }) {
                 console.error("Error fetching post data:", error);
             }
         };
-        console.log(postId, "postid, params")
         getPostDetails();
     }, [postId, username]);
 
     async function createNewComment() {
-        console.log(textComment);
     
         if (!textComment.trim()) {
             alert("Comment cannot be empty!");
@@ -72,7 +69,6 @@ export default function PostDetails ({username }) {
             }
     
             const newComment = await response.json();
-            console.log(newComment)
             setTextComment("");
             window.location.reload();
         } catch (error) {
@@ -94,9 +90,7 @@ export default function PostDetails ({username }) {
                 return;
             }
     
-            console.log("post liked")
             setPostLiked(true)
-            console.log(true)
             setBackgroundColor("lightblue");
             window.location.reload();
         } catch (error) {
@@ -121,7 +115,6 @@ export default function PostDetails ({username }) {
             }
     
             setPostLiked(false);
-            console.log("post liked")
             setBackgroundColor("transparent");
             window.location.reload();
         } catch (error) {
@@ -182,7 +175,7 @@ export default function PostDetails ({username }) {
     
     return (
         
-        <div className="flex flex-col w-[800px] max-w-[800px] text-left shadow-md p-4">
+        <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left shadow-md p-4">
             {post ? (
                 <div >
                     <div className="flex flex-row gap-4 w-full ">
@@ -236,15 +229,12 @@ export default function PostDetails ({username }) {
                         <div className="flex flex-row gap-2 items-start pr-[3px]">
                             <button type="button" onClick={(e) =>
                                 {   e.preventDefault();
-                                    console.log(username)
                                     const likedUsernames = post.like.map((like) => like.user.username);
                                     
                                     if (!likedUsernames.includes(username)) {
                                         likePost();
                                         
-                                        console.log("liked post")
                                     } else {
-                                        console.log("unliked post")
                                         unlikePost()
                                     }
                                     
@@ -306,7 +296,7 @@ export default function PostDetails ({username }) {
                                 );
                                 })
                         ) : (
-                            <p>No comments available</p>
+                            <p>No comments</p>
                         )}
 
                         <h4>Leave a comment</h4>
@@ -332,7 +322,7 @@ export default function PostDetails ({username }) {
                             </textarea>
                             
                         </div>
-                        <button type="submit" className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-2 rounded focus:outline-none focus:shadow-outline">Comment</button>
+                        <button type="submit" className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-2 rounded focus:outline-none focus:shadow-outline w-[150px]">Comment</button>
 
                     </form>
                 </div>    

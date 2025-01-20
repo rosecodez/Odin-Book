@@ -221,10 +221,7 @@ exports.user_followers_post = asyncHandler(async (req, res, next) => {
 // get all contacts
 exports.user_get_all_contacts = asyncHandler(async (req, res, next) => {
   try {
-    const user = req.session.user;
-
-    const userId = user.id;
-
+    const userId = req.session.user.id;
     // get all contacts that are not the logged user, for displaying as possible contacts
     const contacts = await prisma.user.findMany({
       where: {

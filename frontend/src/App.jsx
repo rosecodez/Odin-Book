@@ -11,12 +11,13 @@ import LoginPage from './pages/loginPage';
 import FeedPage from './pages/feedPage';
 import PostDetailsPage from './pages/postDetailsPage';
 import UserDetailsPage from './pages/userDetailsPage';
+import AllUsers from './components/allUsers';
 
 function App() {
   const [isVisitor, setIsVisitor] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState("");
-  
+
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -40,8 +41,9 @@ function App() {
     <Router>
       <Header isVisitor={isVisitor} setIsVisitor={setIsVisitor} isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
       
-      <div className="flex flex-row min-h-[41rem] justify-center">
-
+      <div className="flex flex-row min-h-[41rem] ">
+        
+        {isAuthenticated && <AllUsers/> }
         <Routes>
           <Route path="/" element={isVisitor ? (<FeedPage isAuthenticated={isAuthenticated} isVisitor={isVisitor} setIsVisitor={setIsVisitor} />) : (<HomePage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />)}/>
           <Route path="/profile" element={<ProfilePage isVisitor={isVisitor} setIsVisitor={setIsVisitor} />} />

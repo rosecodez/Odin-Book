@@ -5,7 +5,6 @@ import "bootstrap";
 
 function DropdownComponent({ editPost, deletePost}) {
 
-
   return (
     <Dropdown  className="d-inline mx-2">
       <Dropdown.Toggle as="img" src={threedots} id="dropdown-autoclose-true" className="w-[25px] h-[25px] cursor-pointer" alt="Menu" />

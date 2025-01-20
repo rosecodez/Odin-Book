@@ -64,12 +64,11 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
         });
   
         if (!response.ok) {
-          console.error("Error fetching posts:", response.statusText);
+          console.error();
           return;
         }
   
         const data = await response.json();
-        console.log("posts", data);
         setPosts(data);
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -159,7 +158,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
                                     <div className="flex flex-row gap-[19px] w-full">
 
                                         <a href={`/users/${post.user.username}`}>
-                                            <img src={post.user.profile_image} className="rounded-full w-[50px] h-[50px] sm:w-[45px] sm:h-[45px] md:w-[60px] md:h-[50px]"/>
+                                          <img src={post.user.profile_image} className="rounded-full w-[50px] h-[50px] sm:w-[45px] sm:h-[45px] md:w-[60px] md:h-[50px]"/>
                                         </a>
 
                                         <div className="flex gap-2 mt-[7px] w-full justify-between">
@@ -218,7 +217,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
             ) : (
                 <p>No posts available</p>
             )}
-        </ul>
+      </ul>
     </div>
   );
 }

@@ -40,6 +40,7 @@ export default function Profile({ isVisitor, setIsVisitor }) {
           console.log(data.user)
         }
       })
+      
       .catch(error => {
         console.error("Error fetching profile data:", error);
         navigate("/login");
@@ -53,11 +54,9 @@ export default function Profile({ isVisitor, setIsVisitor }) {
   const onSubmit = async (data) => {
     const profilePicture = document.getElementById("profilePicture");
     const file = profilePicture.files[0]; 
-    console.log(file)
 
     const formData = new FormData();
     formData.append('file', file);
-    console.log(formData)
 
     try {
       const response = await fetch("http://localhost:3000/users/update-profile-picture", {
@@ -71,7 +70,6 @@ export default function Profile({ isVisitor, setIsVisitor }) {
         throw new Error(errorData.error);
       }
       const uploadData = await response.json();
-      console.log("Upload successful:", uploadData);
       hideModal();
       window.location.reload();
     } catch (error) {

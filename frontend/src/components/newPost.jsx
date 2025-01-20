@@ -39,7 +39,6 @@ export default function NewPost({ isVisitor }) {
 
             const newPost = await response.json();
             setPosts((prevPosts) => [newPost, ...prevPosts]);
-            console.log(newPost)
             setPostText("");
             setPostImage(null);
             window.location.reload();

@@ -24,7 +24,6 @@ export default function UserDetails () {
                 navigate("/profile");
             }
             setLoggedInUser(data.user)
-            console.log(data)
         } catch (error) {
             console.error("Error checking authentication:", error);
         }
@@ -44,14 +43,12 @@ export default function UserDetails () {
                     throw new Error(`error fetching user details`);
                 }
                 const data = await response.json();
-                console.log(data);
                 setUser(data);
                 setIsFollowing(data.isFollowing);
             } catch (error) {
                 console.error("error fetching user", error);
             }
         };
-        console.log(username)
         getUserDetails();
     }, [username]);
 
@@ -79,7 +76,7 @@ export default function UserDetails () {
     }
     
     return (
-        <div className="flew flex-col w-[800px] max-w-[800px] text-left">
+        <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left shadow-md p-4">
             <div className="flex flex-row gap-[40px] pb-[10px] w-full">
                 <div className=" w-[150px] h-[160px]">
                     <img src={user.profile_image} className="outline outline-offset-2 outline-gray-500 rounded-full w-[150px] h-[160px]" />

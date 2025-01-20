@@ -28,7 +28,6 @@ export default function LoginForm() {
                 return;
             }
     
-            console.log("Login successful:", data);
             navigateTo("/");
             window.location.reload();
         } catch (error) {

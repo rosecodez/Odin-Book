@@ -30,12 +30,10 @@ export default function Header({ isVisitor, setIsVisitor, isAuthenticated, setIs
               credentials: "include",
             });
             const data = await response.json();
-            console.log("Auth Data:", data);
             
             if (data.isAuthenticated) {
               setIsAuthenticated(true);
               setIsVisitor(data.user.isVisitor || false);
-              console.log(isAuthenticated);
             } else {
               setIsAuthenticated(false);
               setIsVisitor(false);

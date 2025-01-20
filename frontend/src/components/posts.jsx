@@ -23,15 +23,11 @@ export default function Posts({ userId, loggedInUserId}) {
             } else {
                 endpoint = "http://localhost:3000/posts/all-posts"
             }
-            console.log("Fetching posts from:", endpoint);
 
             const response = await fetch(endpoint, {
               credentials: "include" 
             });
-            console.log(userId, loggedInUserId)
             const data = await response.json();
-            console.log("posts:", data);
-            console.log(endpoint, "endpoint")
             setPosts(data);
           } catch (error) {
             console.error("Posts error", error);
@@ -125,7 +121,7 @@ export default function Posts({ userId, loggedInUserId}) {
 
                                     </div>
 
-                                    <div className="flex flex-col pl-4 md:pl-8">
+                                    <div className="flex flex-col pl-[25px] text-left">
 
                                         {editPostId === post.id ? (
                                             <div>
@@ -136,7 +132,7 @@ export default function Posts({ userId, loggedInUserId}) {
                                                 </div>
                                             </div>
                                             ) : (
-                                                <p className="w-full break-words pl-[44px]">{post.content}</p>
+                                                <p className="w-full break-words pl-[40px] mb-0">{post.content}</p>
                                             )
                                         }
 

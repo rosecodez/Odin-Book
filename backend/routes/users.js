@@ -37,6 +37,7 @@ router.post(
 router.get("/profile", isAuthenticated, userController.user_profile_get);
 router.post("/follow", isAuthenticated, userController.user_followers_post);
 router.get("/all-users", isAuthenticated, userController.user_get_all_contacts);
+
 router.post(
   "/update-bio",
   isAuthenticated,
