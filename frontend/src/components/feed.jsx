@@ -11,8 +11,6 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
   const [image, setImage] = useState("");
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
-  let [postText, setPostText] = useState("");
   const [posts, setPosts] = useState([]);
   const [editPostId, setEditPostId] = useState(null);
   const [editedContent, setEditedContent] = useState("");
@@ -163,12 +161,12 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
                       <a href={`/users/${post.user.username}`}>
                         <img
                           src={post.user.profile_image}
-                          className="rounded-full w-[50px] h-[50px]"
+                          className="rounded-full w-[60px] h-[55px]"
                         />
                       </a>
 
-                      <div className="flex mt-[7px] w-full ">
-                        <div className="flex gap-2 justify-between">
+                      <div className="flex gap-2 mt-[7px] w-full justify-between">
+                        <div className="flex gap-2">
                           <a href={`/users/${post.user.username}`}>
                             {post.user.username}
                           </a>
@@ -177,7 +175,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
                       </div>
                     </div>
 
-                    <div className="flex flex-col pl-[23px] text-left">
+                    <div className="flex flex-col pl-[25px] text-left">
                       {editPostId === post.id ? (
                         <div>
                           <textarea
@@ -211,7 +209,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
                       {post.post_image && (
                         <img
                           src={post.post_image}
-                          className="mt-4 max-w-full h-auto rounded-md"
+                          className="max-w-full rounded-md object-contain"
                           alt="post image"
                         />
                       )}

@@ -4,7 +4,6 @@ import camera from "../assets/camera.png";
 
 export default function NewPost({ isVisitor }) {
   let [postText, setPostText] = useState("");
-  const [posts, setPosts] = useState([]);
   const { handleSubmit } = useForm();
   const [postImage, setPostImage] = useState(null);
 
