@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'bootstrap/dist/css/bootstrap.min.css';
+@import "bootstrap/dist/css/bootstrap.min.css";
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -40,7 +40,6 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
 
 button {
   border-radius: 8px;

@@ -1,33 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 import camera from "../assets/camera.png";
 import Posts from "./posts";
 import NewPost from "./newPost";
 
 export default function Profile({ isVisitor, setIsVisitor }) {
   const { register, handleSubmit } = useForm();
-  const [username, setUsername] = useState('');
-  const [image, setImage] = useState('');
-  
+  const [username, setUsername] = useState("");
+  const [image, setImage] = useState("");
+
   const [modalVisibility, setModalVisibility] = useState(false);
-  const [user, setUser]= useState(null);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/users/profile`,  {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
+    fetch(`http://localhost:3000/users/profile`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           navigate("/login");
           throw new Error("User is not logged in, redirected to login page");
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         if (data.user.isVisitor) {
           setIsVisitor(true);
           setUsername("visitor");
@@ -37,15 +37,14 @@ export default function Profile({ isVisitor, setIsVisitor }) {
           setUsername(data.user.username);
           setImage(data.user.profile_image);
           setUser(data.user);
-          console.log(data.user)
+          console.log(data.user);
         }
       })
-      
-      .catch(error => {
+
+      .catch((error) => {
         console.error("Error fetching profile data:", error);
         navigate("/login");
       });
-
   }, [navigate, setIsVisitor]);
 
   const showModal = () => setModalVisibility(true);
@@ -53,18 +52,21 @@ export default function Profile({ isVisitor, setIsVisitor }) {
 
   const onSubmit = async (data) => {
     const profilePicture = document.getElementById("profilePicture");
-    const file = profilePicture.files[0]; 
+    const file = profilePicture.files[0];
 
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
     try {
-      const response = await fetch("http://localhost:3000/users/update-profile-picture", {
-        method: "POST",
-        body: formData,
-        credentials: "include",
-      });
-  
+      const response = await fetch(
+        "http://localhost:3000/users/update-profile-picture",
+        {
+          method: "POST",
+          body: formData,
+          credentials: "include",
+        },
+      );
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error);
@@ -76,48 +78,84 @@ export default function Profile({ isVisitor, setIsVisitor }) {
       console.error("Error uploading image:", error);
     }
   };
-  
 
   return (
     <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left shadow-md p-4">
-
       <div className="flex gap-3">
-        <img src={image} className="rounded-full w-16 h-16 sm:w-20 sm:h-20" alt="profile"/>
+        <img
+          src={image}
+          className="rounded-full w-16 h-16 sm:w-20 sm:h-20"
+          alt="profile"
+        />
 
-        <NewPost isVisitor={isVisitor} setIsVisitor={setIsVisitor}/>
+        <NewPost isVisitor={isVisitor} setIsVisitor={setIsVisitor} />
       </div>
 
       <div className="flex flex-col sm:flex-row items-center  sm:gap-6 mt-6">
-
         <div className="relative w-28 h-28 sm:w-36 sm:h-36">
-          <img src={image} className="outline outline-offset-2 outline-gray-500 rounded-full w-full h-full" />
-          <img src={camera} alt="camera" onClick={showModal} className="absolute bottom-2 right-2 w-10 h-10 cursor-pointer bg-white rounded-full p-1"/>
+          <img
+            src={image}
+            className="outline outline-offset-2 outline-gray-500 rounded-full w-full h-full"
+          />
+          <img
+            src={camera}
+            alt="camera"
+            onClick={showModal}
+            className="absolute bottom-2 right-2 w-10 h-10 cursor-pointer bg-white rounded-full p-1"
+          />
         </div>
 
-        <h2 className="text-xl sm:text-2xl font-bold mt-4 sm:mt-8">{username}</h2>
-
+        <h2 className="text-xl sm:text-2xl font-bold mt-4 sm:mt-8">
+          {username}
+        </h2>
       </div>
 
       {modalVisibility && (
         <div id="profileModal" className="pt-6 w-fit">
-          <form id="UpdateProfilePicture" onSubmit={handleSubmit(onSubmit)} className="flex flex-col" method="POST" encType="multipart/form-data" action="">
+          <form
+            id="UpdateProfilePicture"
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col"
+            method="POST"
+            encType="multipart/form-data"
+            action=""
+          >
             <div className="flex flex-row gap-4">
-              <label htmlFor="profilePicture">Choose a new profile picture:</label>
-              <input type="file" {...register("image")} id="profilePicture" name="file" accept="image/png, image/jpeg" required/>
+              <label htmlFor="profilePicture">
+                Choose a new profile picture:
+              </label>
+              <input
+                type="file"
+                {...register("image")}
+                id="profilePicture"
+                name="file"
+                accept="image/png, image/jpeg"
+                required
+              />
             </div>
 
             <div className="flex flex-row gap-2">
-              <button type="button" className="mt-6 bg-red-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={hideModal}>Cancel</button>
-              <button type="submit" className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update</button>
+              <button
+                type="button"
+                className="mt-6 bg-red-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                onClick={hideModal}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              >
+                Update
+              </button>
             </div>
           </form>
         </div>
       )}
 
-      
-      {user && <Posts userId={user.id || null} loggedInUserId={user.id | null} />}
-
+      {user && (
+        <Posts userId={user.id || null} loggedInUserId={user.id | null} />
+      )}
     </div>
-    
   );
 }
