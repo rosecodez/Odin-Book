@@ -16,7 +16,6 @@ export default function AllUsers() {
         }
 
         const data = await response.json();
-        console.log(data);
         setAllUsers(data);
       } catch {
         console.error(error);

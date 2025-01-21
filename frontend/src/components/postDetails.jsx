@@ -14,6 +14,7 @@ export default function PostDetails({ username }) {
   const [postMessages, setPostMessages] = useState([]);
   const [postLiked, setPostLiked] = useState(false);
   const [postLikes, setPostLikes] = useState([]);
+  const [commentCount, setCommentCount] = useState(0);
   const { postId } = useParams();
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedContent, setEditedContent] = useState("");
@@ -28,6 +29,8 @@ export default function PostDetails({ username }) {
           credentials: "include",
         });
         const data = await response.json();
+        console.log(data)
+        setCommentCount(data.comment.length)
         setPost(data);
         setPostMessages(data.comment);
         setPostLikes(data.like.user);
@@ -255,7 +258,7 @@ export default function PostDetails({ username }) {
           <div className="flex flex-row justify-between pl-[64px] py-[15px]">
             <div className="flex flex-row gap-2 items-start">
               <img src={message} className="w-[25px] h-[25px]" alt="Messages" />
-              <p>{post.message?.length || 0}</p>
+              <p>{commentCount}</p>
             </div>
 
             <div className="flex flex-row gap-2 items-start pr-[3px]">
@@ -281,7 +284,7 @@ export default function PostDetails({ username }) {
                   style={{ backgroundColor, borderRadius: "50%" }}
                 />
               </button>
-              <p>{post.like?.length || 0}</p>
+              <p>{post.like.length || 0}</p>
             </div>
           </div>
 
@@ -324,17 +327,6 @@ export default function PostDetails({ username }) {
                         <p className="w-full break-words pl-[44px]">
                           {comment.content}
                         </p>
-                      </div>
-
-                      <div className="flex flex-row justify-between pl-[64px]">
-                        <div className="flex flex-row gap-2 items-start pr-[3px]">
-                          <img
-                            src={heart}
-                            className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px]"
-                            alt="Likes"
-                          />
-                          <p>0</p>
-                        </div>
                       </div>
                     </li>
                   </div>

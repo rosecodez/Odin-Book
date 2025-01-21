@@ -28,6 +28,8 @@ export default function Posts({ userId, loggedInUserId }) {
           credentials: "include",
         });
         const data = await response.json();
+        console.log(data)
+
         setPosts(data);
       } catch (error) {
         console.error("Posts error", error);
@@ -172,7 +174,7 @@ export default function Posts({ userId, loggedInUserId }) {
                         className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px]"
                         alt="Messages"
                       />
-                      <p>0</p>
+                      <p>{post.comment.length || 0}</p>
                     </div>
 
                     <div className="flex flex-row gap-2 items-start pr-[3px]">
@@ -181,7 +183,7 @@ export default function Posts({ userId, loggedInUserId }) {
                         className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px]"
                         alt="Likes"
                       />
-                      <p>0</p>
+                      <p>{post.like.length || 0}</p>
                     </div>
                   </div>
                 </li>
