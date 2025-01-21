@@ -47,7 +47,7 @@ function App() {
         setIsAuthenticated={setIsAuthenticated}
       />
 
-      <div className="flex flex-row min-h-[41rem] ">
+      <div className="flex flex-row min-h-[41rem] justify-center">
         {isAuthenticated && <AllUsers />}
         <Routes>
           <Route

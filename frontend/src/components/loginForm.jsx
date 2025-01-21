@@ -81,7 +81,6 @@ export default function LoginForm() {
             validate: (value) => {
               if (!isVisitor) {
                 if (!value) return "Username is required";
-                if (value.length < 6) return "Minimum 6 letters";
               }
               return true;
             },

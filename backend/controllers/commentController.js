@@ -1,8 +1,8 @@
-const asyncHandler = require("express-async-handler");
-const { body, validationResult } = require("express-validator");
-const bcrypt = require("bcrypt");
-const session = require("express-session");
-const prisma = require("../prisma/prisma");
+const asyncHandler = require('express-async-handler');
+const { body, validationResult } = require('express-validator');
+const bcrypt = require('bcrypt');
+const session = require('express-session');
+const prisma = require('../prisma/prisma');
 
 exports.comment_new_post = asyncHandler(async (req, res, next) => {
   try {
@@ -10,13 +10,13 @@ exports.comment_new_post = asyncHandler(async (req, res, next) => {
 
     const { text } = req.body;
     if (!text) {
-      return res.status(400).json({ message: "Comment does not have a text" });
+      return res.status(400).json({ message: 'Comment does not have a text' });
     }
 
     const postId = parseInt(req.params.postId, 10);
     const post = await prisma.post.findUnique({ where: { id: postId } });
     if (!post) {
-      return res.status(404).json({ message: "no post found" });
+      return res.status(404).json({ message: 'no post found' });
     }
 
     const newComment = await prisma.comment.create({
@@ -30,7 +30,7 @@ exports.comment_new_post = asyncHandler(async (req, res, next) => {
     return res.status(200).json(newComment);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: "New comment on post failed" });
+    return res.status(500).json({ error: 'New comment on post failed' });
   }
 });
 
@@ -49,6 +49,6 @@ exports.all_comments_get = asyncHandler(async (req, res, next) => {
     console.log(error);
     return res
       .status(400)
-      .json({ message: "Error while retrieving comments for post" });
+      .json({ message: 'Error while retrieving comments for post' });
   }
 });

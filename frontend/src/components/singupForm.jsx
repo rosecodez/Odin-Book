@@ -26,7 +26,6 @@ export default function SignupForm() {
       });
 
       const data = await response.json();
-
       if (!response.ok) {
         setSignupError(`signup failed: ${data.message}`);
         return;
@@ -46,6 +45,7 @@ export default function SignupForm() {
     } else {
       await signupUser(data);
       navigateTo("/profile");
+      window.location.reload();
     }
   };
 
@@ -78,7 +78,6 @@ export default function SignupForm() {
             validate: (value) => {
               if (!isVisitor) {
                 if (!value) return "Username is required";
-                if (value.length < 6) return "Minimum 6 letters";
               }
               return true;
             },

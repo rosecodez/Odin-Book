@@ -1,16 +1,12 @@
-const asyncHandler = require("express-async-handler");
-const { body, validationResult } = require("express-validator");
-const bcrypt = require("bcrypt");
-const session = require("express-session");
-const prisma = require("../prisma/prisma");
+const asyncHandler = require('express-async-handler');
+const { body, validationResult } = require('express-validator');
+const bcrypt = require('bcrypt');
+const session = require('express-session');
+const prisma = require('../prisma/prisma');
 
 exports.user_signup_post = [
-  body("username", "Username must be specified and valid")
-    .optional({ checkFalsy: true })
-    .trim()
-    .escape(),
-  body("password", "Password must be specified and at least 10 characters long")
-    .optional({ checkFalsy: true })
+  body('username', 'Username must be specified and valid').trim().escape(),
+  body('password', 'Password must be specified and at least 10 characters long')
     .trim()
     .isLength({ min: 10 })
     .escape(),
@@ -20,53 +16,52 @@ exports.user_signup_post = [
 
     if (visitor) {
       req.session.user = { isVisitor: true };
-      req.session.save();
+      await req.session.save();
       return res.status(200).json({ user: req.session.user });
     }
 
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      console.log("Validation errors:", errors.array());
-      return res.status(400).json({
-        errors: errors.array(),
-        user: req.body,
-      });
+      return res.status(400).json({ errors: errors.array(), user: req.body });
     }
 
     try {
       const existingUser = await prisma.user.findUnique({
         where: { username },
       });
-
       if (existingUser) {
-        return res.status(400).json({ message: "Username already taken" });
+        return res.status(400).json({ message: 'Username already taken' });
       }
 
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const hashedPassword = await bcrypt.hash(password, 10);
 
       const user = await prisma.user.create({
         data: {
-          username: req.body.username,
+          username,
           password: hashedPassword,
         },
       });
 
-      req.login(user, (err) => {
+      req.login(user, async (err) => {
         if (err) {
-          console.error("Login error:", err);
+          console.error('Login error:', err);
           return next(err);
         }
+
+        req.session.user = { id: user.id, username: user.username };
+        await req.session.save();
+
         res.status(200).json({
-          message: "Signup successful",
+          message: 'Signup successful',
           user: { id: user.id, username: user.username },
         });
       });
     } catch (err) {
-      console.error("Signup error details:", err);
+      console.error('Signup error:', err);
       res
         .status(500)
-        .json({ error: "Internal Server Error", details: err.message });
+        .json({ error: 'Internal Server Error', details: err.message });
     }
   }),
 ];
@@ -74,7 +69,7 @@ exports.user_signup_post = [
 exports.user_login_post = [
   asyncHandler(async (req, res, next) => {
     const { username, password, visitor } = req.body;
-    console.log("request body:", req.body);
+    console.log('request body:', req.body);
 
     if (visitor) {
       req.session.user = { isVisitor: true };
@@ -87,21 +82,21 @@ exports.user_login_post = [
       if (!user) {
         return res
           .status(401)
-          .json({ message: "Invalid username or password" });
+          .json({ message: 'Invalid username or password' });
       }
 
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!isPasswordValid) {
         return res
           .status(401)
-          .json({ message: "Invalid username or password" });
+          .json({ message: 'Invalid username or password' });
       }
 
       req.login(user, (err) => {
         if (err) return next(err);
         req.session.user = { id: user.id, username: user.username };
         console.log(req.session.user);
-        return res.status(200).json({ message: "Login successful", user });
+        return res.status(200).json({ message: 'Login successful', user });
       });
     } catch (error) {
       next(error);
@@ -116,22 +111,23 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
     }
     req.session.destroy((err) => {
       if (err) {
-        return res.status(500).json({ message: "Failed to log out" });
+        return res.status(500).json({ message: 'Failed to log out' });
       }
-      res.clearCookie("connect.sid");
-      res.status(200).json({ message: "Logged out successfully" });
+      res.clearCookie('connect.sid');
+      res.status(200).json({ message: 'Logged out successfully' });
     });
   });
 });
 
 exports.user_profile_get = asyncHandler(async (req, res, next) => {
-  if (req.session.user.isVisitor) {
+  if (req.session?.user?.isVisitor) {
     return res.status(200).json({
-      user: { username: "visitor", isVisitor: true },
+      user: { username: 'visitor', isVisitor: true },
     });
   }
+
   if (!req.user) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(401).json({ message: 'Unauthorized' });
   }
 
   try {
@@ -147,11 +143,10 @@ exports.user_profile_get = asyncHandler(async (req, res, next) => {
     });
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
 
     res.json({
-      message: "Profile data fetched successfully",
       user: user,
     });
   } catch (err) {
@@ -161,9 +156,9 @@ exports.user_profile_get = asyncHandler(async (req, res, next) => {
 
 exports.user_update_profile_picture = asyncHandler(async (req, res, next) => {
   try {
-    console.log("Request file object:", req.file);
+    console.log('Request file object:', req.file);
     if (!req.file) {
-      return res.status(400).json({ message: "No file uploaded" });
+      return res.status(400).json({ message: 'No file uploaded' });
     }
 
     // new cloudinary picture link
@@ -176,12 +171,12 @@ exports.user_update_profile_picture = asyncHandler(async (req, res, next) => {
     });
 
     return res.status(200).json({
-      message: "Image uploaded successfully!",
+      message: 'Image uploaded successfully!',
       profileImage: updatedUser.profile_image,
     });
   } catch (err) {
-    console.error("Error updating profile picture", err);
-    return res.status(500).json({ error: "Failed to upload image" });
+    console.error('Error updating profile picture', err);
+    return res.status(500).json({ error: 'Failed to upload image' });
   }
 });
 
@@ -193,11 +188,11 @@ exports.user_followers_post = asyncHandler(async (req, res, next) => {
     const { followUserId } = req.body;
 
     if (!followUserId) {
-      return res.status(400).json({ message: "User id to follow is required" });
+      return res.status(400).json({ message: 'User id to follow is required' });
     }
 
     if (userId === followUserId) {
-      return res.status(400).json({ message: "You cannot follow yourself" });
+      return res.status(400).json({ message: 'You cannot follow yourself' });
     }
 
     await prisma.user.update({
@@ -211,10 +206,10 @@ exports.user_followers_post = asyncHandler(async (req, res, next) => {
 
     return res
       .status(200)
-      .json({ message: "User followed successfully", followUserId });
+      .json({ message: 'User followed successfully', followUserId });
   } catch (err) {
-    console.error("Error following user", err);
-    return res.status(500).json({ error: "Failed to follow user" });
+    console.error('Error following user', err);
+    return res.status(500).json({ error: 'Failed to follow user' });
   }
 });
 
@@ -233,8 +228,8 @@ exports.user_get_all_contacts = asyncHandler(async (req, res, next) => {
 
     return res.status(200).json(contacts);
   } catch (err) {
-    console.error("Error getting contacts", err);
-    return res.status(500).json({ error: "Failed to get contacts" });
+    console.error('Error getting contacts', err);
+    return res.status(500).json({ error: 'Failed to get contacts' });
   }
 });
 
@@ -254,8 +249,8 @@ exports.user_update_bio_post = asyncHandler(async (req, res, next) => {
 
     return res.status(200).json({ updatedUser });
   } catch (err) {
-    console.error("Error updating bio", err);
-    return res.status(500).json({ error: "Failed to update bio" });
+    console.error('Error updating bio', err);
+    return res.status(500).json({ error: 'Failed to update bio' });
   }
 });
 
@@ -277,7 +272,7 @@ exports.user_get_by_username = asyncHandler(async (req, res, next) => {
     });
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'User not found' });
     }
 
     const loggedInUserId = req.session.user.id;
@@ -310,7 +305,7 @@ exports.user_follow = asyncHandler(async (req, res, next) => {
     });
 
     if (!userToFollow) {
-      return res.status(404).json({ message: "user not found" });
+      return res.status(404).json({ message: 'user not found' });
     }
 
     const existingFollow = await prisma.follows.findUnique({
@@ -344,6 +339,6 @@ exports.user_follow = asyncHandler(async (req, res, next) => {
       return res.json({ following: false });
     }
   } catch (error) {
-    res.status(500).json({ message: "error occured while following user" });
+    res.status(500).json({ message: 'error occured while following user' });
   }
 });

@@ -12,7 +12,7 @@ model user {
     username                  String                      @unique
     password                  String?
     googleId                  String?
-    isVisitor                 Boolean?
+    isVisitor                 Boolean                     @default(false)
     profile_image             String                      @default("https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png")
     bio                       String                      @default("Nothing about this user yet")
     created_at                DateTime                    @default(now())

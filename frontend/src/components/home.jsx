@@ -34,12 +34,12 @@ export default function Home({ isAuthenticated, setIsAuthenticated }) {
           setIsAuthenticated={setIsAuthenticated}
         />
       ) : (
-        <>
+        <div className="flex flex-col items-center">
           <p>Welcome to Odin Book</p>
           <a href="/signup" className="text-[#6b7280]">
             Sign up today!
           </a>
-        </>
+        </div>
       )}
     </div>
   );
