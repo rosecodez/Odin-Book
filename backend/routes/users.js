@@ -1,51 +1,44 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const userController = require("../controllers/userController");
-const upload = require("../middleware/multer");
-const passport = require("passport");
-const isAuthenticated = require("../middleware/authentication");
+const userController = require('../controllers/userController');
+const upload = require('../middleware/multer');
+const passport = require('passport');
+const isAuthenticated = require('../middleware/authentication');
 
-// + sign in with authentication method
-// initiate google OAuth
-router.get("/auth/google", passport.authenticate("google"));
+// GET Routes
 
-// google redirection after authentication
+// google authentication
+router.get('/login/federated/google', passport.authenticate('google'));
+router.get('/auth/google', passport.authenticate('google'));
 router.get(
-  "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
-    res.redirect("/profile");
+    res.redirect('/profile');
   }
 );
 
-// sign in as visitor to bypass the login screen, without creating an account or supplying credentials
-router.post("/signup", userController.user_signup_post);
+router.get('/profile', isAuthenticated, userController.user_profile_get);
+router.get('/all-users', isAuthenticated, userController.user_get_all_contacts);
+router.get('/:username', userController.user_get_by_username);
 
-router.post("/login", userController.user_login_post);
-
-router.get("/login/federated/google", passport.authenticate("google"));
-
-router.post("/logout", isAuthenticated, userController.user_logout_post);
-
+// POST Routes
+router.post('/signup', userController.user_signup_post);
+router.post('/login', userController.user_login_post);
+router.post('/logout', isAuthenticated, userController.user_logout_post);
 router.post(
-  "/update-profile-picture",
-  isAuthenticated,
-  upload.single("file"),
-  userController.user_update_profile_picture
-);
-
-router.get("/profile", isAuthenticated, userController.user_profile_get);
-router.post("/follow", isAuthenticated, userController.user_followers_post);
-router.get("/all-users", isAuthenticated, userController.user_get_all_contacts);
-
-router.post(
-  "/update-bio",
+  '/update-bio',
   isAuthenticated,
   userController.user_update_bio_post
 );
+router.post('/:username/follow', isAuthenticated, userController.user_follow);
 
-router.get("/:username", userController.user_get_by_username);
-
-router.post("/:username/follow", isAuthenticated, userController.user_follow);
+// PUT Routes
+router.put(
+  '/update-profile-picture',
+  isAuthenticated,
+  upload.single('file'),
+  userController.user_update_profile_picture
+);
 
 module.exports = router;

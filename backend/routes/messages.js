@@ -1,13 +1,13 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const messageController = require("../controllers/messageController");
-const isAuthenticated = require("../middleware/authentication");
-const upload = require("../middleware/multer");
+const messageController = require('../controllers/messageController');
+const isAuthenticated = require('../middleware/authentication');
+const upload = require('../middleware/multer');
 
 router.post(
-  "/new-message",
+  '/new-message',
   isAuthenticated,
-  upload.single("file"),
+  upload.single('file'),
   messageController.message_new_post
 );
 

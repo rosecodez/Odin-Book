@@ -27,7 +27,9 @@
     "passport-google-oidc": "^0.1.0",
     "pug": "^3.0.3",
     "react-bootstrap": "^2.10.5",
-    "session": "^0.1.0"
+    "session": "^0.1.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.7",

@@ -30,6 +30,12 @@ Description
 
 - react's component based architecture simplifies building reusable UI elements, while Tailwind provides a modern, utility-first approach for styling, enabling faster, consistent designs
 
+### API Documentation
+
+![alt text](image-2.png)
+
+![![alt text](image-4.png)](image-1.png)
+
 ## Planning
 
 Data models diagram
@@ -73,8 +79,7 @@ Data models diagram
 ## Features for improvement
 
 - better design
-- small frontend tweaking for visitor
 - WebSocket for real time notifications
 - direct private conversations between users
-- google log in and signup finalisation
+- google log in and signup
 - deploy

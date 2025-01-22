@@ -162,7 +162,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
                       <a href={`/users/${post.user.username}`}>
                         <img
                           src={post.user.profile_image}
-                          className="rounded-full w-[60px] h-[55px]"
+                          className="rounded-full w-[60px] h-[45px]"
                         />
                       </a>
 
