@@ -1,10 +1,8 @@
 import heart from "../assets/heart.png";
 import message from "../assets/message.png";
-import DropdownComponent from "./dropdown";
 import { DateTime } from "luxon";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 export default function Posts({ userId, loggedInUserId }) {
   const [posts, setPosts] = useState([]);

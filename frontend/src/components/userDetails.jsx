@@ -85,7 +85,7 @@ export default function UserDetails() {
 
   return (
     <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left shadow-md p-4">
-      <div className="flex flex-row gap-[40px] pb-[10px] w-full">
+      <div className="flex flex-col sm:flex-row items-center sm:gap-6 mt-6">
         <div className=" w-[150px] h-[160px]">
           <img
             src={user.profile_image}

@@ -25,7 +25,7 @@ export default function AllUsers() {
   }, []);
 
   return (
-    <ul className="flex flex-col gap-2 justify-start justify-items-start items-start pl-[0px]">
+    <ul className="flex flex-col gap-2 justify-start items-start pl-[0px] min-w-[136px] max-w-[136px]  hide-on-small">
       {allUsers.length > 0
         ? allUsers.map((user) => (
             <a href={`/users/${user.username}`}>
