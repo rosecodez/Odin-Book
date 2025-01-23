@@ -50,9 +50,9 @@ model message {
     created_at      DateTime      @default(now())
     conversation_id String
     sender_id       Int
-    user            user?         @relation(fields: [userId], references: [id])
+    user            user?         @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId          Int?
-    conversation    conversation? @relation(fields: [conversationId], references: [id])
+    conversation    conversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
     conversationId  Int?
     image           String?
 }
@@ -66,9 +66,9 @@ model conversation {
 
 model conversation_participants {
     id             Int           @id @default(autoincrement())
-    user           user          @relation(fields: [userId], references: [id])
+    user           user          @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId         Int
-    conversation   conversation? @relation(fields: [conversationId], references: [id])
+    conversation   conversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
     conversationId Int?
 }
 
@@ -76,8 +76,8 @@ model comment {
     id         Int      @id @default(autoincrement())
     content    String
     created_at DateTime @default(now())
-    user       user     @relation(fields: [userId], references: [id])
-    post       post     @relation(fields: [postId], references: [id])
+    user       user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    post       post     @relation(fields: [postId], references: [id], onDelete: Cascade)
     userId     Int
     postId     Int
 }
@@ -86,7 +86,7 @@ model post {
     id         Int       @id @default(autoincrement())
     content    String
     created_at DateTime  @default(now())
-    user       user      @relation(fields: [userId], references: [id])
+    user       user      @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId     Int
     comment    comment[]
     like       like[]
@@ -96,8 +96,8 @@ model post {
 model like {
     id         Int      @id @default(autoincrement())
     created_at DateTime @default(now())
-    user       user     @relation(fields: [userId], references: [id])
+    user       user     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId     Int
-    post       post     @relation(fields: [postId], references: [id])
+    post       post     @relation(fields: [postId], references: [id], onDelete: Cascade)
     postId     Int
 }

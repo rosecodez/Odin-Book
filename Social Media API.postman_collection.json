@@ -1,0 +1,1731 @@
+{
+  "info": {
+    "_postman_id": "11b69d06-3cea-477d-a8df-194270c4b273",
+    "name": "Social Media API",
+    "description": "This API provides functionality for user authentication, profile management, interaction, including Google authentication and managing user relationships like follow.\n\nThe endpoints allow for operations such as signing up, logging in, logging out and updating user profile image, and managing social connections like following other users.\n\nIt is designed with seassion based authentication.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "36480844"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login with Google",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/users/login/federated/google",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "login", "federated", "google"]
+            },
+            "description": "Initiates Google federated authentication using Passport.js. Redirects the user to Google's login page for authentication"
+          },
+          "response": []
+        },
+        {
+          "name": "Google Auth Callback",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/users/auth/google",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "auth", "google"]
+            },
+            "description": "Handles the callback from Google after the user has authenticated. Verifies the authentication and redirects the user accordingly"
+          },
+          "response": []
+        },
+        {
+          "name": "Generic Google Authentication",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/users/auth/google/callback",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "auth", "google", "callback"]
+            },
+            "description": "Handles the callback from Google after the user has authenticated. Verifies the authentication and redirects the user accordingly"
+          },
+          "response": []
+        },
+        {
+          "name": "Signup",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"testuser123\",\n    \"password\": \"securepassword12345\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/users/signup",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "signup"]
+            },
+            "description": "Logs out the current user"
+          },
+          "response": [
+            {
+              "name": "Signup",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"username\": \"testuser123\",\n    \"password\": \"securepassword12345\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/users/signup",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["users", "signup"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "72"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"48-u1o9ULqoIkhuBQqM/gvE2S9YyXo\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "connect.sid=s%3A_VygKEpiRCcA3ycp2OnsbhsLYKAoXZ2u.l%2BR%2FSigcVOp0HYjaCN%2FWVjt%2Bu4ufszOk2bfShrXQ%2BdQ; Path=/; Expires=Wed, 29 Jan 2025 22:00:01 GMT; HttpOnly"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 22:00:01 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Signup successful\",\n    \"user\": {\n        \"id\": 5,\n        \"username\": \"testuser123\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"testuser123\",\n    \"password\": \"securepassword12345\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/users/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "login"]
+            },
+            "description": "Logs in an user"
+          },
+          "response": [
+            {
+              "name": "Login",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"username\": \"testuser\",\n    \"password\": \"securepassword123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/users/login",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["users", "login"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "370"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"172-hH3lQvvmopgWwMx+O1w+KDAyTOg\""
+                },
+                {
+                  "key": "Set-Cookie",
+                  "value": "connect.sid=s%3AfLKzgSk-maIHoy4iASqCZFXQmBt-ncqy.%2FHk5vxgm%2FsCUKyQ8BF%2Bd3zZ9oSsjH3Gyp6l5vvbCUyg; Path=/; Expires=Wed, 29 Jan 2025 21:43:22 GMT; HttpOnly"
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 21:43:22 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Login successful\",\n    \"user\": {\n        \"id\": 4,\n        \"username\": \"testuser\",\n        \"password\": \"$2b$10$NB0nPrYbTpgUl7VpTOvlHe95QodgS8qDm2mkAitw60llP5tqLT/hy\",\n        \"googleId\": null,\n        \"isVisitor\": false,\n        \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n        \"bio\": \"Nothing about this user yet\",\n        \"created_at\": \"2025-01-22T21:30:02.882Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/users/logout",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "logout"]
+            },
+            "description": "Logs out the current user"
+          },
+          "response": []
+        }
+      ],
+      "description": "Session based authentication with PassportJS,Google federated login and callback or bearer token."
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/users/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "profile"]
+            },
+            "description": "Fetches the logged-in user's profile"
+          },
+          "response": [
+            {
+              "name": "Profile",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/users/profile",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["users", "profile"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "236"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"ec-Qa7ay2xhPeSsjDM29rPP3Txlim4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 22:28:45 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"user\": {\n        \"id\": 2,\n        \"username\": \"testuser123\",\n        \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n        \"bio\": \"Nothing about this user yet\",\n        \"created_at\": \"2025-01-22T22:15:50.697Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "All users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/users/all-users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "all-users"]
+            }
+          },
+          "response": [
+            {
+              "name": "All users",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/users/all-users",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["users", "all-users"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "335"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"14f-GEn80/CfauHCpbL7vuGDEmSl9oo\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 22:28:51 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"username\": \"rosecodez\",\n        \"password\": \"$2b$10$Rvr/okr5JOkty1S00mt6JerRYU9F8lk.PHZ6rnRfaQtfE9ckawVLS\",\n        \"googleId\": null,\n        \"isVisitor\": false,\n        \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n        \"bio\": \"Nothing about this user yet\",\n        \"created_at\": \"2025-01-22T22:15:05.704Z\"\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "User by username",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/users/rosecodez",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "rosecodez"]
+            }
+          },
+          "response": [
+            {
+              "name": "User by username",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/users/rosecodez",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["users", "rosecodez"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "215"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"d7-vTF/OpdgAe8WvH+8y5HndC1lf2o\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 22:28:54 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"username\": \"rosecodez\",\n    \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n    \"bio\": \"Nothing about this user yet\",\n    \"isFollowing\": false,\n    \"post\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "Follow",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/users/cristina456/follow",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "cristina456", "follow"]
+            }
+          },
+          "response": [
+            {
+              "name": "Follow",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/users/cristina456/follow",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["users", "cristina456", "follow"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "19"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"13-DMMZp2EA71/lzWMJkaE9HBVc/g4\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 22:34:24 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"following\": false\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update profile picture",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/users/update-profile-picture",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "update-profile-picture"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update bio",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"bio\": \"Update bio test\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/users/update-bio",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["users", "update-bio"]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Users folder handles routes like:\n\n- getting profile, all users, user by username\n    \n- creating new user, following user\n    \n- updating profile picture or bio"
+    },
+    {
+      "name": "Posts",
+      "item": [
+        {
+          "name": "All posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/posts/all-posts",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["posts", "all-posts"]
+            }
+          },
+          "response": [
+            {
+              "name": "All posts",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/posts/all-posts",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["posts", "all-posts"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2629"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"a45-OMZoHt22jcQC3agPy8oXni2p/9o\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 21:44:59 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 4,\n        \"content\": \"hello!\",\n        \"created_at\": \"2025-01-22T18:16:02.486Z\",\n        \"userId\": 3,\n        \"post_image\": null,\n        \"user\": {\n            \"id\": 3,\n            \"username\": \"cristina456\",\n            \"password\": \"$2b$10$AG7LngH3gRFoQA31K5pdDucOtS6ueoBnJbQ8yS1ftovGju6GjkpRu\",\n            \"googleId\": null,\n            \"isVisitor\": false,\n            \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1737569744/CloudinaryDemo/pu06ajgbvdrxwauvrf0j.png\",\n            \"bio\": \"Nothing about this user yet\",\n            \"created_at\": \"2025-01-22T00:06:18.671Z\"\n        },\n        \"comment\": [\n            {\n                \"id\": 5,\n                \"content\": \"hello!\",\n                \"created_at\": \"2025-01-22T18:16:10.785Z\",\n                \"userId\": 3,\n                \"postId\": 4\n            }\n        ],\n        \"like\": [\n            {\n                \"id\": 6,\n                \"created_at\": \"2025-01-22T18:16:05.472Z\",\n                \"userId\": 3,\n                \"postId\": 4\n            }\n        ]\n    },\n    {\n        \"id\": 3,\n        \"content\": \"how is everyone doing today?\",\n        \"created_at\": \"2025-01-21T22:51:06.507Z\",\n        \"userId\": 2,\n        \"post_image\": null,\n        \"user\": {\n            \"id\": 2,\n            \"username\": \"cristinazxc\",\n            \"password\": \"$2b$10$/jMr8s389y./D.Z/5jaqPu/z/EH1mvtW0ln2ecBO1RIZO/GE2zg6y\",\n            \"googleId\": null,\n            \"isVisitor\": false,\n            \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n            \"bio\": \"Nothing about this user yet\",\n            \"created_at\": \"2025-01-21T22:07:34.300Z\"\n        },\n        \"comment\": [],\n        \"like\": [\n            {\n                \"id\": 5,\n                \"created_at\": \"2025-01-21T22:51:10.635Z\",\n                \"userId\": 2,\n                \"postId\": 3\n            }\n        ]\n    },\n    {\n        \"id\": 2,\n        \"content\": \"-20C degrees today. brrrr!\",\n        \"created_at\": \"2025-01-21T22:17:27.304Z\",\n        \"userId\": 2,\n        \"post_image\": null,\n        \"user\": {\n            \"id\": 2,\n            \"username\": \"cristinazxc\",\n            \"password\": \"$2b$10$/jMr8s389y./D.Z/5jaqPu/z/EH1mvtW0ln2ecBO1RIZO/GE2zg6y\",\n            \"googleId\": null,\n            \"isVisitor\": false,\n            \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n            \"bio\": \"Nothing about this user yet\",\n            \"created_at\": \"2025-01-21T22:07:34.300Z\"\n        },\n        \"comment\": [\n            {\n                \"id\": 1,\n                \"content\": \"indeed\",\n                \"created_at\": \"2025-01-21T22:17:37.196Z\",\n                \"userId\": 2,\n                \"postId\": 2\n            },\n            {\n                \"id\": 2,\n                \"content\": \"its so cold! :(\",\n                \"created_at\": \"2025-01-21T22:17:45.172Z\",\n                \"userId\": 2,\n                \"postId\": 2\n            }\n        ],\n        \"like\": [\n            {\n                \"id\": 4,\n                \"created_at\": \"2025-01-21T22:50:14.155Z\",\n                \"userId\": 2,\n                \"postId\": 2\n            }\n        ]\n    },\n    {\n        \"id\": 1,\n        \"content\": \"hello!\",\n        \"created_at\": \"2025-01-21T21:52:54.697Z\",\n        \"userId\": 1,\n        \"post_image\": null,\n        \"user\": {\n            \"id\": 1,\n            \"username\": \"rosecodez\",\n            \"password\": \"$2b$10$jM9brli/3thY2XinyfY5neyDmr5q1GTNsipAnnoh14XtnhUSTmybm\",\n            \"googleId\": null,\n            \"isVisitor\": false,\n            \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n            \"bio\": \"Nothing about this user yet\",\n            \"created_at\": \"2025-01-21T21:52:44.700Z\"\n        },\n        \"comment\": [\n            {\n                \"id\": 3,\n                \"content\": \"hello!\",\n                \"created_at\": \"2025-01-21T22:22:10.330Z\",\n                \"userId\": 2,\n                \"postId\": 1\n            },\n            {\n                \"id\": 4,\n                \"content\": \"hey!\",\n                \"created_at\": \"2025-01-21T22:23:49.638Z\",\n                \"userId\": 2,\n                \"postId\": 1\n            }\n        ],\n        \"like\": [\n            {\n                \"id\": 3,\n                \"created_at\": \"2025-01-21T22:30:03.764Z\",\n                \"userId\": 2,\n                \"postId\": 1\n            }\n        ]\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "All posts for visitor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/posts/all-posts-visitor",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["posts", "all-posts-visitor"]
+            }
+          },
+          "response": [
+            {
+              "name": "All posts for visitor",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/posts/all-posts-visitor",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["posts", "all-posts-visitor"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2629"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"a45-OMZoHt22jcQC3agPy8oXni2p/9o\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 21:45:02 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 4,\n        \"content\": \"hello!\",\n        \"created_at\": \"2025-01-22T18:16:02.486Z\",\n        \"userId\": 3,\n        \"post_image\": null,\n        \"user\": {\n            \"id\": 3,\n            \"username\": \"cristina456\",\n            \"password\": \"$2b$10$AG7LngH3gRFoQA31K5pdDucOtS6ueoBnJbQ8yS1ftovGju6GjkpRu\",\n            \"googleId\": null,\n            \"isVisitor\": false,\n            \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1737569744/CloudinaryDemo/pu06ajgbvdrxwauvrf0j.png\",\n            \"bio\": \"Nothing about this user yet\",\n            \"created_at\": \"2025-01-22T00:06:18.671Z\"\n        },\n        \"comment\": [\n            {\n                \"id\": 5,\n                \"content\": \"hello!\",\n                \"created_at\": \"2025-01-22T18:16:10.785Z\",\n                \"userId\": 3,\n                \"postId\": 4\n            }\n        ],\n        \"like\": [\n            {\n                \"id\": 6,\n                \"created_at\": \"2025-01-22T18:16:05.472Z\",\n                \"userId\": 3,\n                \"postId\": 4\n            }\n        ]\n    },\n    {\n        \"id\": 3,\n        \"content\": \"how is everyone doing today?\",\n        \"created_at\": \"2025-01-21T22:51:06.507Z\",\n        \"userId\": 2,\n        \"post_image\": null,\n        \"user\": {\n            \"id\": 2,\n            \"username\": \"cristinazxc\",\n            \"password\": \"$2b$10$/jMr8s389y./D.Z/5jaqPu/z/EH1mvtW0ln2ecBO1RIZO/GE2zg6y\",\n            \"googleId\": null,\n            \"isVisitor\": false,\n            \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n            \"bio\": \"Nothing about this user yet\",\n            \"created_at\": \"2025-01-21T22:07:34.300Z\"\n        },\n        \"comment\": [],\n        \"like\": [\n            {\n                \"id\": 5,\n                \"created_at\": \"2025-01-21T22:51:10.635Z\",\n                \"userId\": 2,\n                \"postId\": 3\n            }\n        ]\n    },\n    {\n        \"id\": 2,\n        \"content\": \"-20C degrees today. brrrr!\",\n        \"created_at\": \"2025-01-21T22:17:27.304Z\",\n        \"userId\": 2,\n        \"post_image\": null,\n        \"user\": {\n            \"id\": 2,\n            \"username\": \"cristinazxc\",\n            \"password\": \"$2b$10$/jMr8s389y./D.Z/5jaqPu/z/EH1mvtW0ln2ecBO1RIZO/GE2zg6y\",\n            \"googleId\": null,\n            \"isVisitor\": false,\n            \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n            \"bio\": \"Nothing about this user yet\",\n            \"created_at\": \"2025-01-21T22:07:34.300Z\"\n        },\n        \"comment\": [\n            {\n                \"id\": 1,\n                \"content\": \"indeed\",\n                \"created_at\": \"2025-01-21T22:17:37.196Z\",\n                \"userId\": 2,\n                \"postId\": 2\n            },\n            {\n                \"id\": 2,\n                \"content\": \"its so cold! :(\",\n                \"created_at\": \"2025-01-21T22:17:45.172Z\",\n                \"userId\": 2,\n                \"postId\": 2\n            }\n        ],\n        \"like\": [\n            {\n                \"id\": 4,\n                \"created_at\": \"2025-01-21T22:50:14.155Z\",\n                \"userId\": 2,\n                \"postId\": 2\n            }\n        ]\n    },\n    {\n        \"id\": 1,\n        \"content\": \"hello!\",\n        \"created_at\": \"2025-01-21T21:52:54.697Z\",\n        \"userId\": 1,\n        \"post_image\": null,\n        \"user\": {\n            \"id\": 1,\n            \"username\": \"rosecodez\",\n            \"password\": \"$2b$10$jM9brli/3thY2XinyfY5neyDmr5q1GTNsipAnnoh14XtnhUSTmybm\",\n            \"googleId\": null,\n            \"isVisitor\": false,\n            \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n            \"bio\": \"Nothing about this user yet\",\n            \"created_at\": \"2025-01-21T21:52:44.700Z\"\n        },\n        \"comment\": [\n            {\n                \"id\": 3,\n                \"content\": \"hello!\",\n                \"created_at\": \"2025-01-21T22:22:10.330Z\",\n                \"userId\": 2,\n                \"postId\": 1\n            },\n            {\n                \"id\": 4,\n                \"content\": \"hey!\",\n                \"created_at\": \"2025-01-21T22:23:49.638Z\",\n                \"userId\": 2,\n                \"postId\": 1\n            }\n        ],\n        \"like\": [\n            {\n                \"id\": 3,\n                \"created_at\": \"2025-01-21T22:30:03.764Z\",\n                \"userId\": 2,\n                \"postId\": 1\n            }\n        ]\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "All posts for logged in user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/posts/profile-all-posts",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["posts", "profile-all-posts"]
+            }
+          },
+          "response": [
+            {
+              "name": "All posts for logged in user",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/posts/profile-all-posts",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["posts", "profile-all-posts"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 21:45:04 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "All posts by user id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/posts/profile-all-posts",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["posts", "profile-all-posts"]
+            }
+          },
+          "response": [
+            {
+              "name": "All posts by user id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/posts/profile-all-posts",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["posts", "profile-all-posts"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 21:45:10 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "[]"
+            }
+          ]
+        },
+        {
+          "name": "Post by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var template = `",
+                  "<style type=\"text/css\">",
+                  "    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+                  "    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+                  "    .tftable tr {background-color:#ffffff;}",
+                  "    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+                  "    .tftable tr:hover {background-color:#e0ffff;}",
+                  "</style>",
+                  "",
+                  "<table class=\"tftable\" border=\"1\">",
+                  "    <tr>",
+                  "        <th>ID</th>",
+                  "        <th>Content</th>",
+                  "        <th>Created At</th>",
+                  "        <th>User ID</th>",
+                  "        <th>Username</th>",
+                  "        <th>Profile Image</th>",
+                  "        <th>Bio</th>",
+                  "        <th>Is Visitor</th>",
+                  "        <th>Like Count</th>",
+                  "        <th>Comment Count</th>",
+                  "    </tr>",
+                  "    ",
+                  "    <tr>",
+                  "        <td>{{id}}</td>",
+                  "        <td>{{content}}</td>",
+                  "        <td>{{created_at}}</td>",
+                  "        <td>{{user.id}}</td>",
+                  "        <td>{{user.username}}</td>",
+                  "        <td>{{user.profile_image}}</td>",
+                  "        <td>{{user.bio}}</td>",
+                  "        <td>{{user.isVisitor}}</td>",
+                  "        <td>{{like.length}}</td>",
+                  "        <td>{{comment.length}}</td>",
+                  "    </tr>",
+                  "</table>",
+                  "`;",
+                  "",
+                  "function constructVisualizerPayload() {",
+                  "    return { response: pm.response.json() }",
+                  "}",
+                  "",
+                  "pm.visualizer.set(template, constructVisualizerPayload());"
+                ],
+                "type": "text/javascript",
+                "packages": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/posts/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["posts", "1"]
+            }
+          },
+          "response": [
+            {
+              "name": "Post by id",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/posts/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["posts", "1"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1736"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"6c8-oof2LscRTf4qdLQ3cDavfJs4/ik\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 21:45:23 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"content\": \"hello!\",\n    \"created_at\": \"2025-01-21T21:52:54.697Z\",\n    \"userId\": 1,\n    \"post_image\": null,\n    \"user\": {\n        \"id\": 1,\n        \"username\": \"rosecodez\",\n        \"password\": \"$2b$10$jM9brli/3thY2XinyfY5neyDmr5q1GTNsipAnnoh14XtnhUSTmybm\",\n        \"googleId\": null,\n        \"isVisitor\": false,\n        \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n        \"bio\": \"Nothing about this user yet\",\n        \"created_at\": \"2025-01-21T21:52:44.700Z\"\n    },\n    \"like\": [\n        {\n            \"id\": 3,\n            \"created_at\": \"2025-01-21T22:30:03.764Z\",\n            \"userId\": 2,\n            \"postId\": 1,\n            \"user\": {\n                \"id\": 2,\n                \"username\": \"cristinazxc\",\n                \"password\": \"$2b$10$/jMr8s389y./D.Z/5jaqPu/z/EH1mvtW0ln2ecBO1RIZO/GE2zg6y\",\n                \"googleId\": null,\n                \"isVisitor\": false,\n                \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n                \"bio\": \"Nothing about this user yet\",\n                \"created_at\": \"2025-01-21T22:07:34.300Z\"\n            }\n        }\n    ],\n    \"comment\": [\n        {\n            \"id\": 3,\n            \"content\": \"hello!\",\n            \"created_at\": \"2025-01-21T22:22:10.330Z\",\n            \"userId\": 2,\n            \"postId\": 1,\n            \"user\": {\n                \"id\": 2,\n                \"username\": \"cristinazxc\",\n                \"password\": \"$2b$10$/jMr8s389y./D.Z/5jaqPu/z/EH1mvtW0ln2ecBO1RIZO/GE2zg6y\",\n                \"googleId\": null,\n                \"isVisitor\": false,\n                \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n                \"bio\": \"Nothing about this user yet\",\n                \"created_at\": \"2025-01-21T22:07:34.300Z\"\n            }\n        },\n        {\n            \"id\": 4,\n            \"content\": \"hey!\",\n            \"created_at\": \"2025-01-21T22:23:49.638Z\",\n            \"userId\": 2,\n            \"postId\": 1,\n            \"user\": {\n                \"id\": 2,\n                \"username\": \"cristinazxc\",\n                \"password\": \"$2b$10$/jMr8s389y./D.Z/5jaqPu/z/EH1mvtW0ln2ecBO1RIZO/GE2zg6y\",\n                \"googleId\": null,\n                \"isVisitor\": false,\n                \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n                \"bio\": \"Nothing about this user yet\",\n                \"created_at\": \"2025-01-21T22:07:34.300Z\"\n            }\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "New post",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"text\": \"hi!!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/posts/new-post",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["posts", "new-post"]
+            }
+          },
+          "response": [
+            {
+              "name": "New post",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"text\": \"hi!!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/posts/new-post",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["posts", "new-post"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "434"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"1b2-ImCNvY0Ja74mz3K90yt3BoFexdY\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 21:48:27 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 5,\n    \"content\": \"hi!!\",\n    \"created_at\": \"2025-01-22T21:48:27.517Z\",\n    \"userId\": 4,\n    \"post_image\": null,\n    \"user\": {\n        \"id\": 4,\n        \"username\": \"testuser\",\n        \"password\": \"$2b$10$NB0nPrYbTpgUl7VpTOvlHe95QodgS8qDm2mkAitw60llP5tqLT/hy\",\n        \"googleId\": null,\n        \"isVisitor\": false,\n        \"profile_image\": \"https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png\",\n        \"bio\": \"Nothing about this user yet\",\n        \"created_at\": \"2025-01-22T21:30:02.882Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Like post",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/posts/1/like",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["posts", "1", "like"]
+            }
+          },
+          "response": [
+            {
+              "name": "Like post",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/posts/1/like",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["posts", "1", "like"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "70"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"46-uRUUvQPCnDZ+rIKcayXoca+P+Rw\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 21:49:32 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 7,\n    \"created_at\": \"2025-01-22T21:49:32.395Z\",\n    \"userId\": 4,\n    \"postId\": 1\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update post",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"content\": \"hello test\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/posts/1/update",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["posts", "1", "update"]
+            }
+          },
+          "response": [
+            {
+              "name": "Update post",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"content\": \"hello test\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/posts/1/update",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["posts", "1", "update"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "153"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"99-Rx2SlqbORgFIRiQqjhJpRl04Zhs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 21:54:16 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"success on updating post\",\n    \"updatedPost\": {\n        \"id\": 1,\n        \"content\": \"hello test\",\n        \"created_at\": \"2025-01-21T21:52:54.697Z\",\n        \"userId\": 1,\n        \"post_image\": null\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Post",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/posts/1/delete",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["posts", "1", "delete"]
+            }
+          },
+          "response": [
+            {
+              "name": "Post",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:3000/posts/1/delete",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["posts", "1", "delete"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "plain",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "2"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 22:16:21 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "OK"
+            }
+          ]
+        },
+        {
+          "name": "Unlike",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/posts/1/unlike",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["posts", "1", "unlike"]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Posts folder is responsible of handling routes like:\n\n- getting all posts, all posts for visitor, all posts for logged in user or all posts by user id\n    \n- creating new post, liking post\n    \n- updating post\n    \n- deleting post or unlike"
+    },
+    {
+      "name": "Comments",
+      "item": [
+        {
+          "name": "All comments for post",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/comments/1/comments",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["comments", "1", "comments"]
+            }
+          },
+          "response": [
+            {
+              "name": "All comments for post",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/comments/1/comments",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["comments", "1", "comments"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "87"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"57-JaZATmxZ2ZememI/r6LksV5BB44\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 22:25:40 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n    {\n        \"id\": 1,\n        \"content\": \"hi\",\n        \"created_at\": \"2025-01-22T22:25:29.604Z\",\n        \"userId\": 2,\n        \"postId\": 2\n    }\n]"
+            }
+          ]
+        },
+        {
+          "name": "New comment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"text\": \"hi\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/comments/2/new-comment",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["comments", "2", "new-comment"]
+            }
+          },
+          "response": [
+            {
+              "name": "New comment",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"text\": \"hi\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/comments/2/new-comment",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3000",
+                  "path": ["comments", "2", "new-comment"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "X-Powered-By",
+                  "value": "Express"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:5173"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "85"
+                },
+                {
+                  "key": "ETag",
+                  "value": "W/\"55-mANE0dxrd/Ub/xA8qr/VbSbZ3rs\""
+                },
+                {
+                  "key": "Date",
+                  "value": "Wed, 22 Jan 2025 22:25:29 GMT"
+                },
+                {
+                  "key": "Connection",
+                  "value": "keep-alive"
+                },
+                {
+                  "key": "Keep-Alive",
+                  "value": "timeout=5"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"content\": \"hi\",\n    \"created_at\": \"2025-01-22T22:25:29.604Z\",\n    \"userId\": 2,\n    \"postId\": 2\n}"
+            }
+          ]
+        }
+      ],
+      "description": "- get all comments for post\n    \n- create new post"
+    }
+  ]
+}
