@@ -29,11 +29,11 @@ export default function PostDetails({ username }) {
           credentials: "include",
         });
         const data = await response.json();
-        console.log(data)
         setCommentCount(data.comment.length)
         setPost(data);
         setPostMessages(data.comment);
         setPostLikes(data.like.user);
+
         // if logged in user is the same as likedUsername, make logic to unlike
         const likedUsernames = data.like.map((like) => like.user.username);
         if (likedUsernames.includes(username)) {
@@ -336,33 +336,40 @@ export default function PostDetails({ username }) {
               <p>No comments</p>
             )}
 
-            <h4>Leave a comment</h4>
-            <div className="flex flex-row gap-2">
-              <textarea
-                name="textComment"
-                value={textComment}
-                maxLength={8000}
-                onInput={(e) => {
-                  setTextComment(e.target.value);
-                  if (e.target.value === "") {
-                    e.target.style.height = "30px";
-                  } else {
-                    e.target.style.height = "auto";
-                    e.target.style.height = `${e.target.scrollHeight}px`;
-                  }
-                }}
-                className="min-h-[100px] max-h-[400px] w-full px-4 py-2 bg-white border shadow-sm border-slate-300 
-                placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 
-                block rounded-md sm:text-sm focus:ring-1 overflow-auto resize-none"
-                placeholder="Leave a comment, max 8000 characters"
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-2 rounded focus:outline-none focus:shadow-outline w-[150px]"
-            >
-              Comment
-            </button>
+            
+            
+            {username &&
+              <div>
+                <h4>Leave a comment</h4>
+                <div className="flex flex-row gap-2">
+                  <textarea
+                    name="textComment"
+                    value={textComment}
+                    maxLength={8000}
+                    onInput={(e) => {
+                      setTextComment(e.target.value);
+                      if (e.target.value === "") {
+                        e.target.style.height = "30px";
+                      } else {
+                        e.target.style.height = "auto";
+                        e.target.style.height = `${e.target.scrollHeight}px`;
+                      }
+                    }}
+                    className="min-h-[100px] max-h-[400px] w-full px-4 py-2 bg-white border shadow-sm border-slate-300 
+                    placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 
+                    block rounded-md sm:text-sm focus:ring-1 overflow-auto resize-none"
+                    placeholder="Leave a comment, max 8000 characters"
+                  ></textarea>
+                </div>
+                <button
+                type="submit"
+                className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-2 rounded focus:outline-none focus:shadow-outline w-[150px]"
+                >
+                Comment
+                </button>
+              </div>
+            }
+
           </form>
         </div>
       ) : null}
