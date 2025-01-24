@@ -160,7 +160,9 @@ passport.deserializeUser(async (id, done) => {
 });
 
 app.use((req, res, next) => {
-  res.locals.user = req.user || null;
+  if (req.user) {
+    req.session.user = req.user;
+  }
   next();
 });
 
@@ -171,6 +173,7 @@ app.get('/check-authentication', (req, res) => {
       user: {
         username: req.session.user.username,
         isVisitor: req.session.user.isVisitor || false,
+        googleId: req.session.user.googleId || false,
       },
     });
   }
