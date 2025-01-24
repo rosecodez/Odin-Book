@@ -7,17 +7,6 @@ const isAuthenticated = require('../middleware/authentication');
 
 // GET Routes
 
-// google authentication
-router.get('/login/federated/google', passport.authenticate('google'));
-router.get('/auth/google', passport.authenticate('google'));
-router.get(
-  '/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  (req, res) => {
-    res.redirect('/profile');
-  }
-);
-
 router.get('/profile', isAuthenticated, userController.user_profile_get);
 router.get('/all-users', isAuthenticated, userController.user_get_all_contacts);
 router.get('/:username', userController.user_get_by_username);

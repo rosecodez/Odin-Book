@@ -14,6 +14,7 @@ require('dotenv').config();
 const cors = require('cors');
 
 const indexRouter = require('./routes/index');
+const authRouter = require('./routes/googleAuth.js');
 const usersRouter = require('./routes/users');
 const messagesRouter = require('./routes/messages.js');
 const postsRouter = require('./routes/posts.js');
@@ -68,18 +69,36 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.use(
-  new LocalStrategy(async (username, password, done) => {
-    try {
-      const user = await prisma.user.findUnique({ where: { username } });
-      if (!user) return done(null, false, { message: 'Incorrect username' });
-      const isValidPassword = await bcrypt.compare(password, user.password);
-      if (!isValidPassword)
-        return done(null, false, { message: 'Incorrect password' });
-      return done(null, user);
-    } catch (error) {
-      return done(error);
+  new GoogleStrategy(
+    {
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
+      callbackURL: 'http://localhost:3000/auth/google/callback',
+    },
+    async function (issuer, profile, cb) {
+      try {
+        let user = await prisma.user.findFirst({
+          where: { googleId: profile.id },
+        });
+
+        if (!user) {
+          user = await prisma.user.create({
+            data: {
+              username: profile.displayName,
+              profile_image:
+                profile.photos?.[0]?.value || 'default-profile-url',
+              googleId: profile.id,
+            },
+          });
+        }
+
+        return cb(null, user);
+      } catch (err) {
+        console.error('Error during user creation/update:', err);
+        return cb(err);
+      }
     }
-  })
+  )
 );
 
 // google authentication passport strategy
@@ -90,34 +109,37 @@ passport.use(
       clientSecret: process.env.CLIENT_SECRET,
       callbackURL: 'http://localhost:3000/auth/google/callback',
     },
-
     async function (issuer, profile, cb) {
       try {
-        // find user in prisma by google id
+        console.log('Google profile:', profile);
         let user = await prisma.user.findFirst({
           where: { googleId: profile.id },
         });
 
-        //if no user exists, create a new one
+        const defaultProfileImage =
+          'https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png';
+
         if (!user) {
           user = await prisma.user.create({
             data: {
               username: profile.displayName,
-              profile_image: profile.photos[0]?.value,
+              profile_image: profile.photos?.[0]?.value || defaultProfileImage,
               googleId: profile.id,
             },
           });
         } else {
-          if (user.profile_image !== profile.photos[0]?.value) {
+          const newProfileImage = profile.photos?.[0]?.value;
+          if (newProfileImage && user.profile_image !== newProfileImage) {
             user = await prisma.user.update({
               where: { id: user.id },
-              data: { profile_image: profile.photos[0]?.value },
+              data: { profile_image: newProfileImage },
             });
           }
         }
 
         return cb(null, user);
       } catch (err) {
+        console.error(err);
         return cb(err);
       }
     }
@@ -155,7 +177,7 @@ app.get('/check-authentication', (req, res) => {
   return res.status(200).json({ isAuthenticated: false });
 });
 
-app.use('/', indexRouter);
+app.use('/', authRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/messages', messagesRouter);

@@ -335,8 +335,6 @@ export default function PostDetails({ username }) {
             ) : (
               <p>No comments</p>
             )}
-
-            
             
             {username &&
               <div>

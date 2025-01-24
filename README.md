@@ -46,8 +46,7 @@ Data models diagram
 
 ### Backend
 
-- passport-google-oidc - Sign In With Google
-- register app with Google, done with API & Services at Google Cloud Platform with OAuth2
+- Passport.js, Google OAuth2.0 Strategy
 - cloudinary.v2 + multer to upload image to posts/profile picture
 - data modeling
 
