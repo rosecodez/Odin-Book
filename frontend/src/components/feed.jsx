@@ -138,7 +138,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
   };
 
   return (
-    <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left shadow-md p-4">
+    <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left p-4">
       <div className="flex gap-3">
         {!isVisitor && (
           <img src={image} className="rounded-full w-[70px] h-[70px]" />

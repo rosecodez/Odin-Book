@@ -105,18 +105,47 @@ exports.user_login_post = [
 ];
 
 exports.user_logout_post = asyncHandler(async (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
+  console.log('Session before logout:', req.session); // Debug the session before clearing
+
+  try {
+    console.log('BAAAAAAAAAAAAAA');
+    console.log('req.session.accessToken', req.session.accessToken);
+    // Revoke Google token if it exists
+    if (req.session.accessToken) {
+      const revokeUrl = `https://accounts.google.com/o/oauth2/revoke?token=${req.session.accessToken}`;
+      const revokeResponse = await fetch(revokeUrl, { method: 'POST' });
+
+      if (revokeResponse.ok) {
+        console.log('Google access token revoked successfully');
+      } else {
+        console.error('Failed to revoke Google access token');
+      }
     }
-    req.session.destroy((err) => {
+
+    // Logout user and destroy session
+    req.logout((err) => {
       if (err) {
+        console.error('Error during logout:', err);
         return res.status(500).json({ message: 'Failed to log out' });
       }
-      res.clearCookie('connect.sid');
-      res.status(200).json({ message: 'Logged out successfully' });
+
+      req.session.destroy((err) => {
+        if (err) {
+          console.error('Error destroying session:', err);
+          return res.status(500).json({ message: 'Failed to log out' });
+        }
+
+        console.log('Session destroyed successfully');
+        res.clearCookie('connect.sid'); // Clear the session cookie
+        res.status(200).json({ message: 'Logged out successfully' });
+      });
     });
-  });
+  } catch (error) {
+    console.error('Unexpected error during logout:', error);
+    res
+      .status(500)
+      .json({ message: 'An unexpected error occurred during logout' });
+  }
 });
 
 exports.user_profile_get = asyncHandler(async (req, res, next) => {

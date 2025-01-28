@@ -9,7 +9,7 @@ const prisma = require('./prisma/prisma.js');
 const session = require('express-session');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const LocalStrategy = require('passport-local').Strategy;
-const GoogleStrategy = require('passport-google-oidc');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 require('dotenv').config();
 const cors = require('cors');
 
@@ -74,62 +74,30 @@ passport.use(
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
       callbackURL: 'http://localhost:3000/auth/google/callback',
+      scope: ['profile'],
+      passReqToCallback: true,
     },
-    async function (issuer, profile, cb) {
+    async function (req, accessToken, refreshToken, profile, cb) {
+      console.log(profile);
       try {
-        let user = await prisma.user.findFirst({
-          where: { googleId: profile.id },
-        });
-
-        if (!user) {
-          user = await prisma.user.create({
-            data: {
-              username: profile.displayName,
-              profile_image:
-                profile.photos?.[0]?.value || 'default-profile-url',
-              googleId: profile.id,
-            },
-          });
-        }
-
-        return cb(null, user);
-      } catch (err) {
-        console.error('Error during user creation/update:', err);
-        return cb(err);
-      }
-    }
-  )
-);
-
-// google authentication passport strategy
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: 'http://localhost:3000/auth/google/callback',
-    },
-    async function (issuer, profile, cb) {
-      try {
-        console.log('Google profile:', profile);
-        let user = await prisma.user.findFirst({
-          where: { googleId: profile.id },
-        });
-
         const defaultProfileImage =
           'https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png';
 
+        let user = await prisma.user.findFirst({
+          where: { googleId: profile.id },
+        });
+
         if (!user) {
           user = await prisma.user.create({
             data: {
               username: profile.displayName,
-              profile_image: profile.photos?.[0]?.value || defaultProfileImage,
+              profile_image: profile.photos[0].value || defaultProfileImage,
               googleId: profile.id,
             },
           });
         } else {
-          const newProfileImage = profile.photos?.[0]?.value;
-          if (newProfileImage && user.profile_image !== newProfileImage) {
+          const newProfileImage = profile.photos[0].value;
+          if (user.profile_image !== newProfileImage) {
             user = await prisma.user.update({
               where: { id: user.id },
               data: { profile_image: newProfileImage },
@@ -137,6 +105,7 @@ passport.use(
           }
         }
 
+        req.session.accessToken = accessToken;
         return cb(null, user);
       } catch (err) {
         console.error(err);
@@ -145,7 +114,6 @@ passport.use(
     }
   )
 );
-
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });

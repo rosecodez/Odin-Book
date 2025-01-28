@@ -135,7 +135,7 @@ export default function SignupForm() {
         </button>
 
       </form>
-      <a href="http://localhost:3000/auth/google">
+      <a href="http://localhost:3000/auth/google" className="flex justify-center">
         <button className="gsi-material-button">
           <div className="gsi-material-button-state"></div>
           <div className="gsi-material-button-content-wrapper">
