@@ -7,7 +7,6 @@ export default function Header({
   isAuthenticated,
   setIsAuthenticated,
 }) {
-  const navigateTo = useNavigate();
   const handleLogout = async (event) => {
     event.preventDefault();
     try {
@@ -18,15 +17,23 @@ export default function Header({
         },
         credentials: "include",
       });
+  
       if (!response.ok) {
         throw new Error("Logout request failed");
       }
-      navigateTo("/");
-      window.location.reload();
+      // will also need to make special logout for user to not redirect to google
+      const data = await response.json();
+  
+      if (data.redirectUrl) {
+        window.location.href = data.redirectUrl;
+      } else {
+        window.location.href = "/signup";
+      }
     } catch (error) {
       console.error("Error logging out:", error.message);
     }
   };
+  
 
   useEffect(() => {
     const checkAuth = async () => {

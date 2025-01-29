@@ -69,7 +69,6 @@ exports.user_signup_post = [
 exports.user_login_post = [
   asyncHandler(async (req, res, next) => {
     const { username, password, visitor } = req.body;
-    console.log('request body:', req.body);
 
     if (visitor) {
       req.session.user = { isVisitor: true };
@@ -105,24 +104,25 @@ exports.user_login_post = [
 ];
 
 exports.user_logout_post = asyncHandler(async (req, res, next) => {
-  console.log('Session before logout:', req.session); // Debug the session before clearing
-
   try {
-    console.log('BAAAAAAAAAAAAAA');
-    console.log('req.session.accessToken', req.session.accessToken);
-    // Revoke Google token if it exists
+    let googleLogoutURL = 'https://accounts.google.com/logout';
+
     if (req.session.accessToken) {
       const revokeUrl = `https://accounts.google.com/o/oauth2/revoke?token=${req.session.accessToken}`;
       const revokeResponse = await fetch(revokeUrl, { method: 'POST' });
 
       if (revokeResponse.ok) {
-        console.log('Google access token revoked successfully');
+        console.log('google access token revoked successfully');
       } else {
-        console.error('Failed to revoke Google access token');
+        console.error(
+          'failed to revoke google access token:',
+          await revokeResponse.text()
+        );
       }
+
+      googleLogoutURL = `https://accounts.google.com/logout?continue=http://localhost:5173/signup`;
     }
 
-    // Logout user and destroy session
     req.logout((err) => {
       if (err) {
         console.error('Error during logout:', err);
@@ -135,16 +135,16 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
           return res.status(500).json({ message: 'Failed to log out' });
         }
 
-        console.log('Session destroyed successfully');
-        res.clearCookie('connect.sid'); // Clear the session cookie
-        res.status(200).json({ message: 'Logged out successfully' });
+        res.clearCookie('connect.sid');
+
+        res.status(200).json({ redirectUrl: googleLogoutURL });
       });
     });
   } catch (error) {
     console.error('Unexpected error during logout:', error);
-    res
-      .status(500)
-      .json({ message: 'An unexpected error occurred during logout' });
+    res.status(500).json({
+      message: 'An unexpected error occurred during logout',
+    });
   }
 });
 
