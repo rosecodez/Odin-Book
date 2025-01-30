@@ -105,8 +105,6 @@ exports.user_login_post = [
 
 exports.user_logout_post = asyncHandler(async (req, res, next) => {
   try {
-    let googleLogoutURL = 'https://accounts.google.com/logout';
-
     if (req.session.accessToken) {
       const revokeUrl = `https://accounts.google.com/o/oauth2/revoke?token=${req.session.accessToken}`;
       const revokeResponse = await fetch(revokeUrl, { method: 'POST' });
@@ -119,8 +117,6 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
           await revokeResponse.text()
         );
       }
-
-      googleLogoutURL = `https://accounts.google.com/logout?continue=http://localhost:5173/signup`;
     }
 
     req.logout((err) => {
@@ -136,8 +132,7 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
         }
 
         res.clearCookie('connect.sid');
-
-        res.status(200).json({ redirectUrl: googleLogoutURL });
+        res.status(200).json();
       });
     });
   } catch (error) {

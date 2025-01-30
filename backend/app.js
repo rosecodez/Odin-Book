@@ -76,6 +76,7 @@ passport.use(
       callbackURL: 'http://localhost:3000/auth/google/callback',
       scope: ['profile'],
       passReqToCallback: true,
+      prompt: 'selected_account',
     },
     async function (req, accessToken, refreshToken, profile, cb) {
       try {
@@ -113,6 +114,7 @@ passport.use(
     }
   )
 );
+
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });

@@ -21,14 +21,8 @@ export default function Header({
       if (!response.ok) {
         throw new Error("Logout request failed");
       }
-      // will also need to make special logout for user to not redirect to google
-      const data = await response.json();
-  
-      if (data.redirectUrl) {
-        window.location.href = data.redirectUrl;
-      } else {
-        window.location.href = "/signup";
-      }
+      
+      window.location.href = "/signup";
     } catch (error) {
       console.error("Error logging out:", error.message);
     }
