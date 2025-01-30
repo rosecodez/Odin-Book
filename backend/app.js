@@ -74,9 +74,9 @@ passport.use(
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
       callbackURL: 'http://localhost:3000/auth/google/callback',
-      scope: ['profile'],
+      scope: ['profile', 'email'],
       passReqToCallback: true,
-      prompt: 'selected_account',
+      prompt: 'select_account',
     },
     async function (req, accessToken, refreshToken, profile, cb) {
       try {
@@ -96,7 +96,7 @@ passport.use(
             },
           });
         } else {
-          const newProfileImage = profile.photos[0].value;
+          const newProfileImage = profile.photos?.[0].value;
           if (user.profile_image !== newProfileImage) {
             user = await prisma.user.update({
               where: { id: user.id },
