@@ -22,6 +22,7 @@ router.post(
   upload.single('image'),
   postController.post_new_post
 );
+
 router.post('/:postId/like', isAuthenticated, postController.like_post);
 
 // PUT Routes

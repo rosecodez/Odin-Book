@@ -72,6 +72,7 @@ Data models diagram
 
 - CORS errors, between the `backend(localhost:3000)` and frontend `(localhost:5173)`
 - complex data relationships ( many to many, followers/following)
+- `429 Too Many Requests` GET profile image from Google account, needing to save it locally after fetching it once
 - visitor mode logic (without compromising security or user experience posed unique challenges in middleware and state management)
 - responsive design (for all devices)
 
@@ -80,5 +81,4 @@ Data models diagram
 - better design
 - WebSocket for real time notifications
 - direct private conversations between users
-- google log in and signup
 - deploy

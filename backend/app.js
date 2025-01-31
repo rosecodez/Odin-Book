@@ -4,12 +4,14 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport');
-const bcrypt = require('bcrypt');
 const prisma = require('./prisma/prisma.js');
 const session = require('express-session');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const https = require('https');
+const fs = require('fs');
+const upload = require('./middleware/multer.js');
 require('dotenv').config();
 const cors = require('cors');
 
@@ -82,6 +84,19 @@ passport.use(
       try {
         const defaultProfileImage =
           'https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png';
+        const googleProfileImage = profile.photos[0].value;
+
+        const imagesPath = path.join(__dirname, 'uploads');
+        const filePath = path.join(imagesPath, 'profile.png');
+        const file = fs.createWriteStream(filePath);
+
+        https.get(googleProfileImage, function (response) {
+          response.pipe(file);
+          file.on('finish', () => {
+            file.close();
+            console.log('download completed');
+          });
+        });
 
         let user = await prisma.user.findFirst({
           where: { googleId: profile.id },
