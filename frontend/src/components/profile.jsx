@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import camera from "../assets/camera.png";
 import Posts from "./posts";
 import NewPost from "./newPost";
-
 export default function Profile({ isVisitor, setIsVisitor }) {
   const { register, handleSubmit } = useForm();
   const [username, setUsername] = useState("");

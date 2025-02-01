@@ -11,7 +11,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const https = require('https');
 const fs = require('fs');
-const upload = require('./middleware/multer.js');
+const cloudinary = require('cloudinary').v2;
 require('dotenv').config();
 const cors = require('cors');
 
@@ -31,6 +31,12 @@ app.use(
     credentials: true,
   })
 );
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -86,36 +92,37 @@ passport.use(
           'https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png';
         const googleProfileImage = profile.photos[0].value;
 
-        const imagesPath = path.join(__dirname, 'uploads');
-        const filePath = path.join(imagesPath, 'profile.png');
-        const file = fs.createWriteStream(filePath);
-
-        https.get(googleProfileImage, function (response) {
-          response.pipe(file);
-          file.on('finish', () => {
-            file.close();
-            console.log('download completed');
-          });
-        });
-
         let user = await prisma.user.findFirst({
           where: { googleId: profile.id },
         });
+
+        const cloudinaryResult = await cloudinary.uploader.upload(
+          googleProfileImage,
+          {
+            use_filename: true,
+            unique_filename: false,
+          }
+        );
+
+        const profileImageUrl =
+          cloudinaryResult.secure_url || defaultProfileImage;
 
         if (!user) {
           user = await prisma.user.create({
             data: {
               username: profile.displayName,
-              profile_image: profile.photos[0].value || defaultProfileImage,
+              profile_image: cloudinaryResult || defaultProfileImage,
               googleId: profile.id,
             },
           });
         } else {
-          const newProfileImage = profile.photos?.[0].value;
-          if (user.profile_image !== newProfileImage) {
-            user = await prisma.user.update({
+          if (
+            user.profile_image !== profileImageUrl &&
+            !user.profile_image.includes('res.cloudinary.com')
+          ) {
+            await prisma.user.update({
               where: { id: user.id },
-              data: { profile_image: newProfileImage },
+              data: { profile_image: profileImageUrl },
             });
           }
         }
