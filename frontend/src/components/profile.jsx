@@ -60,7 +60,7 @@ export default function Profile({ isVisitor, setIsVisitor }) {
       const response = await fetch(
         "http://localhost:3000/users/update-profile-picture",
         {
-          method: "POST",
+          method: "PUT",
           body: formData,
           credentials: "include",
         },
