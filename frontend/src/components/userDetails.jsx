@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import Posts from "../components/posts";
 import { useNavigate } from "react-router-dom";
+import API_URL from "./config";
 
 export default function UserDetails() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function UserDetails() {
     const checkAuth = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/check-authentication",
+          ` ${API_URL}/check-authentication`,
           {
             credentials: "include",
           },
@@ -40,7 +41,7 @@ export default function UserDetails() {
     const getUserDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/users/${username}`,
+          ` ${API_URL}/users/${username}`,
           {
             credentials: "include",
           },
@@ -61,7 +62,7 @@ export default function UserDetails() {
   const followUser = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/users/${username}/follow`,
+        ` ${API_URL}/users/${username}/follow`,
         {
           method: "POST",
           credentials: "include",

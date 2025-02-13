@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import API_URL from "./config";
 
 export default function SignupForm() {
   const navigateTo = useNavigate();
@@ -17,7 +18,7 @@ export default function SignupForm() {
 
   const signupUser = async (credentials) => {
     try {
-      const response = await fetch("http://localhost:3000/users/signup", {
+      const response = await fetch(`${API_URL}/users/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

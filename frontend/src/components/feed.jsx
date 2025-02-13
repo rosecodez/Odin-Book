@@ -6,6 +6,7 @@ import message from "../assets/message.png";
 import NewPost from "./newPost";
 
 import { DateTime } from "luxon";
+import API_URL from "./config";
 
 export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
   const [image, setImage] = useState("");
@@ -16,7 +17,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
   const [editedContent, setEditedContent] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:3000/users/profile`, {
+    fetch(`${API_URL}/users/profile`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -49,9 +50,9 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
       let endpoint;
 
       if (isVisitor) {
-        endpoint = "http://localhost:3000/posts/all-posts-visitor";
+        endpoint = `${API_URL}/posts/all-posts-visitor`;
       } else {
-        endpoint = "http://localhost:3000/posts/all-posts";
+        endpoint = `${API_URL}/posts/all-posts`;
       }
 
       try {
@@ -78,7 +79,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
   const editPost = async (data) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/${postId}/update`,
+        `${API_URL}/posts/${postId}/update`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -104,7 +105,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/${postId}/delete`,
+        `${API_URL}/posts/${postId}/delete`,
         {
           method: "DELETE",
           headers: {

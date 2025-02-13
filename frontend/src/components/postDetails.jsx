@@ -8,6 +8,8 @@ import message from "../assets/message.png";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
+import API_URL from "./config";
+
 export default function PostDetails({ username }) {
   const [post, setPost] = useState(null);
   const [textComment, setTextComment] = useState("");
@@ -25,7 +27,7 @@ export default function PostDetails({ username }) {
   useEffect(() => {
     const getPostDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/posts/${postId}`, {
+        const response = await fetch(`${API_URL}/posts/${postId}`, {
           credentials: "include",
         });
         const data = await response.json();
@@ -57,7 +59,7 @@ export default function PostDetails({ username }) {
       const formData = new FormData();
       formData.append("text", textComment);
       const response = await fetch(
-        `http://localhost:3000/comments/${postId}/new-comment`,
+        `${API_URL}/comments/${postId}/new-comment`,
         {
           method: "POST",
           credentials: "include",
@@ -83,7 +85,7 @@ export default function PostDetails({ username }) {
   async function likePost() {
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/${postId}/like`,
+        `${API_URL}/posts/${postId}/like`,
         {
           method: "POST",
           credentials: "include",
@@ -108,7 +110,7 @@ export default function PostDetails({ username }) {
   async function unlikePost() {
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/${postId}/unlike`,
+        `${API_URL}/posts/${postId}/unlike`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
@@ -135,7 +137,7 @@ export default function PostDetails({ username }) {
   const editPost = async (data) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/${postId}/update`,
+        `h${API_URL}/posts/${postId}/update`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -159,7 +161,7 @@ export default function PostDetails({ username }) {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/${postId}/delete`,
+        `${API_URL}/posts/${postId}/delete`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import API_URL from "./config";
 
 export default function AllUsers() {
   const [allUsers, setAllUsers] = useState([]);
@@ -6,7 +7,7 @@ export default function AllUsers() {
   useEffect(() => {
     async function getAllUsers() {
       try {
-        const response = await fetch("http://localhost:3000/users/all-users", {
+        const response = await fetch(`${API_URL}/users/all-users`, {
           credentials: "include",
         });
 

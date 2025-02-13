@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import API_URL from "./config";
 
 export default function LoginForm() {
   const {
@@ -16,7 +17,7 @@ export default function LoginForm() {
 
   const loginUser = async (credentials) => {
     try {
-      const response = await fetch("http://localhost:3000/users/login", {
+      const response = await fetch(`${API_URL}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

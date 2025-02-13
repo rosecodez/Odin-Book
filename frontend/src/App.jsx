@@ -13,7 +13,7 @@ import PostDetailsPage from "./pages/postDetailsPage";
 import UserDetailsPage from "./pages/userDetailsPage";
 import AllUsers from "./components/allUsers";
 
-const API_URL = import.meta.env.VITE_API_URL;
+import API_URL from "./config";
 console.log(API_URL);
 
 function App() {

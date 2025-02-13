@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import camera from "../assets/camera.png";
+import API_URL from "./config";
 
 export default function NewPost({ isVisitor }) {
   let [postText, setPostText] = useState("");
@@ -23,7 +24,7 @@ export default function NewPost({ isVisitor }) {
         formData.append("image", postImage);
       }
 
-      const response = await fetch(`http://localhost:3000/posts/new-post`, {
+      const response = await fetch(`${API_URL}/posts/new-post`, {
         method: "POST",
         credentials: "include",
         body: formData,

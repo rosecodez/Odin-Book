@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import camera from "../assets/camera.png";
 import Posts from "./posts";
 import NewPost from "./newPost";
+
+import API_URL from "./config";
+
 export default function Profile({ isVisitor, setIsVisitor }) {
   const { register, handleSubmit } = useForm();
   const [username, setUsername] = useState("");
@@ -14,7 +17,7 @@ export default function Profile({ isVisitor, setIsVisitor }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/users/profile`, {
+    fetch(`${API_URL}/users/profile`, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -58,7 +61,7 @@ export default function Profile({ isVisitor, setIsVisitor }) {
 
     try {
       const response = await fetch(
-        "http://localhost:3000/users/update-profile-picture",
+        `${API_URL}/users/update-profile-picture`,
         {
           method: "PUT",
           body: formData,

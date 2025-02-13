@@ -3,6 +3,7 @@ import message from "../assets/message.png";
 import { DateTime } from "luxon";
 import { useState } from "react";
 import { useEffect } from "react";
+import API_URL from "./config";
 
 export default function Posts({ userId, loggedInUserId }) {
   const [posts, setPosts] = useState([]);
@@ -15,11 +16,11 @@ export default function Posts({ userId, loggedInUserId }) {
       try {
         let endpoint;
         if (userId === loggedInUserId) {
-          endpoint = "http://localhost:3000/posts/profile-all-posts";
+          endpoint = `${API_URL}/posts/profile-all-posts`;
         } else if (userId) {
-          endpoint = `http://localhost:3000/posts/users/${userId}`;
+          endpoint = `${API_URL}/posts/users/${userId}`;
         } else {
-          endpoint = "http://localhost:3000/posts/all-posts";
+          endpoint = `${API_URL}/posts/all-posts`;
         }
 
         const response = await fetch(endpoint, {
@@ -43,7 +44,7 @@ export default function Posts({ userId, loggedInUserId }) {
   const editPost = async (postId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/${postId}/update`,
+        `${API_URL}/posts/${postId}/update`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -69,7 +70,7 @@ export default function Posts({ userId, loggedInUserId }) {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/posts/${postId}/delete`,
+        `${API_URL}/posts/${postId}/delete`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },

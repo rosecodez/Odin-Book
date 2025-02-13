@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import Feed from "./feed";
+import API_URL from "./config";
 
 export default function Home({ isAuthenticated, setIsAuthenticated }) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/check-authentication",
+          `${API_URL}/check-authentication`,
           {
             credentials: "include",
           },
