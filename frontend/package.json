@@ -12,6 +12,7 @@
   "dependencies": {
     "@typescript-eslint/utils": "^8.23.0",
     "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.7",
     "luxon": "^3.5.0",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.5",
