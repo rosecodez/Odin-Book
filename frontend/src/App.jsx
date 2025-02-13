@@ -12,7 +12,7 @@ import FeedPage from "./pages/feedPage";
 import PostDetailsPage from "./pages/postDetailsPage";
 import UserDetailsPage from "./pages/userDetailsPage";
 import AllUsers from "./components/allUsers";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function App() {
   const [isVisitor, setIsVisitor] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -21,12 +21,9 @@ function App() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/check-authentication",
-          {
-            credentials: "include",
-          },
-        );
+        const response = await fetch(`${API_URL}/check-authentication`, {
+          credentials: "include",
+        });
         const data = await response.json();
         setIsAuthenticated(data.isAuthenticated || false);
         setUsername(data.user.username);
