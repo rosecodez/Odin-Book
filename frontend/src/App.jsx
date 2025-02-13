@@ -12,7 +12,9 @@ import FeedPage from "./pages/feedPage";
 import PostDetailsPage from "./pages/postDetailsPage";
 import UserDetailsPage from "./pages/userDetailsPage";
 import AllUsers from "./components/allUsers";
-const API_URL = import.meta.env.VITE_API_URL;
+
+
+
 function App() {
   const [isVisitor, setIsVisitor] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -24,6 +26,8 @@ function App() {
         const response = await fetch(`${API_URL}/check-authentication`, {
           credentials: "include",
         });
+        const API_URL = import.meta.env.VITE_API_URL;
+        console.log(API_URL);
         const data = await response.json();
         setIsAuthenticated(data.isAuthenticated || false);
         setUsername(data.user.username);
