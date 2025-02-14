@@ -11,7 +11,7 @@ export default function Header({
   const handleLogout = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/users/logout", {
+      const response = await fetch(`${API_URL}/users/logout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ export default function Header({
     const checkAuth = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/check-authentication",
+          `${API_URL}/check-authentication`,
           {
             credentials: "include",
           },
