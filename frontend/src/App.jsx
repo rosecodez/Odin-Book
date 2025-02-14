@@ -13,7 +13,7 @@ import PostDetailsPage from "./pages/postDetailsPage";
 import UserDetailsPage from "./pages/userDetailsPage";
 import AllUsers from "./components/allUsers";
 
-import API_URL from "../config";
+import API_URL from "./config";
 console.log(API_URL);
 
 function App() {
