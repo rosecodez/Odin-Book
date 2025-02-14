@@ -137,7 +137,7 @@ export default function PostDetails({ username }) {
   const editPost = async (data) => {
     try {
       const response = await fetch(
-        `h${API_URL}/posts/${postId}/update`,
+        `${API_URL}/posts/${postId}/update`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
