@@ -5,7 +5,5 @@ import dotenv from 'dotenv';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  define: {
-    'process.env': process.env,
-  },
+  envDir: './env',
 });
