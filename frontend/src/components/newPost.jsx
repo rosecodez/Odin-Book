@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import camera from "../assets/camera.png";
-import API_URL from "./config";
+import API_URL from "../config";
 
 export default function NewPost({ isVisitor }) {
   let [postText, setPostText] = useState("");

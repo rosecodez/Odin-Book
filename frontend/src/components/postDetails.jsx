@@ -8,7 +8,7 @@ import message from "../assets/message.png";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import API_URL from "./config";
+import API_URL from "../config";
 
 export default function PostDetails({ username }) {
   const [post, setPost] = useState(null);

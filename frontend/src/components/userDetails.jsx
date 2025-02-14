@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import Posts from "../components/posts";
 import { useNavigate } from "react-router-dom";
-import API_URL from "./config";
+import API_URL from "../config";
 
 export default function UserDetails() {
   const navigate = useNavigate();

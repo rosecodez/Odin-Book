@@ -6,7 +6,7 @@ import message from "../assets/message.png";
 import NewPost from "./newPost";
 
 import { DateTime } from "luxon";
-import API_URL from "./config";
+import API_URL from "../config";
 
 export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
   const [image, setImage] = useState("");

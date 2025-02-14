@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Feed from "./feed";
-import API_URL from "./config";
+import API_URL from "../config";
 
 export default function Home({ isAuthenticated, setIsAuthenticated }) {
   useEffect(() => {

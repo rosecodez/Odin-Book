@@ -3,7 +3,7 @@ import message from "../assets/message.png";
 import { DateTime } from "luxon";
 import { useState } from "react";
 import { useEffect } from "react";
-import API_URL from "./config";
+import API_URL from "../config";
 
 export default function Posts({ userId, loggedInUserId }) {
   const [posts, setPosts] = useState([]);

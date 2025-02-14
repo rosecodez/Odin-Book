@@ -5,7 +5,7 @@ import camera from "../assets/camera.png";
 import Posts from "./posts";
 import NewPost from "./newPost";
 
-import API_URL from "./config";
+import API_URL from "../config";
 
 export default function Profile({ isVisitor, setIsVisitor }) {
   const { register, handleSubmit } = useForm();
