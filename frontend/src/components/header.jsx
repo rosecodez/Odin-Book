@@ -40,11 +40,13 @@ export default function Header({
           },
         );
         const data = await response.json();
-
+        console.log(data)
         if (data.isAuthenticated) {
+          console.log(data)
           setIsAuthenticated(true);
           setIsVisitor(data.user.isVisitor || false);
         } else {
+          console.log(data)
           setIsAuthenticated(false);
           setIsVisitor(false);
         }
