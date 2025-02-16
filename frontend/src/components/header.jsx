@@ -13,18 +13,14 @@ export default function Header({
     try {
       const response = await fetch(`${API_URL}/users/logout`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         credentials: "include",
       });
   
       if (!response.ok) {
         throw new Error("Logout request failed");
       }
-      document.cookie =
-      "connect.sid=; path=/; domain=.odin-book-frontend.onrender.com; expires=Thu, 01 Jan 1970 00:00:00 UTC; Secure; HttpOnly; SameSite=None";
-      window.location.href = "/login";
+      document.cookie = "connect.sid=; Path=/; Domain=.odin-book-frontend.onrender.com; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; SameSite=None";
+      window.location.href = "/";
     } catch (error) {
       console.error("Error logging out:", error.message);
     }

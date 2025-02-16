@@ -145,12 +145,12 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
 
         res.clearCookie('connect.sid', {
           path: '/',
-          domain: '.odin-book-frontend.onrender.com',
+          domain: 'odin-book-frontend.onrender.com',
           httpOnly: true,
           secure: true,
           sameSite: 'None',
         });
-        console.log();
+        console.log('session destroyed at logout');
         return res.status(200).json({ message: 'Logged out successfully' });
       });
     });
