@@ -136,13 +136,20 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
         console.error('Error during logout:', err);
         return res.status(500).json({ message: 'Failed to log out' });
       }
-      req.session.user = null;
-      req.session.passport = null;
+      const sessionId = req.sessionID;
+
       req.session.destroy((err) => {
         if (err) {
           console.error('Error destroying session:', err);
           return res.status(500).json({ message: 'Failed to log out' });
         }
+        prisma.session
+          .delete({
+            where: { sid: sessionId },
+          })
+          .catch((error) => {
+            console.error(error);
+          });
 
         res.clearCookie('connect.sid', {
           path: '/',
