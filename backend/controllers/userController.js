@@ -154,13 +154,18 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
 });
 
 exports.user_profile_get = asyncHandler(async (req, res, next) => {
+  console.log(req.sessionID);
+  console.log(req.session);
+  console.log(req.session.user);
+  console.log(req.user);
+
   if (req.session?.user?.isVisitor) {
     return res.status(200).json({
       user: { username: 'visitor', isVisitor: true },
     });
   }
 
-  if (!req.user) {
+  if (!req.user && !req.session?.user) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
@@ -186,6 +191,7 @@ exports.user_profile_get = asyncHandler(async (req, res, next) => {
   } catch (err) {
     return next(err);
   }
+  res.json({ user: req.user || req.session.user });
 });
 
 exports.user_update_profile_picture = asyncHandler(async (req, res, next) => {

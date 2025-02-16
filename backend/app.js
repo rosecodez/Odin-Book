@@ -58,7 +58,7 @@ const prismaSessionStore = new PrismaSessionStore(prisma, {
   dbRecordIdIsSessionId: true,
   sessionModel: 'Session',
 });
-
+app.set('trust proxy', 1);
 app.use(
   session({
     cookie: {
