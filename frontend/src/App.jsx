@@ -29,6 +29,7 @@ function App() {
         });
         
         const data = await response.json();
+        console.log("isAuthenticated app.jsx", data)
         setIsAuthenticated(data.isAuthenticated || false);
         setUsername(data.user.username);
         setIsVisitor(data.user?.isVisitor || false);
