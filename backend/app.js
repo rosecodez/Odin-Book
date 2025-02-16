@@ -64,7 +64,7 @@ app.use(
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: true,
       sameSite: 'None',
       httpOnly: true,
     },
@@ -140,12 +140,14 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
+  console.log('serialize user' + user);
   done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await prisma.user.findUnique({ where: { id } });
+    console.log('deserialize user' + user);
     done(null, user);
   } catch (err) {
     done(err);
