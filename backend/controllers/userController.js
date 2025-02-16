@@ -114,8 +114,6 @@ exports.user_login_post = [
 ];
 
 exports.user_logout_post = asyncHandler(async (req, res, next) => {
-  console.log(req.session);
-  console.log('logout backend');
   try {
     if (req.session.accessToken) {
       const revokeUrl = `https://accounts.google.com/o/oauth2/revoke?token=${req.session.accessToken}`;
@@ -131,25 +129,29 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
       }
     }
 
+    const sessionId = req.sessionID;
     req.logout((err) => {
       if (err) {
         console.error('Error during logout:', err);
         return res.status(500).json({ message: 'Failed to log out' });
       }
-      const sessionId = req.sessionID;
+
+      prisma.session
+        .delete({
+          where: { sid: sessionId },
+        })
+        .then(() => {
+          console.log('session deleted from prisma');
+        })
+        .catch((error) => {
+          console.error('error deleting session');
+        });
 
       req.session.destroy((err) => {
         if (err) {
-          console.error('Error destroying session:', err);
-          return res.status(500).json({ message: 'Failed to log out' });
+          console.error('error destroying session:');
+          return res.status(500).json({ message: 'error destroying session' });
         }
-        prisma.session
-          .delete({
-            where: { sid: sessionId },
-          })
-          .catch((error) => {
-            console.error(error);
-          });
 
         res.clearCookie('connect.sid', {
           path: '/',
