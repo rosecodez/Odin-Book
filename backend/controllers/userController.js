@@ -114,6 +114,8 @@ exports.user_login_post = [
 ];
 
 exports.user_logout_post = asyncHandler(async (req, res, next) => {
+  console.log(req.session);
+  console.log('logout backend');
   try {
     if (req.session.accessToken) {
       const revokeUrl = `https://accounts.google.com/o/oauth2/revoke?token=${req.session.accessToken}`;
@@ -141,8 +143,15 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
           return res.status(500).json({ message: 'Failed to log out' });
         }
 
-        res.clearCookie('connect.sid');
-        res.status(200).json();
+        res.clearCookie('connect.sid', {
+          path: '/',
+          domain: '.odin-book-frontend.onrender.com',
+          httpOnly: true,
+          secure: true,
+          sameSite: 'None',
+        });
+        console.log();
+        return res.status(200).json({ message: 'Logged out successfully' });
       });
     });
   } catch (error) {
