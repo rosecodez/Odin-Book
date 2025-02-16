@@ -136,7 +136,8 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
         console.error('Error during logout:', err);
         return res.status(500).json({ message: 'Failed to log out' });
       }
-
+      req.session.user = null;
+      req.session.passport = null;
       req.session.destroy((err) => {
         if (err) {
           console.error('Error destroying session:', err);
@@ -145,7 +146,6 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
 
         res.clearCookie('connect.sid', {
           path: '/',
-          domain: 'odin-book-frontend.onrender.com',
           httpOnly: true,
           secure: true,
           sameSite: 'None',
