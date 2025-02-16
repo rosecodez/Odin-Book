@@ -5,6 +5,7 @@ const prisma = require('../prisma/prisma');
 
 exports.post_new_post = asyncHandler(async (req, res, next) => {
   try {
+    console.log('creating new post');
     const user = req.user;
     const { text } = req.body;
 
@@ -38,6 +39,7 @@ exports.post_new_post = asyncHandler(async (req, res, next) => {
 
 exports.posts_all_get = asyncHandler(async (req, res, next) => {
   try {
+    console.log('fetching all posts');
     const posts = await prisma.post.findMany({
       orderBy: [
         {
