@@ -72,7 +72,15 @@ exports.user_login_post = [
 
     if (visitor) {
       req.session.user = { isVisitor: true };
-      await req.session.save();
+      req.session.save((err) => {
+        if (err) {
+          console.error('error saving visitor session on login');
+          return next(err);
+        }
+        console.log('visitor session saved');
+        console.log(req.session.user);
+      });
+
       return res.status(200).json({ user: req.session.user });
     }
 
@@ -94,7 +102,9 @@ exports.user_login_post = [
       req.login(user, (err) => {
         if (err) return next(err);
         req.session.user = { id: user.id, username: user.username };
+
         console.log(req.session.user);
+        console.log('session saved successfully');
         return res.status(200).json({ message: 'Login successful', user });
       });
     } catch (error) {

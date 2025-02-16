@@ -163,7 +163,11 @@ app.use((req, res, next) => {
 });
 
 app.get('/check-authentication', (req, res) => {
+  console.log('for /check-authentication logs');
+  console.log(req.session);
+
   if (req.session && req.session.user) {
+    console.log('user exists');
     return res.status(200).json({
       isAuthenticated: true,
       user: {
@@ -173,6 +177,7 @@ app.get('/check-authentication', (req, res) => {
       },
     });
   }
+  console.log('no user in session');
   return res.status(200).json({ isAuthenticated: false });
 });
 
