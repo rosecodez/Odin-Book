@@ -20,7 +20,6 @@ export default function Header({
         throw new Error("Logout request failed");
       }
       document.cookie = "connect.sid=; Path=/; Domain=.odin-book-frontend.onrender.com; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; SameSite=None";
-      window.location.href = "/";
     } catch (error) {
       console.error("Error logging out:", error.message);
     }
