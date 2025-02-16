@@ -155,6 +155,7 @@ passport.deserializeUser(async (id, done) => {
 });
 
 app.use((req, res, next) => {
+  console.log('req session in app.js' + req.session);
   if (req.user) {
     req.session.user = req.user;
   }
