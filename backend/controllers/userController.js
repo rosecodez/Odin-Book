@@ -130,22 +130,18 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
     }
 
     const sessionId = req.sessionID;
+
+    try {
+      await prisma.session.delete({ where: { sid: sessionId } });
+    } catch (error) {
+      throw error();
+    }
+
     req.logout((err) => {
       if (err) {
-        console.error('Error during logout:', err);
+        console.error();
         return res.status(500).json({ message: 'Failed to log out' });
       }
-
-      prisma.session
-        .delete({
-          where: { sid: sessionId },
-        })
-        .then(() => {
-          console.log('session deleted from prisma');
-        })
-        .catch((error) => {
-          console.error('error deleting session');
-        });
 
       req.session.destroy((err) => {
         if (err) {
@@ -159,7 +155,8 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
           secure: true,
           sameSite: 'None',
         });
-        console.log('session destroyed at logout');
+
+        console.log('Session destroyed at logout');
         return res.status(200).json({ message: 'Logged out successfully' });
       });
     });
