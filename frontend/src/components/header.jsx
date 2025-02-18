@@ -59,7 +59,7 @@ export default function Header({
     };
 
     checkAuth();
-  }, [isAuthenticated]);
+  }, []);
 
   return (
     <header className="flex flex-row justify-between pb-[40px] text-xl ">
@@ -82,13 +82,12 @@ export default function Header({
               Profile
             </a>
           )}
-          <a
-            href="/logout"
+          <button
             onClick={handleLogout}
             className="text-black no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8"
           >
             Log out
-          </a>
+          </button>
         </div>
       ) : (
         <div
