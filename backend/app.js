@@ -58,20 +58,19 @@ const prismaSessionStore = new PrismaSessionStore(prisma, {
   dbRecordIdIsSessionId: true,
   sessionModel: 'Session',
 });
-app.set('trust proxy', 1);
+
 app.use(
   session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: prismaSessionStore,
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
       secure: true,
       sameSite: 'None',
-      httpOnly: true,
     },
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    store: prismaSessionStore,
   })
 );
 

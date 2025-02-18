@@ -128,13 +128,12 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
         );
       }
     }
-
     const sessionId = req.sessionID;
 
     try {
       await prisma.session.deleteMany({ where: { sid: sessionId } });
     } catch (error) {
-      throw error();
+      throw error('error deleting session from prisma');
     }
 
     req.session.destroy((err) => {
