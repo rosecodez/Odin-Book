@@ -137,28 +137,19 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
       throw error();
     }
 
-    req.logout((err) => {
+    req.session.destroy((err) => {
       if (err) {
-        console.error();
-        return res.status(500).json({ message: 'Failed to log out' });
+        console.error('Error destroying session:', err);
+        return res.status(500).json({ message: 'Error destroying session' });
       }
 
-      req.session.destroy((err) => {
-        if (err) {
-          console.error('error destroying session:');
-          return res.status(500).json({ message: 'error destroying session' });
-        }
-
-        res.clearCookie('connect.sid', {
-          path: '/',
-          httpOnly: true,
-          secure: true,
-          sameSite: 'None',
-        });
-
-        console.log('Session destroyed at logout');
-        return res.status(200).json({ message: 'Logged out successfully' });
+      res.clearCookie('connect.sid', {
+        path: '/',
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
       });
+      return res.status(200).json({ message: 'Logged out successfully' });
     });
   } catch (error) {
     console.error('Unexpected error during logout:', error);
