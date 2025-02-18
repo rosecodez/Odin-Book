@@ -72,25 +72,17 @@ exports.user_login_post = [
 
     if (visitor) {
       req.session.user = { isVisitor: true };
-
-      req.session.save((err) => {
-        if (err) {
-          console.error('error saving visitor session on login');
-          return next(err);
-        }
-        console.log(req.session.user);
-        return res.status(200).json({ user: req.session.user });
-      });
-      return;
+      await req.session.save();
+      console.log('visitor session saved');
+      return res.status(200).json({ user: req.session.user });
     }
 
     try {
       const user = await prisma.user.findUnique({ where: { username } });
-      if (!user) {
+      if (!user)
         return res
           .status(401)
           .json({ message: 'Invalid username or password' });
-      }
 
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!isPasswordValid) {
@@ -99,23 +91,26 @@ exports.user_login_post = [
           .json({ message: 'Invalid username or password' });
       }
 
-      req.login(user, (err) => {
+      await prisma.session.deleteMany({
+        where: { data: { contains: `"user":${user.id}` } },
+      });
+
+      req.login(user, async (err) => {
         if (err) return next(err);
 
         req.session.user = {
           id: user.id,
           username: user.username,
-          isVisitor: user.isVisitor,
+          isVisitor: user.isVisitor || false,
         };
 
-        req.session.save((err) => {
-          if (err) console.error('error saving session:', err);
-          else console.log('session saved at login');
-        });
+        await req.session.save();
+        console.log('session saved successfully');
 
         return res.status(200).json({ message: 'Login successful', user });
       });
     } catch (error) {
+      console.error('Unexpected error', error);
       next(error);
     }
   }),
