@@ -138,44 +138,45 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
 
     console.log(req.session.user);
 
-    await new Promise((resolve, reject) => {
-      req.logout((err) => {
-        if (err) {
-          console.error(err);
-          reject(err);
-        } else {
-          resolve();
-        }
-      });
-    });
+    const sessionId = req.sessionID;
 
-    req.session.destroy(async (err) => {
+    req.logout((err) => {
       if (err) {
-        return res.status(500).json({ message: 'error destroying session' });
+        console.error(err);
+        return next(err);
       }
 
-      try {
-        await prisma.session.deleteMany({ where: { sid: req.sessionID } });
-        console.log('session deleted from Prisma');
-      } catch (error) {
-        console.error(error);
-      }
+      req.session.destroy(async (err) => {
+        if (err) {
+          console.error('error destroying session:', err);
+          return res.status(500).json({ message: 'error destroying session' });
+        }
 
-      res.clearCookie('connect.sid', {
-        path: '/',
-        httpOnly: true,
-        secure: true,
-        sameSite: 'None',
+        try {
+          if (sessionId) {
+            await prisma.session.deleteMany({ where: { sid: sessionId } });
+            console.log('session deleted from prisma');
+          }
+        } catch (error) {
+          console.error(error);
+        }
+
+        res.clearCookie('connect.sid', {
+          path: '/',
+          httpOnly: true,
+          secure: true,
+          sameSite: 'None',
+        });
+
+        console.log('session successfully destroyed');
+        return res.status(200).json({ message: 'logged out successfully' });
       });
-
-      console.log('session successfully destroyed');
-      return res.status(200).json({ message: 'Logged out successfully' });
     });
   } catch (error) {
-    console.error('❌ Unexpected error during logout:', error);
-    res
-      .status(500)
-      .json({ message: 'An unexpected error occurred during logout' });
+    console.error('unexpected error during logout:', error);
+    return res.status(500).json({
+      message: 'an unexpected error occurred during logout',
+    });
   }
 });
 
