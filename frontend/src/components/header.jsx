@@ -20,12 +20,8 @@ export default function Header({
       if (!response.ok) {
         throw new Error("Logout request failed");
       }
-  
-      document.cookie = "connect.sid=; Path=/; Domain=odin-book-d8do.onrender.com; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; SameSite=None";
-  
       setIsAuthenticated(false);
       setIsVisitor(false);
-      window.location.href = "/login";
     } catch (error) {
       console.error("Error logging out:", error.message);
     }
