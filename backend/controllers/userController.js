@@ -131,35 +131,51 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
         );
       }
     }
-    const sessionId = req.sessionID;
 
-    try {
-      await prisma.session.deleteMany({ where: { sid: sessionId } });
-    } catch (error) {
-      throw error('error deleting session from prisma');
+    if (!req.session) {
+      return res.status(400).json({ message: 'no session found' });
     }
 
-    req.session.destroy((err) => {
+    console.log(req.session.user);
+
+    await new Promise((resolve, reject) => {
+      req.logout((err) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    });
+
+    req.session.destroy(async (err) => {
       if (err) {
-        console.error('Error destroying session:', err);
-        return res.status(500).json({ message: 'Error destroying session' });
+        return res.status(500).json({ message: 'error destroying session' });
+      }
+
+      try {
+        await prisma.session.deleteMany({ where: { sid: req.sessionID } });
+        console.log('session deleted from Prisma');
+      } catch (error) {
+        console.error(error);
       }
 
       res.clearCookie('connect.sid', {
         path: '/',
-        domain: 'odin-book-d8do.onrender.com',
         httpOnly: true,
         secure: true,
         sameSite: 'None',
       });
 
+      console.log('session successfully destroyed');
       return res.status(200).json({ message: 'Logged out successfully' });
     });
   } catch (error) {
-    console.error('Unexpected error during logout:', error);
-    res.status(500).json({
-      message: 'An unexpected error occurred during logout',
-    });
+    console.error('❌ Unexpected error during logout:', error);
+    res
+      .status(500)
+      .json({ message: 'An unexpected error occurred during logout' });
   }
 });
 
