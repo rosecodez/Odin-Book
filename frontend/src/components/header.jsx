@@ -16,19 +16,21 @@ export default function Header({
         method: "POST",
         credentials: "include",
       });
-      
+  
       if (!response.ok) {
         throw new Error("Logout request failed");
       }
-
+  
+      document.cookie = "connect.sid=; Path=/; Domain=odin-book-d8do.onrender.com; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; SameSite=None";
+  
       setIsAuthenticated(false);
       setIsVisitor(false);
-      window.location.href = "/login"; 
-
+      window.location.href = "/login";
     } catch (error) {
       console.error("Error logging out:", error.message);
     }
   };
+  
   
 
   useEffect(() => {
@@ -40,13 +42,14 @@ export default function Header({
             credentials: "include",
           },
         );
-
         const data = await response.json();
         console.log(data)
-        if (response.ok) {
+        if (data.isAuthenticated) {
+          console.log(data)
           setIsAuthenticated(true);
           setIsVisitor(data.user.isVisitor || false);
         } else {
+          console.log(data)
           setIsAuthenticated(false);
           setIsVisitor(false);
         }

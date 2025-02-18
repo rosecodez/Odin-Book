@@ -132,7 +132,7 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
     const sessionId = req.sessionID;
 
     try {
-      await prisma.session.delete({ where: { sid: sessionId } });
+      await prisma.session.deleteMany({ where: { sid: sessionId } });
     } catch (error) {
       throw error();
     }
@@ -145,10 +145,12 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
 
       res.clearCookie('connect.sid', {
         path: '/',
+        domain: 'odin-book-d8do.onrender.com',
         httpOnly: true,
         secure: true,
         sameSite: 'None',
       });
+
       return res.status(200).json({ message: 'Logged out successfully' });
     });
   } catch (error) {
