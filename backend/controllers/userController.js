@@ -109,13 +109,11 @@ exports.user_login_post = [
         };
 
         req.session.save((err) => {
-          if (err) {
-            console.error(err);
-            return next(err);
-          }
-          console.log('session saved');
-          return res.status(200).json({ message: 'login successful', user });
+          if (err) console.error('error saving session:', err);
+          else console.log('session saved at login');
         });
+
+        return res.status(200).json({ message: 'Login successful', user });
       });
     } catch (error) {
       next(error);

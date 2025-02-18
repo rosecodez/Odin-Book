@@ -148,12 +148,15 @@ passport.deserializeUser(async (id, done) => {
 
 app.use((req, res, next) => {
   console.log('req session in app.js', req.session);
+
   if (req.user) {
     req.session.user = req.user;
     req.session.save((err) => {
-      if (err) throw err;
+      if (err) console.error('Error saving session:', err);
+      else console.log('session saved');
     });
   }
+
   next();
 });
 
