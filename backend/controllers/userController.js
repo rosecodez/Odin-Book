@@ -211,13 +211,10 @@ exports.user_profile_get = asyncHandler(async (req, res, next) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    res.json({
-      user: user,
-    });
+    res.json({ user: user });
   } catch (err) {
     return next(err);
   }
-  res.json({ user: req.user || req.session.user });
 });
 
 exports.user_update_profile_picture = asyncHandler(async (req, res, next) => {
