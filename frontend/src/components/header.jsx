@@ -78,12 +78,12 @@ export default function Header({
               Profile
             </a>
           )}
-          <button
+          <a href="/logout"
             onClick={handleLogout}
             className="text-black no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8"
           >
             Log out
-          </button>
+          </a>
         </div>
       ) : (
         <div
