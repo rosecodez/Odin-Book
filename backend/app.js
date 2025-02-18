@@ -1,3 +1,4 @@
+require('dotenv').config();
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -7,36 +8,11 @@ const passport = require('passport');
 const prisma = require('./prisma/prisma.js');
 const session = require('express-session');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
-const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const https = require('https');
-const fs = require('fs');
-const cloudinary = require('cloudinary').v2;
-require('dotenv').config();
 const cors = require('cors');
+const cloudinary = require('cloudinary').v2;
 
-const indexRouter = require('./routes/index');
-const authRouter = require('./routes/googleAuth.js');
-const usersRouter = require('./routes/users');
-const messagesRouter = require('./routes/messages.js');
-const postsRouter = require('./routes/posts.js');
-const commentsRouter = require('./routes/comments.js');
 const app = express();
-
-app.use(
-  cors({
-    origin: 'https://odin-book-frontend.onrender.com',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-  })
-);
-
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_KEY,
-  api_secret: process.env.CLOUDINARY_SECRET,
-});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -52,6 +28,21 @@ prisma
   .$connect()
   .then(() => console.log('Connected to database'))
   .catch(console.error);
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
+});
+
+app.use(
+  cors({
+    origin: 'https://odin-book-frontend.onrender.com',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  })
+);
 
 const prismaSessionStore = new PrismaSessionStore(prisma, {
   checkPeriod: 2 * 60 * 1000,
@@ -82,7 +73,7 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: 'x/auth/google/callback',
+      callbackURL: `${process.env.BACKEND_URL}/auth/google/callback`,
       scope: ['profile', 'email'],
       passReqToCallback: true,
       prompt: 'select_account',
@@ -146,7 +137,9 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await prisma.user.findUnique({ where: { id } });
-    console.log('deserialize user' + user);
+    if (!user) return done(null, false);
+
+    console.log('deserialize user', user);
     done(null, user);
   } catch (err) {
     done(err);
@@ -154,9 +147,12 @@ passport.deserializeUser(async (id, done) => {
 });
 
 app.use((req, res, next) => {
-  console.log('req session in app.js' + req.session);
+  console.log('req session in app.js', req.session);
   if (req.user) {
     req.session.user = req.user;
+    req.session.save((err) => {
+      if (err) throw err;
+    });
   }
   next();
 });
@@ -179,6 +175,12 @@ app.get('/check-authentication', (req, res) => {
   console.log('no user in session');
   return res.status(200).json({ isAuthenticated: false });
 });
+
+const authRouter = require('./routes/googleAuth.js');
+const usersRouter = require('./routes/users');
+const messagesRouter = require('./routes/messages.js');
+const postsRouter = require('./routes/posts.js');
+const commentsRouter = require('./routes/comments.js');
 
 app.use('/', authRouter);
 app.use('/users', usersRouter);
