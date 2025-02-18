@@ -11,7 +11,7 @@ function isAuthenticated(req, res, next) {
   const user = req.user || req.session.user;
   console.log(user);
 
-  res.json({ user });
+  return next();
 }
 
 module.exports = isAuthenticated;
