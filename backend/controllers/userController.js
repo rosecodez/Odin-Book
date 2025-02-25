@@ -123,17 +123,17 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
       const revokeResponse = await fetch(revokeUrl, { method: 'POST' });
 
       if (revokeResponse.ok) {
-        console.log('google access token revoked successfully');
+        console.log('Google access token revoked successfully');
       } else {
         console.error(
-          'failed to revoke google access token:',
+          'Failed to revoke Google access token:',
           await revokeResponse.text()
         );
       }
     }
 
     if (!req.session) {
-      return res.status(400).json({ message: 'no session found' });
+      return res.status(400).json({ message: 'No session found' });
     }
 
     console.log(req.session.user);
@@ -165,6 +165,8 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
           httpOnly: true,
           secure: true,
           sameSite: 'None',
+          path: '/',
+          domain: '.onrender.com',
         });
 
         console.log('session successfully destroyed');
