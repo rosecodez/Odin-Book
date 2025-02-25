@@ -162,7 +162,6 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
         }
 
         res.clearCookie('connect.sid', {
-          path: '/',
           httpOnly: true,
           secure: true,
           sameSite: 'None',

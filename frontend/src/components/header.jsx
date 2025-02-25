@@ -20,7 +20,7 @@ export default function Header({
       if (!response.ok) {
         throw new Error("Logout request failed");
       }
-      
+      console.log("Logout successful!");
       setIsAuthenticated(false);
       setIsVisitor(false);
       window.location="/"
