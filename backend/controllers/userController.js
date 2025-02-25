@@ -146,6 +146,14 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
         return next(err);
       }
 
+      res.clearCookie('connect.sid', {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
+      });
+
+      res.status(200).json({ message: 'logged out successfully' });
+
       req.session.destroy(async (err) => {
         if (err) {
           console.error('error destroying session:', err);
@@ -160,17 +168,6 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
         } catch (error) {
           console.error(error);
         }
-
-        res.clearCookie('connect.sid', {
-          httpOnly: true,
-          secure: true,
-          sameSite: 'None',
-          path: '/',
-          domain: '.onrender.com',
-        });
-
-        console.log('session successfully destroyed');
-        return res.status(200).json({ message: 'logged out successfully' });
       });
     });
   } catch (error) {
