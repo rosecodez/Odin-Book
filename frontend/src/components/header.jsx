@@ -80,7 +80,7 @@ export default function Header({
               Profile
             </a>
           )}
-          <a href="/logout"
+          <a href="/"
             onClick={handleLogout}
             className="text-black no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8"
           >
