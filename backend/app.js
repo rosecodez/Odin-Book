@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.options('*', cors());
 prisma
   .$connect()
   .then(() => console.log('Connected to database'))
@@ -41,8 +41,12 @@ app.use(
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   })
 );
+
+app.options('*', cors());
 
 const prismaSessionStore = new PrismaSessionStore(prisma, {
   checkPeriod: 2 * 60 * 1000,
