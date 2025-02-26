@@ -75,7 +75,7 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: `${process.env.BACKEND_URL}/auth/google/callback`,
+      callbackURL: `https://odin-book-frontend.onrender.com/auth/google/callback`,
       scope: ['profile', 'email'],
       passReqToCallback: true,
       prompt: 'select_account',
