@@ -12,16 +12,10 @@ router.get(
 
 router.get(
   '/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  (req, res) => {
-    try {
-      console.log(req.user);
-      res.redirect('https://odin-book-frontend.onrender.com/profile');
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Internal Server Error');
-    }
-  }
+  passport.authenticate('google', {
+    failureRedirect: '/login',
+    successRedirect: 'https://odin-book-frontend.onrender.com/profile',
+  })
 );
 
 module.exports = router;
