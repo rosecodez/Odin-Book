@@ -16,7 +16,7 @@ router.get(
   (req, res) => {
     try {
       console.log(req.user);
-      res.redirect('http://localhost:5173/profile');
+      res.redirect('https://odin-book-frontend.onrender.com/profile');
     } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error');
