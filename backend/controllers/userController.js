@@ -118,6 +118,17 @@ exports.user_login_post = [
 
 exports.user_logout_post = asyncHandler(async (req, res, next) => {
   try {
+    res.setHeader(
+      'Access-Control-Allow-Origin',
+      'https://odin-book-frontend.onrender.com'
+    );
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'Content-Type, Authorization'
+    );
+
     if (req.session.accessToken) {
       const revokeUrl = `https://accounts.google.com/o/oauth2/revoke?token=${req.session.accessToken}`;
       const revokeResponse = await fetch(revokeUrl, { method: 'POST' });
