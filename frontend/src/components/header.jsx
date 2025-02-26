@@ -23,14 +23,12 @@ export default function Header({
       console.log("Logout successful!");
       setIsAuthenticated(false);
       setIsVisitor(false);
-      window.location="/"
     } catch (error) {
       console.error("Error logging out:", error.message);
+      window.location = "/";
     }
   };
   
-  
-
   useEffect(() => {
     const checkAuth = async () => {
       try {

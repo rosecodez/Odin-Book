@@ -128,6 +128,7 @@ exports.user_logout_post = asyncHandler(async (req, res, next) => {
       'Access-Control-Allow-Headers',
       'Content-Type, Authorization'
     );
+    res.status(204).end();
 
     if (req.session.accessToken) {
       const revokeUrl = `https://accounts.google.com/o/oauth2/revoke?token=${req.session.accessToken}`;
