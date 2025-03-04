@@ -70,7 +70,7 @@ Data models diagram
 
 #### Basic page structure
 
-![alt text](image.png)
+![](media/image.png)
 
 #### Layout:
 
