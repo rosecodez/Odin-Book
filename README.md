@@ -1,6 +1,10 @@
 # Odin-Book
 
-Odin-Book is a full-stack social media application where users can post, follow, comment, and explore other profiles. It includes user authentication and a visitor mode for browsing without signing in.
+**Live Project**: https://odin-book-frontend.onrender.com/
+
+**Odin-Book** is a full-stack social media application where users can post, follow, comment, and explore other profiles. It includes user authentication and a visitor mode for browsing without signing in.
+
+## Demo
 
 ![](media/gif1.gif)
 
@@ -10,32 +14,29 @@ Odin-Book is a full-stack social media application where users can post, follow,
 
 ![](media/gif4.gif)
 
+## Features
+
+- **User Profiles**- Create personal profile or fetch it from _Google_ account with photo/bio
+- **Follow System**- Connect with people by following them
+- **Post & Engagement**- Create posts, like, comment, and update content
+- **Media Uploads**- Embed images in posts via _Cloudinary & Multer_
+- **Visitor Mode**- Browse the platform without _signing in_
+
 ## Technologies
 
-### Backend
+- **Prisma & PostgreSQL**- ORM & relational database for structured data
+- **Node.js, Express**- Scalable backend for authentication & data handling
+- **Passport.js** – Secure session-based authentication
+- **Cloudinary & multer** - Image uploads
+- **React with TailwindCSS** - Modern frontend with component-based UI & utility-first styling
 
-Node.js with Express
+## Planning
 
-- for a scalable, event driven architecture, perfect for handling numerous requests, such as user authentication and data fetching
+![](media/image.png)
 
-PostgreSQL with Prisma ORM
+### Data models
 
-- offers a robust relational database for structured data like user and post interactions
-- prisma simplifies database interactions, offering type safety and rapid development
-
-Authentication (Passport.js)
-
-- passport.js is a versatile middleware for handling secure user authentication
-
-Cloudinary and multer for image management
-
-- Cloudinary handles image uploads efficiently, ensuring optimized image delivery
-
-### Frontend
-
-React with TailwindCSS
-
-- React's component based architecture simplifies building reusable UI elements, while Tailwind provides a modern, utility-first approach for styling, enabling faster, consistent designs
+![](<media/Odin-Book%20(1).png>)
 
 ### API Documentation
 
@@ -43,61 +44,19 @@ React with TailwindCSS
 
 ![](media/image-4.png)
 
-## Planning
+#### Page Structure
 
 ![](media/image.png)
-
-Data models diagram
-
-![](<media/Odin-Book%20(1).png>)
-
-## Dependencies
-
-### Backend
-
-- Passport.js, Google OAuth2.0 Strategy
-- cloudinary.v2 + multer to upload image to posts/profile picture
-- Prisma (for data modeling and database queries)
-
-#### npm packages:
-
-- bcrypt, dotenv, cors, express-session, path, express-async-handler, express-validator, multer, cloudinaryStorage
-
-### Frontend
-
-- React
-- Tailwind
-
-#### Basic page structure
-
-![](media/image.png)
-
-#### Layout:
-
-- Footer and header are always displayed
-- Dynamic page content is rendered based on the current route
 
 ## Challenges faced
 
-- CORS errors, between the `backend(localhost:3000)` and frontend `(localhost:5173)`
-- managing complex many-to-many relationships (e.g., followers/following).
-- `429 Too Many Requests` GET profile image from Google account, needing to save it locally after fetching it once
-- implementing visitor mode without compromising security or user experience posed challenges in state management
-- responsive design (for all devices)
+- **CORS errors** - Resolved backend & frontend server mismatches
+- **Many-to-Many Relationships** - Optimized follower/following system with Prisma
+- **Google Profile Image Rate Limits** - Cached & stored profile images locally after first fetch
+- **Visitor mode** - Ensured secure & seamless browsing experience
+- **Responsive design** - Optimized for all screen sizes
 
 ## Features for improvement
 
-- WebSocket for real time notifications
-- direct private conversations between users
-
-## Acknowledgments
-
-I would like to acknowledge the following resources that contributed to the development of Odin-Book:
-
-[The Odin Project](https://www.theodinproject.com/lessons/node-path-nodejs-odin-book) – Provided foundational knowledge and project inspiration
-
-[React](https://react.dev/) – Essential guide for building the frontend components.
-
-[Express.js](https://expressjs.com/) – Used for backend development.
-
-[Prisma ORM](https://www.prisma.io/docs) – Database technology for managing user data.
+- **WebSocket Integration**: Enable real-time notifications
+- **Live Chat**: Support direct private messaging between users
