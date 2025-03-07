@@ -2,6 +2,8 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 
+console.log('google auth works in express');
+
 router.get(
   '/auth/google',
   passport.authenticate('google', {
