@@ -15,12 +15,21 @@ router.get(
 router.get(
   '/auth/google/callback',
   (req, res, next) => {
-    console.log('google auth route works');
     next();
   },
-  passport.authenticate('google', {
-    failureRedirect: '/login',
-    successRedirect: 'https://odin-book-frontend.onrender.com/profile',
+  passport.authenticate('google', (err, user, info) => {
+    if (err) {
+      console.log(err);
+      return res.redirect('/login');
+    }
+
+    if (!user) {
+      return res.redirect('/login');
+    }
+
+    console.log(user);
+
+    return res.redirect('https://odin-book-frontend.onrender.com/profile');
   })
 );
 
