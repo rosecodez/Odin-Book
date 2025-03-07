@@ -214,7 +214,9 @@ app.use(function (err, req, res, next) {
 });
 
 app._router.stack.forEach((middleware) => {
-  console.log(`middleware`, middleware.route.path);
+  if (middleware.route) {
+    console.log(middleware.route.path);
+  }
 });
 
 module.exports = app;
