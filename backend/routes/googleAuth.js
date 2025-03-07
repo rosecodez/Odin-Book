@@ -12,6 +12,10 @@ router.get(
 
 router.get(
   '/auth/google/callback',
+  (req, res, next) => {
+    console.log('google auth route works');
+    next();
+  },
   passport.authenticate('google', {
     failureRedirect: '/login',
     successRedirect: 'https://odin-book-frontend.onrender.com/profile',
