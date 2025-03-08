@@ -18,26 +18,11 @@ router.get(
     next();
   },
 
-  passport.authenticate('google', (err, user) => {
-    console.log('google auth middleware working');
-
-    if (err) {
-      console.log(err);
-    }
-
-    if (!user) {
-      console.log('user not authenticated');
-    }
-
-    req.logIn(user, (err) => {
-      if (err) {
-        return res.redirect('/login');
-      }
-
-      console.log('user session saved');
-      return res.redirect('https://odin-book-frontend.onrender.com/profile');
-    });
-  })
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    console.log('google auth callback route Hit');
+    return res.redirect('https://odin-book-frontend.onrender.com/profile');
+  }
 );
 
 module.exports = router;
