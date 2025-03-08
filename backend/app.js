@@ -105,7 +105,7 @@ passport.use(
           user = await prisma.user.create({
             data: {
               username: profile.displayName,
-              profile_image: cloudinaryResult || defaultProfileImage,
+              profile_image: profileImageUrl,
               googleId: profile.id,
             },
           });
