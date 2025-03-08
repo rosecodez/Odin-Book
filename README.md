@@ -6,13 +6,29 @@
 
 ## Demo
 
-![](media/gif1.gif)
+### Google Authentication
 
-![](media/gif2.gif)
+![](media/google%20auth.gif)
 
-![](media/gif3.gif)
+### Log in
 
-![](media/gif4.gif)
+![](media/log-in.gif)
+
+### Post & Comment
+
+![](media/post&comment.gif)
+
+### Follow
+
+![](media/follow.gif)
+
+### Update Profile Picture
+
+![](media/update%20profile%20pic.gif)
+
+### Visitor Mode
+
+![](media/visitor-mode.gif)
 
 ## Features
 
