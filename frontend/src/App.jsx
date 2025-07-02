@@ -27,7 +27,7 @@ function App() {
         const response = await fetch(`${API_URL}/check-authentication`, {
           credentials: "include",
         });
-        
+
         const data = await response.json();
         console.log("isAuthenticated app.jsx", data)
         setIsAuthenticated(data.isAuthenticated || false);

@@ -1,103 +1,100 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model user {
-    id                        Int                         @id @default(autoincrement())
-    username                  String                      @unique
-    password                  String?
-    googleId                  String?
-    isVisitor                 Boolean                     @default(false)
-    profile_image             String                      @default("https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png")
-    bio                       String                      @default("Nothing about this user yet")
-    created_at                DateTime                    @default(now())
-    like                      like[]
-    post                      post[]
-    messages                  message[]
-    comment                   comment[]
-    conversation_participants conversation_participants[]
-    // many to many relationship
-    //  - each user can follow many other users
-    //  - each user can be followed by many other users
-    followers                 Follows[]                   @relation("following")
-    following                 Follows[]                   @relation("follower")
+  id                        Int                         @id @default(autoincrement())
+  username                  String                      @unique
+  password                  String?
+  profile_image             String                      @default("https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png")
+  bio                       String                      @default("Nothing about this user yet")
+  created_at                DateTime                    @default(now())
+  googleId                  String?
+  isVisitor                 Boolean                     @default(false)
+  following                 Follows[]                   @relation("follower")
+  followers                 Follows[]                   @relation("following")
+  comment                   comment[]
+  conversation_participants conversation_participants[]
+  like                      like[]
+  messages                  message[]
+  post                      post[]
 }
 
 model Follows {
-    follower    user @relation("follower", fields: [followerId], references: [id])
-    followerId  Int
-    following   user @relation("following", fields: [followingId], references: [id])
-    followingId Int
+  followerId  Int
+  followingId Int
+  follower    user @relation("follower", fields: [followerId], references: [id])
+  following   user @relation("following", fields: [followingId], references: [id])
 
-    @@id([followerId, followingId])
+  @@id([followerId, followingId])
 }
 
 model Session {
-    id        String   @id @default(cuid())
-    sid       String   @unique
-    data      String
-    expiresAt DateTime
+  id        String   @id @default(cuid())
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
 }
 
 model message {
-    id              Int           @id @default(autoincrement())
-    content         String
-    created_at      DateTime      @default(now())
-    conversation_id String
-    sender_id       Int
-    user            user?         @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId          Int?
-    conversation    conversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-    conversationId  Int?
-    image           String?
+  id              Int           @id @default(autoincrement())
+  content         String
+  created_at      DateTime      @default(now())
+  conversation_id String
+  sender_id       Int
+  userId          Int?
+  conversationId  Int?
+  image           String?
+  conversation    conversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user            user?         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model conversation {
-    id                        Int                         @id @default(autoincrement())
-    created_at                DateTime
-    conversation_participants conversation_participants[]
-    messages                  message[]
+  id                        Int                         @id @default(autoincrement())
+  created_at                DateTime
+  conversation_participants conversation_participants[]
+  messages                  message[]
 }
 
 model conversation_participants {
-    id             Int           @id @default(autoincrement())
-    user           user          @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId         Int
-    conversation   conversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
-    conversationId Int?
+  id             Int           @id @default(autoincrement())
+  userId         Int
+  conversationId Int?
+  conversation   conversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user           user          @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model comment {
-    id         Int      @id @default(autoincrement())
-    content    String
-    created_at DateTime @default(now())
-    user       user     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    post       post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-    userId     Int
-    postId     Int
+  id         Int      @id @default(autoincrement())
+  content    String
+  created_at DateTime @default(now())
+  userId     Int
+  postId     Int
+  post       post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user       user     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model post {
-    id         Int       @id @default(autoincrement())
-    content    String
-    created_at DateTime  @default(now())
-    user       user      @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId     Int
-    comment    comment[]
-    like       like[]
-    post_image String?
+  id         Int       @id @default(autoincrement())
+  content    String
+  created_at DateTime  @default(now())
+  userId     Int
+  post_image String?
+  comment    comment[]
+  like       like[]
+  user       user      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model like {
-    id         Int      @id @default(autoincrement())
-    created_at DateTime @default(now())
-    user       user     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId     Int
-    post       post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-    postId     Int
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  userId     Int
+  postId     Int
+  post       post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user       user     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

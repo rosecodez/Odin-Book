@@ -18,9 +18,16 @@
             "url": {
               "raw": "http://localhost:3000/users/login/federated/google",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["users", "login", "federated", "google"]
+              "path": [
+                "users",
+                "login",
+                "federated",
+                "google"
+              ]
             },
             "description": "Initiates Google federated authentication using Passport.js. Redirects the user to Google's login page for authentication"
           },
@@ -33,9 +40,16 @@
                 "url": {
                   "raw": "http://localhost:3000/users/login/federated/google",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["users", "login", "federated", "google"]
+                  "path": [
+                    "users",
+                    "login",
+                    "federated",
+                    "google"
+                  ]
                 }
               },
               "status": "OK",
@@ -148,9 +162,15 @@
             "url": {
               "raw": "http://localhost:3000/users/auth/google",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["users", "auth", "google"]
+              "path": [
+                "users",
+                "auth",
+                "google"
+              ]
             },
             "description": "Handles the callback from Google after the user has authenticated. Verifies the authentication and redirects the user accordingly"
           },
@@ -163,9 +183,15 @@
                 "url": {
                   "raw": "http://localhost:3000/users/auth/google",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["users", "auth", "google"]
+                  "path": [
+                    "users",
+                    "auth",
+                    "google"
+                  ]
                 }
               },
               "status": "OK",
@@ -278,9 +304,16 @@
             "url": {
               "raw": "http://localhost:3000/users/auth/google/callback",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["users", "auth", "google", "callback"]
+              "path": [
+                "users",
+                "auth",
+                "google",
+                "callback"
+              ]
             },
             "description": "Handles the callback from Google after the user has authenticated. Verifies the authentication and redirects the user accordingly"
           },
@@ -293,9 +326,16 @@
                 "url": {
                   "raw": "http://localhost:3000/users/auth/google/callback",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["users", "auth", "google", "callback"]
+                  "path": [
+                    "users",
+                    "auth",
+                    "google",
+                    "callback"
+                  ]
                 }
               },
               "status": "OK",
@@ -423,9 +463,14 @@
             "url": {
               "raw": "http://localhost:3000/users/signup",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["users", "signup"]
+              "path": [
+                "users",
+                "signup"
+              ]
             },
             "description": "Logs out the current user"
           },
@@ -453,9 +498,14 @@
                 "url": {
                   "raw": "http://localhost:3000/users/signup",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["users", "signup"]
+                  "path": [
+                    "users",
+                    "signup"
+                  ]
                 }
               },
               "status": "OK",
@@ -535,9 +585,14 @@
             "url": {
               "raw": "http://localhost:3000/users/login",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["users", "login"]
+              "path": [
+                "users",
+                "login"
+              ]
             },
             "description": "Logs in an user"
           },
@@ -565,9 +620,14 @@
                 "url": {
                   "raw": "http://localhost:3000/users/login",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["users", "login"]
+                  "path": [
+                    "users",
+                    "login"
+                  ]
                 }
               },
               "status": "OK",
@@ -638,9 +698,14 @@
             "url": {
               "raw": "http://localhost:3000/users/logout",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["users", "logout"]
+              "path": [
+                "users",
+                "logout"
+              ]
             },
             "description": "Logs out the current user"
           },
@@ -659,9 +724,14 @@
                 "url": {
                   "raw": "http://localhost:3000/users/logout",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["users", "logout"]
+                  "path": [
+                    "users",
+                    "logout"
+                  ]
                 }
               },
               "status": "OK",
@@ -732,9 +802,14 @@
             "url": {
               "raw": "http://localhost:3000/users/profile",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["users", "profile"]
+              "path": [
+                "users",
+                "profile"
+              ]
             },
             "description": "Fetches the logged-in user's profile"
           },
@@ -747,9 +822,14 @@
                 "url": {
                   "raw": "http://localhost:3000/users/profile",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["users", "profile"]
+                  "path": [
+                    "users",
+                    "profile"
+                  ]
                 }
               },
               "status": "OK",
@@ -810,9 +890,14 @@
             "url": {
               "raw": "http://localhost:3000/users/all-users",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["users", "all-users"]
+              "path": [
+                "users",
+                "all-users"
+              ]
             }
           },
           "response": [
@@ -824,9 +909,14 @@
                 "url": {
                   "raw": "http://localhost:3000/users/all-users",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["users", "all-users"]
+                  "path": [
+                    "users",
+                    "all-users"
+                  ]
                 }
               },
               "status": "OK",
@@ -887,9 +977,14 @@
             "url": {
               "raw": "http://localhost:3000/users/rosecodez",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["users", "rosecodez"]
+              "path": [
+                "users",
+                "rosecodez"
+              ]
             }
           },
           "response": [
@@ -901,9 +996,14 @@
                 "url": {
                   "raw": "http://localhost:3000/users/rosecodez",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["users", "rosecodez"]
+                  "path": [
+                    "users",
+                    "rosecodez"
+                  ]
                 }
               },
               "status": "OK",
@@ -979,9 +1079,15 @@
             "url": {
               "raw": "http://localhost:3000/users/cristina456/follow",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["users", "cristina456", "follow"]
+              "path": [
+                "users",
+                "cristina456",
+                "follow"
+              ]
             }
           },
           "response": [
@@ -1008,9 +1114,15 @@
                 "url": {
                   "raw": "http://localhost:3000/users/cristina456/follow",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["users", "cristina456", "follow"]
+                  "path": [
+                    "users",
+                    "cristina456",
+                    "follow"
+                  ]
                 }
               },
               "status": "OK",
@@ -1071,9 +1183,14 @@
             "url": {
               "raw": "http://localhost:3000/users/update-profile-picture",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["users", "update-profile-picture"]
+              "path": [
+                "users",
+                "update-profile-picture"
+              ]
             }
           },
           "response": []
@@ -1101,9 +1218,14 @@
             "url": {
               "raw": "http://localhost:3000/users/update-bio",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["users", "update-bio"]
+              "path": [
+                "users",
+                "update-bio"
+              ]
             }
           },
           "response": []
@@ -1122,9 +1244,14 @@
             "url": {
               "raw": "http://localhost:3000/posts/all-posts",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["posts", "all-posts"]
+              "path": [
+                "posts",
+                "all-posts"
+              ]
             }
           },
           "response": [
@@ -1136,9 +1263,14 @@
                 "url": {
                   "raw": "http://localhost:3000/posts/all-posts",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["posts", "all-posts"]
+                  "path": [
+                    "posts",
+                    "all-posts"
+                  ]
                 }
               },
               "status": "OK",
@@ -1199,9 +1331,14 @@
             "url": {
               "raw": "http://localhost:3000/posts/all-posts-visitor",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["posts", "all-posts-visitor"]
+              "path": [
+                "posts",
+                "all-posts-visitor"
+              ]
             }
           },
           "response": [
@@ -1213,9 +1350,14 @@
                 "url": {
                   "raw": "http://localhost:3000/posts/all-posts-visitor",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["posts", "all-posts-visitor"]
+                  "path": [
+                    "posts",
+                    "all-posts-visitor"
+                  ]
                 }
               },
               "status": "Created",
@@ -1276,9 +1418,14 @@
             "url": {
               "raw": "http://localhost:3000/posts/profile-all-posts",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["posts", "profile-all-posts"]
+              "path": [
+                "posts",
+                "profile-all-posts"
+              ]
             }
           },
           "response": [
@@ -1290,9 +1437,14 @@
                 "url": {
                   "raw": "http://localhost:3000/posts/profile-all-posts",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["posts", "profile-all-posts"]
+                  "path": [
+                    "posts",
+                    "profile-all-posts"
+                  ]
                 }
               },
               "status": "Created",
@@ -1353,9 +1505,14 @@
             "url": {
               "raw": "http://localhost:3000/posts/profile-all-posts",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["posts", "profile-all-posts"]
+              "path": [
+                "posts",
+                "profile-all-posts"
+              ]
             }
           },
           "response": [
@@ -1367,9 +1524,14 @@
                 "url": {
                   "raw": "http://localhost:3000/posts/profile-all-posts",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["posts", "profile-all-posts"]
+                  "path": [
+                    "posts",
+                    "profile-all-posts"
+                  ]
                 }
               },
               "status": "Created",
@@ -1484,9 +1646,14 @@
             "url": {
               "raw": "http://localhost:3000/posts/1",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["posts", "1"]
+              "path": [
+                "posts",
+                "1"
+              ]
             }
           },
           "response": [
@@ -1498,9 +1665,14 @@
                 "url": {
                   "raw": "http://localhost:3000/posts/1",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["posts", "1"]
+                  "path": [
+                    "posts",
+                    "1"
+                  ]
                 }
               },
               "status": "OK",
@@ -1576,9 +1748,14 @@
             "url": {
               "raw": "http://localhost:3000/posts/new-post",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["posts", "new-post"]
+              "path": [
+                "posts",
+                "new-post"
+              ]
             }
           },
           "response": [
@@ -1605,9 +1782,14 @@
                 "url": {
                   "raw": "http://localhost:3000/posts/new-post",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["posts", "new-post"]
+                  "path": [
+                    "posts",
+                    "new-post"
+                  ]
                 }
               },
               "status": "Created",
@@ -1668,9 +1850,15 @@
             "url": {
               "raw": "http://localhost:3000/posts/1/like",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["posts", "1", "like"]
+              "path": [
+                "posts",
+                "1",
+                "like"
+              ]
             }
           },
           "response": [
@@ -1682,9 +1870,15 @@
                 "url": {
                   "raw": "http://localhost:3000/posts/1/like",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["posts", "1", "like"]
+                  "path": [
+                    "posts",
+                    "1",
+                    "like"
+                  ]
                 }
               },
               "status": "OK",
@@ -1760,9 +1954,15 @@
             "url": {
               "raw": "http://localhost:3000/posts/1/update",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["posts", "1", "update"]
+              "path": [
+                "posts",
+                "1",
+                "update"
+              ]
             }
           },
           "response": [
@@ -1789,9 +1989,15 @@
                 "url": {
                   "raw": "http://localhost:3000/posts/1/update",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["posts", "1", "update"]
+                  "path": [
+                    "posts",
+                    "1",
+                    "update"
+                  ]
                 }
               },
               "status": "OK",
@@ -1858,9 +2064,15 @@
             "url": {
               "raw": "http://localhost:3000/posts/1/delete",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["posts", "1", "delete"]
+              "path": [
+                "posts",
+                "1",
+                "delete"
+              ]
             }
           },
           "response": [
@@ -1878,9 +2090,15 @@
                 "url": {
                   "raw": "http://localhost:3000/posts/1/delete",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["posts", "1", "delete"]
+                  "path": [
+                    "posts",
+                    "1",
+                    "delete"
+                  ]
                 }
               },
               "status": "OK",
@@ -1941,9 +2159,15 @@
             "url": {
               "raw": "http://localhost:3000/posts/1/unlike",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["posts", "1", "unlike"]
+              "path": [
+                "posts",
+                "1",
+                "unlike"
+              ]
             }
           },
           "response": []
@@ -1962,9 +2186,15 @@
             "url": {
               "raw": "http://localhost:3000/comments/1/comments",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["comments", "1", "comments"]
+              "path": [
+                "comments",
+                "1",
+                "comments"
+              ]
             }
           },
           "response": [
@@ -1976,9 +2206,15 @@
                 "url": {
                   "raw": "http://localhost:3000/comments/1/comments",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["comments", "1", "comments"]
+                  "path": [
+                    "comments",
+                    "1",
+                    "comments"
+                  ]
                 }
               },
               "status": "OK",
@@ -2054,9 +2290,15 @@
             "url": {
               "raw": "http://localhost:3000/comments/2/new-comment",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "3000",
-              "path": ["comments", "2", "new-comment"]
+              "path": [
+                "comments",
+                "2",
+                "new-comment"
+              ]
             }
           },
           "response": [
@@ -2083,9 +2325,15 @@
                 "url": {
                   "raw": "http://localhost:3000/comments/2/new-comment",
                   "protocol": "http",
-                  "host": ["localhost"],
+                  "host": [
+                    "localhost"
+                  ],
                   "port": "3000",
-                  "path": ["comments", "2", "new-comment"]
+                  "path": [
+                    "comments",
+                    "2",
+                    "new-comment"
+                  ]
                 }
               },
               "status": "OK",
