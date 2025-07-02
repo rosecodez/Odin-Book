@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import API_URL from "../config";
+import ThemeToggleButton from "./ThemeToggleButton";
 
 export default function Header({
   isVisitor,
@@ -65,6 +66,9 @@ export default function Header({
         </a>
       </div>
 
+      <div>
+        <ThemeToggleButton />
+      </div>
       {isAuthenticated ? (
         <div
           id="header-left-panel"

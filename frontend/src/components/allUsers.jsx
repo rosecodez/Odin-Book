@@ -29,17 +29,17 @@ export default function AllUsers() {
     <ul className="flex flex-col gap-2 justify-start items-start pl-[0px] min-w-[136px] max-w-[136px]  hide-on-small">
       {allUsers.length > 0
         ? allUsers.map((user) => (
-            <a href={`/users/${user.username}`}>
-              <li key={user.id} className="flex gap-2">
-                <img
-                  src={user.profile_image}
-                  alt="profile image"
-                  className="w-[40px] h-[40px]"
-                ></img>
-                <p className="pt-[5px]">{user.username}</p>
-              </li>
-            </a>
-          ))
+          <a href={`/users/${user.username}`}>
+            <li key={user.id} className="flex gap-2">
+              <img
+                src={user.profile_image}
+                alt="profile image"
+                className="w-[40px] h-[40px]"
+              ></img>
+              <p className="pt-[5px]">{user.username}</p>
+            </li>
+          </a>
+        ))
         : null}
     </ul>
   );
