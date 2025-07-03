@@ -75,14 +75,14 @@ export default function Header({
           {!isVisitor && (
             <a
               href="/profile"
-              className="text-black no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8"
+              className="text-base-content no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8"
             >
               Profile
             </a>
           )}
           <a href="/"
             onClick={handleLogout}
-            className="text-black no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8"
+            className="text-base-content no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8"
           >
             Log out
           </a>
@@ -94,7 +94,7 @@ export default function Header({
         >
           <a
             href="/login"
-            className="text-black no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8"
+            className="text-base-content no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8"
           >
             Login
           </a>

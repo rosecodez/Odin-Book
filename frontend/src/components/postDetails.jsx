@@ -355,7 +355,7 @@ export default function PostDetails({ username }) {
                         e.target.style.height = `${e.target.scrollHeight}px`;
                       }
                     }}
-                    className="min-h-[100px] max-h-[400px] w-full px-4 py-2 bg-white border shadow-sm border-slate-300 
+                    className="min-h-[100px] max-h-[400px] w-full px-4 py-2 bg-base-100 border shadow-sm border-slate-300 
                     placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 
                     block rounded-md sm:text-sm focus:ring-1 overflow-auto resize-none"
                     placeholder="Leave a comment, max 8000 characters"

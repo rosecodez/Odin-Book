@@ -68,7 +68,7 @@ export default function NewPost({ isVisitor }) {
                   e.target.style.height = `${e.target.scrollHeight}px`;
                 }
               }}
-              className="min-h-[100px] max-h-[400px] w-full px-4 py-2 bg-white border shadow-sm border-slate-300 
+              className="min-h-[100px] max-h-[400px] w-full px-4 py-2 bg-base-100 border shadow-sm border-slate-300 
                         placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 
                         block rounded-md sm:text-sm focus:ring-1 overflow-auto resize-none"
               placeholder="What is happening?"
@@ -79,7 +79,7 @@ export default function NewPost({ isVisitor }) {
               <img
                 src={camera}
                 alt="camera"
-                className="w-10 h-10 cursor-pointer bg-white p-1"
+                className="w-10 h-10 cursor-pointer bg-base-100 p-1"
               />
               <input
                 type="file"

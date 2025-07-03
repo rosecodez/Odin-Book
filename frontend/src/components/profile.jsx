@@ -103,7 +103,7 @@ export default function Profile({ isVisitor, setIsVisitor }) {
             src={camera}
             alt="camera"
             onClick={showModal}
-            className="absolute bottom-2 right-2 w-10 h-10 cursor-pointer bg-white rounded-full p-1"
+            className="absolute bottom-2 right-2 w-10 h-10 cursor-pointer bg-base-100 rounded-full p-1"
           />
         </div>
 
