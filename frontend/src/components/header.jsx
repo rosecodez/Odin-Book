@@ -66,14 +66,13 @@ export default function Header({
         </a>
       </div>
 
-      <div>
-        <ThemeToggleButton />
-      </div>
+      
       {isAuthenticated ? (
         <div
           id="header-left-panel"
           className="flex gap-6 font-medium flex-wrap"
         >
+          <ThemeToggleButton />
           {!isVisitor && (
             <a
               href="/profile"
@@ -94,6 +93,7 @@ export default function Header({
           id="header-right-panel"
           className="flex gap-6 font-medium flex-wrap"
         >
+          <ThemeToggleButton />
           <a
             href="/login"
             className="text-black no-underline hover:underline decoration-2 decoration-sky-500 underline-offset-8"

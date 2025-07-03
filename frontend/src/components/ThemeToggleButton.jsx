@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import DarkThemeBtn from "../assets/dark-theme-btn.svg";
-import LightThemeBtn from "../assets/light-theme-btn.svg";
+import DarkThemeBtn from "../assets/icons8-dark-theme-30.png";
+import LightThemeBtn from "../assets/icons8-light-on-50.png";
 
 export default function ThemeToggleButton() {
   const [isDark, setIsDark] = useState(false);
