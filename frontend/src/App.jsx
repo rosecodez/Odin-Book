@@ -12,6 +12,7 @@ import FeedPage from "./pages/feedPage";
 import PostDetailsPage from "./pages/postDetailsPage";
 import UserDetailsPage from "./pages/userDetailsPage";
 import AllUsers from "./components/allUsers";
+import ThemeToggleButton from "./components/ThemeToggleButton";
 
 import API_URL from "./config";
 console.log(API_URL);
@@ -21,7 +22,7 @@ function App() {
   const [isVisitor, setIsVisitor] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState("");
-
+  
   useEffect(() => {
     const checkAuth = async () => {
       try {

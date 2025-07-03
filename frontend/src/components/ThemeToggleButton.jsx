@@ -3,10 +3,15 @@ import DarkThemeBtn from "../assets/icons8-dark-theme-30.png";
 import LightThemeBtn from "../assets/icons8-light-on-50.png";
 
 export default function ThemeToggleButton() {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    const storedTheme = localStorage.getItem("theme");
+    return storedTheme === "dark";
+  });
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+    const theme = isDark ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
   }, [isDark]);
 
   return (
