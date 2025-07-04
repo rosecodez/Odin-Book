@@ -59,9 +59,10 @@ export default function Header({
   return (
     <header className="flex flex-row justify-between pb-[40px] text-xl ">
       <div id="header-left-panel" className="flex gap-6 font-medium flex-wrap">
-        <a href="/">
-          <p>Odin book</p>
+        <a href="/" className="text-3xl md:text-4xl font-extrabold tracking-tight text-primary hover:text-secondary transition-transform duration-200 no-underline hover:scale-105" >
+          Odin<span className="text-base-content">Book</span>
         </a>
+
       </div>
 
       
