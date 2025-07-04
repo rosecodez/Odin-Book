@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import Feed from "./feed";
 import API_URL from "../config";
-
+import Connect from "./connect";
+import AppScreenshot from "./appScreenshot"
 export default function Home({ isAuthenticated, setIsAuthenticated }) {
   useEffect(() => {
     const checkAuth = async () => {
@@ -35,12 +36,11 @@ export default function Home({ isAuthenticated, setIsAuthenticated }) {
           setIsAuthenticated={setIsAuthenticated}
         />
       ) : (
-        <div className="flex flex-col items-center">
-          <p>Welcome to Odin Book</p>
-          <a href="/signup" className="text-[#6b7280]">
-            Sign up today!
-          </a>
+        <div className="flex justify-center items-center">
+          <AppScreenshot/>
+          <Connect />
         </div>
+        
       )}
     </div>
   );
