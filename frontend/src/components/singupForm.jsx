@@ -58,7 +58,7 @@ export default function SignupForm() {
         className="text-[14px] pt-5 flex justify-center gap-2 "
       >
         <h6>Already have an account?</h6>
-        <a href="/login" className="text-slate-400">
+        <a href="/login" className="link link-primary hover:underline">
           Log in
         </a>
       </div>

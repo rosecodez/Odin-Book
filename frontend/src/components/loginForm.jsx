@@ -61,7 +61,7 @@ export default function LoginForm() {
         className="text-[14px] pt-5 flex justify-center gap-2"
       >
         <h6>Don't have an account?</h6>
-        <a href="/signup" className="text-slate-400">
+        <a href="/signup" className="link link-primary hover:underline">
           <p>Sign up</p>
         </a>
       </div>

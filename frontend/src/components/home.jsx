@@ -29,17 +29,18 @@ export default function Home({ isAuthenticated, setIsAuthenticated }) {
   }, [isAuthenticated, setIsAuthenticated]);
 
   return (
-    <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left shadow-md p-4">
+    <div className="flex flex-col w-full mx-auto px-4 text-left shadow-md p-4 gap-4">
       {isAuthenticated ? (
         <Feed
           isAuthenticated={isAuthenticated}
           setIsAuthenticated={setIsAuthenticated}
         />
       ) : (
-        <div className="flex justify-center items-center">
-          <AppScreenshot/>
+        <div className="flex flex-col md:flex-row justify-center items-center gap-8 pb-12">
+          <AppScreenshot />
           <Connect />
         </div>
+
         
       )}
     </div>
