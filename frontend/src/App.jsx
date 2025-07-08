@@ -12,8 +12,9 @@ import FeedPage from "./pages/feedPage";
 import PostDetailsPage from "./pages/postDetailsPage";
 import UserDetailsPage from "./pages/userDetailsPage";
 import AllUsers from "./components/allUsers";
-
+import AboutPage from "./pages/aboutPage";
 import API_URL from "./config";
+import About from "./components/about";
 console.log(API_URL);
 
 
@@ -94,6 +95,10 @@ function App() {
           <Route
             path="/users/:username"
             element={<UserDetailsPage username={username} />}
+          />
+          <Route
+            path="/about"
+            element={<AboutPage />}
           />
         </Routes>
       </div>
