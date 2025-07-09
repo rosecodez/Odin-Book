@@ -13,8 +13,10 @@ import PostDetailsPage from "./pages/postDetailsPage";
 import UserDetailsPage from "./pages/userDetailsPage";
 import AllUsers from "./components/allUsers";
 import AboutPage from "./pages/aboutPage";
+import TermsPage from "./pages/termsPage";
 import API_URL from "./config";
-import About from "./components/about";
+import Terms from "./components/terms";
+
 console.log(API_URL);
 
 
@@ -99,6 +101,10 @@ function App() {
           <Route
             path="/about"
             element={<AboutPage />}
+          />
+          <Route
+            path="/terms"
+            element={< TermsPage/>}
           />
         </Routes>
       </div>

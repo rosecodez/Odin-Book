@@ -9,9 +9,9 @@ export default function About() {
     return (
         <div className="about">
             <div className="animate-on-scroll">
-                <div className="flex flex-col md:flex-row justify-center items-center gap-[50px] px-4 py-10">
+                <div className="flex flex-col md:flex-row justify-center items-center gap-[50px] px-4 py-10 pb-[240px]">
                     <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left max-w-xl">
-                        <h1 className="text-[36px] md:text-[50px] font-bold pb-[30px]">
+                        <h1 className="text-[36px] md:text-[50px] font-bold ">
                             Built with love by a self-taught developer
                         </h1>
                         <p> Odin Book is a personal project made with care and curiosity. Whether you're here to post a photo from your walk,
@@ -26,12 +26,12 @@ export default function About() {
             </div>
             
             <div className="animate-on-scroll">
-                <div className="animate-on-scroll flex flex-col md:flex-row justify-center items-center gap-[50px] px-4 py-10">
+                <div className=" flex flex-col md:flex-row justify-center items-center gap-[50px] px-4 py-10 pb-[240px]">
                     <img src="https://images.unsplash.com/photo-1724217981585-f28f2375f3ab?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     className="w-[250px] md:w-[350px] lg:w-[400px] rounded-xl shadow-md"/>
 
                     <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left max-w-xl">
-                        <h1 className="text-[36px] md:text-[50px] font-bold pb-[30px]">
+                        <h1 className="text-[36px] md:text-[50px] font-bold">
                             Share your favorite photos
                         </h1>
                         <p> Discover fresh moments, meet new people, and explore different perspectives, all in one simple, cozy space. </p>
@@ -41,8 +41,8 @@ export default function About() {
             
 
             <div className="animate-on-scroll">
-                <div className="animate-on-scroll flex flex-col md:flex-row justify-center items-center gap-[50px] px-4 py-10">
-                    <h1 className="text-[36px] md:text-[50px] font-bold pb-[30px]">
+                <div className=" flex flex-col md:flex-row justify-center items-center gap-[50px] px-4 py-10 pb-[240px]">
+                    <h1 className="text-[36px] md:text-[50px] font-bold">
                         Follow friends and creators
                     </h1>
                     <img src="https://images.unsplash.com/photo-1568615944078-821ced977caa?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -53,7 +53,7 @@ export default function About() {
             
             
             <div className="animate-on-scroll">
-                <div className="animate-on-scroll flex flex-col md:flex-row justify-center items-center gap-[50px] px-4 py-10">
+                <div className=" flex flex-col md:flex-row justify-center items-center gap-[50px] px-4 py-10 pb-[240px] ">
                     <img src="https://images.unsplash.com/photo-1506223213794-a78f522c26f3?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
                         className="w-[250px] md:w-[350px] lg:w-[400px] rounded-xl shadow-md"
                     />
