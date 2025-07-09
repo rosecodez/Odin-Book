@@ -1,9 +1,14 @@
 import { useEffect } from "react";
+import { useLayoutEffect } from "react";
+import { animateOnScroll } from "../animations/scrollAnimation";
 import Feed from "./feed";
 import API_URL from "../config";
 import Connect from "./connect";
 import AppScreenshot from "./appScreenshot"
 export default function Home({ isAuthenticated, setIsAuthenticated }) {
+  useLayoutEffect(() => {
+    animateOnScroll();
+  }, []);
   useEffect(() => {
     const checkAuth = async () => {
       try {
