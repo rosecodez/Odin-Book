@@ -8,7 +8,9 @@
   padding: 20px;
   text-align: center;
 }
-
+li a {
+  white-space: nowrap;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
