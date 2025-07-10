@@ -76,3 +76,11 @@
 
 - **WebSocket Integration**: Enable real-time notifications
 - **Live Chat**: Support direct private messaging between users
+
+## Credits
+Free to use under the Unsplash License:
+1.Photo by <a href="https://unsplash.com/@badprism?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Ken Oyama</a> on <a href="https://unsplash.com/photos/people-grill-Quqp0Tg5eew?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+2.Photo by <a href="https://unsplash.com/@badprism?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Ken Oyama</a> on <a href="https://unsplash.com/photos/a-beach-with-a-lot-of-palm-trees-next-to-it-nPy0nkfvJsw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+3.Photo by <a href="https://unsplash.com/@artmilitonian?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Artem Militonian</a> on <a href="https://unsplash.com/photos/grey-kitten-on-blanket-dh5ggbVBcsQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+4.Photo by <a href="https://unsplash.com/@michaelhenry?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Michael Henry</a> on <a href="https://unsplash.com/photos/shallow-focus-photography-of-man-on-hammock-while-taking-photo-of-golden-gate-bridge-of-california-to-his-phone-KwcMX6028QM?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+      
