@@ -14,8 +14,8 @@ import UserDetailsPage from "./pages/userDetailsPage";
 import AllUsers from "./components/allUsers";
 import AboutPage from "./pages/aboutPage";
 import TermsPage from "./pages/termsPage";
+import PrivacyPolicyPage from "./pages/privacyPolicyPage";
 import API_URL from "./config";
-import Terms from "./components/terms";
 
 console.log(API_URL);
 
@@ -105,6 +105,10 @@ function App() {
           <Route
             path="/terms"
             element={< TermsPage/>}
+          />
+          <Route
+            path="/privacy-policy"
+            element={<PrivacyPolicyPage />}
           />
         </Routes>
       </div>
