@@ -26,11 +26,11 @@ export default function AllUsers() {
   }, []);
 
   return (
-    <ul className="flex flex-col gap-2 justify-start items-start pl-[0px] min-w-[136px] max-w-[136px]  hide-on-small">
+    <ul className="flex flex-col gap-2 justify-start items-start pl-[0px] min-w-[136px]  hide-on-small mr-[50px]">
       {allUsers.length > 0
         ? allUsers.map((user) => (
-          <a href={`/users/${user.username}`}>
-            <li key={user.id} className="flex gap-2">
+          <a href={`/users/${user.username}`} className="no-underline text-base-content hover:underline">
+            <li key={user.id} className="flex gap-[20px]">
               <img
                 src={user.profile_image}
                 alt="profile image"

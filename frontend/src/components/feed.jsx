@@ -139,7 +139,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
   };
 
   return (
-    <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left p-4">
+    <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left p-4 text-base-content no-underline">
       <div className="flex gap-3">
         {!isVisitor && (
           <img src={image} className="rounded-full w-[70px] h-[70px]" />
@@ -159,7 +159,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
               <div>
                 <a href={`/posts/${post.id}`}>
                   <li key={post.id}>
-                    <div className="flex flex-row gap-[19px] w-full">
+                    <div className="flex flex-row gap-[19px] mt-[7px] justify-between">
                       <a href={`/users/${post.user.username}`}>
                         <img
                           src={post.user.profile_image}
@@ -203,7 +203,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
                           </div>
                         </div>
                       ) : (
-                        <p className="w-full break-words pl-[40px] mb-0">
+                        <p className="w-full break-words pl-[40px] mb-[10px]">
                           {post.content}
                         </p>
                       )}
@@ -217,7 +217,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
                       )}
                     </div>
 
-                    <div className="flex flex-row justify-between pl-[64px]">
+                    <div className="flex flex-row justify-between pl-[64px] mt-[10px]">
                       <div className="flex flex-row gap-2 items-start">
                         <img
                           src={message}
