@@ -105,16 +105,19 @@ export default function Posts({ userId, loggedInUserId }) {
           ).toLocaleString({ month: "short", day: "2-digit" });
 
           return (
-            <div>
+            <div className="flex flex-row mr-[20px] w-full">
               <a href={`/posts/${post.id}`}>
                 <li key={post.id}>
-                  <div className="flex flex-row gap-[19px] w-full">
-                    <a href={`/users/${post.user.username}`}>
-                      <img
-                        src={post.user.profile_image}
-                        className="rounded-full w-[60px] h-[55px]"
-                      />
-                    </a>
+                  <div className="flex flex-row mr-[20px] w-full items-center">
+                    <div className="shrink-0 w-[45px] h-[45px]">
+                      <a href={`/users/${post.user.username}`}>
+                        <img
+                          src={post.user.profile_image}
+                          className="rounded-full w-[45px] h-[45px] object-cover"
+                          alt="Profile"
+                        />
+                      </a>
+                    </div>
 
                     <div className="flex gap-2 mt-[7px] w-full justify-between">
                       <div className="flex gap-2">
@@ -152,7 +155,7 @@ export default function Posts({ userId, loggedInUserId }) {
                         </div>
                       </div>
                     ) : (
-                      <p className="w-full break-words pl-[40px] mb-0">
+                      <p className="w-full break-words pl-[55px] mb-0">
                         {post.content}
                       </p>
                     )}
@@ -166,7 +169,7 @@ export default function Posts({ userId, loggedInUserId }) {
                     )}
                   </div>
 
-                  <div className="flex flex-row justify-between pl-[64px]">
+                  <div className="flex flex-row gap-[40px] pl-78px]">
                     <div className="flex flex-row gap-2 items-start">
                       <img
                         src={message}

@@ -26,21 +26,25 @@ export default function AllUsers() {
   }, []);
 
   return (
-    <ul className="flex flex-col gap-2 justify-start items-start pl-[0px] min-w-[136px]  hide-on-small mr-[50px]">
-      {allUsers.length > 0
-        ? allUsers.map((user) => (
-          <a href={`/users/${user.username}`} className="no-underline text-base-content hover:underline">
-            <li key={user.id} className="flex gap-[20px]">
-              <img
-                src={user.profile_image}
-                alt="profile image"
-                className="w-[40px] h-[40px]"
-              ></img>
-              <p className="pt-[5px]">{user.username}</p>
-            </li>
-          </a>
-        ))
-        : null}
-    </ul>
+    <div>
+      <p className="text-base-content text-xl font-semibold">You may know</p>
+      <ul className="flex flex-col gap-2 justify-start items-start pl-[0px] min-w-[136px]  hide-on-small mr-[50px]">
+        {allUsers.length > 0
+          ? allUsers.map((user) => (
+            <a href={`/users/${user.username}`} className="no-underline text-base-content hover:underline">
+              <li key={user.id} className="flex gap-[20px] w-[230px]">
+                <img
+                  src={user.profile_image}
+                  alt="profile image"
+                  className="w-[40px] h-[40px]"
+                ></img>
+                <p className="pt-[5px]">{user.username}</p>
+              </li>
+            </a>
+          ))
+          : null}
+      </ul>  
+    </div>
+    
   );
 }
