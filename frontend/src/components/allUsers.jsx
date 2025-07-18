@@ -26,9 +26,9 @@ export default function AllUsers() {
   }, []);
 
   return (
-    <div>
-      <p className="text-base-content text-xl font-semibold">You may know</p>
-      <ul className="flex flex-col gap-2 justify-start items-start pl-[0px] min-w-[136px]  hide-on-small mr-[50px]">
+    <div className="hide-on-small overflow-y-auto max-h-[80vh]">
+      <p className="text-left text-base-content text-xl font-semibold border-b border-base-300 pb-2 mb-2">You may know</p>
+      <ul className="flex flex-col gap-2 justify-start items-start pl-[0px] min-w-[136px] mr-[50px]">
         {allUsers.length > 0
           ? allUsers.map((user) => (
             <a href={`/users/${user.username}`} className="no-underline text-base-content hover:underline">

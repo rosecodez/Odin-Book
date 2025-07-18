@@ -158,7 +158,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
             return (
               <div>
                 <a href={`/posts/${post.id}`}>
-                  <li key={post.id}>
+                  <li key={post.id} className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition">
                     <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
                       <div className="shrink-0 w-[45px] h-[45px]">
                         <a href={`/users/${post.user.username}`}>
@@ -172,10 +172,10 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
 
                       <div className="flex gap-2 mt-[7px] w-full justify-between">
                         <div className="flex gap-2">
-                          <a href={`/users/${post.user.username}`}>
+                          <a href={`/users/${post.user.username}`} className="no-underline text-base-content hover:underline">
                             {post.user.username}
                           </a>
-                          <p>{formattedDate}</p>
+                          <p className="no-underline text base-content">{formattedDate}</p>
                         </div>
                       </div>
                     </div>
@@ -206,7 +206,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
                           </div>
                         </div>
                       ) : (
-                        <p className="w-full break-words pl-[40px] mb-[10px]">
+                        <p className="w-full break-words pl-[40px] mb-[10px] no-underline text base-content">
                           {post.content}
                         </p>
                       )}
@@ -220,20 +220,20 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
                       )}
                     </div>
 
-                    <div className="flex flex-row justify-between pl-[64px] mt-[10px]">
-                      <div className="flex flex-row gap-2 items-start">
+                    <div className="flex flex-row  pl-[64px] mt-[10px]">
+                      <div className="flex flex-row gap-2 items-center text-sm text-gray-400 hover:text-primary cursor-pointer">
                         <img
                           src={message}
-                          className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px]"
+                          className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px] no-underline text base-content"
                           alt="Messages"
                         />
                         <p>{post.comment.length || 0}</p>
                       </div>
 
-                      <div className="flex flex-row gap-2 items-start pr-[3px]">
+                      <div className="flex flex-row gap-2 items-center text-sm text-gray-400 hover:text-primary cursor-pointer">
                         <img
                           src={heart}
-                          className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px]"
+                          className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px] no-underline text base-content"
                           alt="Likes"
                         />
                         <p>{post.like.length || 0}</p>
