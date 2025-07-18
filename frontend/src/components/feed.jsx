@@ -220,20 +220,20 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
                       )}
                     </div>
 
-                    <div className="flex flex-row pl-[64px] mt-[10px] gap-4">
-                      <div className="flex flex-row items-center gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
+                    <div className="flex flex-row gap-4 mt-3 pl-14">
+                       <div className="flex items-center gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
                         <img
                           src={message}
-                          className="w-[20px] h-[20px]"
+                          className="w-5 h-5"
                           alt="Messages"
                         />
                         <p>{post.comment.length || 0}</p>
                       </div>
 
-                      <div className="flex flex-row items-center gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
+                       <div className="flex items-center gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
                         <img
                           src={heart}
-                          className="w-[20px] h-[20px]"
+                          className="w-5 h-5"
                           alt="Likes"
                         />
                         <p>{post.like.length || 0}</p>
