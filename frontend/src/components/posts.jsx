@@ -107,7 +107,7 @@ export default function Posts({ userId, loggedInUserId }) {
           return (
             <div className="flex flex-row mr-[20px] w-full">
               <a href={`/posts/${post.id}`}>
-                <li key={post.id} className="bg-base-200 rounded-xl shadow-sm hover:shadow-md transition p-4 min-h-[300px]">
+                <li key={post.id} className="bg-base-200 rounded-xl shadow-sm hover:shadow-md transition p-4">
                   <div className="flex flex-row mr-[20px] w-full items-center">
                     <div className="shrink-0 w-[45px] h-[45px]">
                       <a href={`/users/${post.user.username}`}>
@@ -170,7 +170,7 @@ export default function Posts({ userId, loggedInUserId }) {
                   </div>
 
                   <div className="flex flex-row gap-4 mt-3 pl-14">
-                    <div className="flex items-center gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
+                    <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
                       <img
                         src={message}
                         className="w-5 h-5 no-underline text base-content"
@@ -179,7 +179,7 @@ export default function Posts({ userId, loggedInUserId }) {
                       <p>{post.comment.length || 0}</p>
                     </div>
 
-                    <div className="flex items-center gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
+                    <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
                       <img
                         src={heart}
                         className="w-5 h-5 no-underline text base-content"
