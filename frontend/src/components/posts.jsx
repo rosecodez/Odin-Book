@@ -107,7 +107,7 @@ export default function Posts({ userId, loggedInUserId }) {
           return (
             <div className="flex flex-row mr-[20px] w-full">
               <a href={`/posts/${post.id}`}>
-                <li key={post.id}>
+                <li key={post.id} className="bg-base-200 rounded-xl shadow-sm hover:shadow-md transition p-4 min-h-[300px]">
                   <div className="flex flex-row mr-[20px] w-full items-center">
                     <div className="shrink-0 w-[45px] h-[45px]">
                       <a href={`/users/${post.user.username}`}>
@@ -160,12 +160,14 @@ export default function Posts({ userId, loggedInUserId }) {
                       </p>
                     )}
 
-                    {post.post_image && (
+                    {post.post_image ? (
                       <img
                         src={post.post_image}
-                        className="max-w-full rounded-md object-contain"
-                        alt="post image"
+                        alt=""
+                        className="rounded-md mt-2"
                       />
+                    ) : (
+                      <div className="mt-2 min-h-[200px] rounded-md bg-base-100 opacity-20" />
                     )}
                   </div>
 
