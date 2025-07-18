@@ -159,13 +159,16 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
               <div>
                 <a href={`/posts/${post.id}`}>
                   <li key={post.id}>
-                    <div className="flex flex-row gap-[19px] mt-[7px] justify-between">
-                      <a href={`/users/${post.user.username}`}>
-                        <img
-                          src={post.user.profile_image}
-                          className="rounded-full w-[60px] h-[45px]"
-                        />
-                      </a>
+                    <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
+                      <div className="shrink-0 w-[45px] h-[45px]">
+                        <a href={`/users/${post.user.username}`}>
+                          <img
+                            src={post.user.profile_image}
+                            className="rounded-full w-[60px] h-[45px]"
+                          />
+                        </a>
+                      </div>
+                      
 
                       <div className="flex gap-2 mt-[7px] w-full justify-between">
                         <div className="flex gap-2">
