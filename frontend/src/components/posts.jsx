@@ -160,31 +160,29 @@ export default function Posts({ userId, loggedInUserId }) {
                       </p>
                     )}
 
-                    {post.post_image ? (
+                    {post.post_image && (
                       <img
                         src={post.post_image}
                         alt=""
                         className="rounded-md mt-2"
                       />
-                    ) : (
-                      <div className="mt-2 min-h-[200px] rounded-md bg-base-100 opacity-20" />
                     )}
                   </div>
 
-                  <div className="flex flex-row gap-[40px] pl-78px]">
-                    <div className="flex flex-row gap-2 items-start">
+                  <div className="flex flex-row  pl-[64px] mt-[10px]">
+                    <div className="flex flex-row gap-2 items-center text-sm text-gray-400 hover:text-primary cursor-pointer">
                       <img
                         src={message}
-                        className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px]"
+                        className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px] no-underline text base-content"
                         alt="Messages"
                       />
                       <p>{post.comment.length || 0}</p>
                     </div>
 
-                    <div className="flex flex-row gap-2 items-start pr-[3px]">
+                    <div className="flex flex-row gap-2 items-center text-sm text-gray-400 hover:text-primary cursor-pointer">
                       <img
                         src={heart}
-                        className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px]"
+                        className="w-[25px] h-[25px] sm:w-[20px] sm:h-[20px] no-underline text base-content"
                         alt="Likes"
                       />
                       <p>{post.like.length || 0}</p>
