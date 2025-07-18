@@ -26,8 +26,8 @@ export default function AllUsers() {
   }, []);
 
   return (
-    <div>
-      <p className="hide-on-small text-left text-base-content text-xl font-semibold border-b border-base-300 pb-2 mb-2">You may know</p>
+    <div className="hide-on-small">
+      <p className="text-left text-base-content text-xl font-semibold border-b border-base-300 pb-2 mb-2">You may know</p>
       <div className=" overflow-y-auto max-h-[80vh]">
         <ul className="flex flex-col gap-2 justify-start items-start pl-[0px] min-w-[136px] mr-[50px]">
           {allUsers.length > 0
