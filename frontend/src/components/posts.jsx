@@ -105,9 +105,9 @@ export default function Posts({ userId, loggedInUserId }) {
           ).toLocaleString({ month: "short", day: "2-digit" });
 
           return (
-            <div className="flex flex-row mr-[20px] w-full">
+            <div>
               <a href={`/posts/${post.id}`} className="no-underline">
-                <li key={post.id} className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition">
+                <li key={post.id} className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition" style={{width: "-webkit-fill-available"}}>
                   <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
                     <div className="shrink-0 w-[45px] h-[45px]">
                       <a href={`/users/${post.user.username}`} className="no-underline">
