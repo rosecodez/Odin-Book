@@ -107,13 +107,13 @@ export default function Posts({ userId, loggedInUserId }) {
           return (
             <div className="flex flex-row mr-[20px] w-full">
               <a href={`/posts/${post.id}`}>
-                <li key={post.id} className="bg-base-200 rounded-xl shadow-sm hover:shadow-md transition p-4">
-                  <div className="flex flex-row mr-[20px] w-full items-center">
+                <li key={post.id} className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition">
+                  <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
                     <div className="shrink-0 w-[45px] h-[45px]">
                       <a href={`/users/${post.user.username}`}>
                         <img
                           src={post.user.profile_image}
-                          className="rounded-full w-[45px] h-[45px] object-cover"
+                          className="rounded-full w-[60px] h-[45px]"
                           alt="Profile"
                         />
                       </a>
@@ -121,10 +121,10 @@ export default function Posts({ userId, loggedInUserId }) {
 
                     <div className="flex gap-2 mt-[7px] w-full justify-between">
                       <div className="flex gap-2">
-                        <a href={`/users/${post.user.username}`}>
+                        <a href={`/users/${post.user.username}`} className="no-underline text-base-content hover:underline">
                           {post.user.username}
                         </a>
-                        <p>{formattedDate}</p>
+                        <p className="no-underline text base-content">{formattedDate}</p>
                       </div>
                     </div>
                   </div>
@@ -169,7 +169,7 @@ export default function Posts({ userId, loggedInUserId }) {
                     )}
                   </div>
 
-                  <div className="flex flex-row gap-4 mt-3 pl-14">
+                  <div className="flex flex-row gap-4 mt-3 pl-16">
                     <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
                       <img
                         src={message}

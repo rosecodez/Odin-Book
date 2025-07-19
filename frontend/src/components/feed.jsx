@@ -220,7 +220,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
                       )}
                     </div>
 
-                    <div className="flex flex-row gap-4 mt-3 pl-14">
+                    <div className="flex flex-row gap-4 mt-3 pl-16">
                        <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
                         <img
                           src={message}
