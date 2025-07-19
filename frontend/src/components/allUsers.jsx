@@ -32,7 +32,7 @@ export default function AllUsers() {
         <ul className="flex flex-col gap-2 justify-start items-start pl-[0px] min-w-[136px] mr-[50px]">
           {allUsers.length > 0
             ? allUsers.map((user) => (
-              <a href={`/users/${user.username}`} className="no-underline text-base-content hover:underline">
+              <a href={`/users/${user.username}`} className="no-underline text-base-content">
                 <li key={user.id} className="flex gap-[20px] w-[230px]">
                   <img
                     src={user.profile_image}

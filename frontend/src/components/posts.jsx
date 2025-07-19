@@ -106,11 +106,11 @@ export default function Posts({ userId, loggedInUserId }) {
 
           return (
             <div className="flex flex-row mr-[20px] w-full">
-              <a href={`/posts/${post.id}`}>
+              <a href={`/posts/${post.id}`} className="no-underline">
                 <li key={post.id} className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition">
                   <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
                     <div className="shrink-0 w-[45px] h-[45px]">
-                      <a href={`/users/${post.user.username}`}>
+                      <a href={`/users/${post.user.username}`} className="no-underline">
                         <img
                           src={post.user.profile_image}
                           className="rounded-full w-[60px] h-[45px]"
@@ -121,10 +121,10 @@ export default function Posts({ userId, loggedInUserId }) {
 
                     <div className="flex gap-2 mt-[7px] w-full justify-between">
                       <div className="flex gap-2">
-                        <a href={`/users/${post.user.username}`} className="no-underline text-base-content hover:underline">
+                        <a href={`/users/${post.user.username}`} className="no-underline text-base-content">
                           {post.user.username}
                         </a>
-                        <p className="no-underline text base-content">{formattedDate}</p>
+                        <p className="text base-content">{formattedDate}</p>
                       </div>
                     </div>
                   </div>
@@ -155,7 +155,7 @@ export default function Posts({ userId, loggedInUserId }) {
                         </div>
                       </div>
                     ) : (
-                      <p className="w-full break-words pl-[55px] mb-0">
+                      <p className="w-full break-words pl-[40px] mb-[10px] text base-content">
                         {post.content}
                       </p>
                     )}
@@ -173,7 +173,7 @@ export default function Posts({ userId, loggedInUserId }) {
                     <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
                       <img
                         src={message}
-                        className="w-5 h-5 no-underline text base-content"
+                        className="w-5 h-5 text base-content"
                         alt="Messages"
                       />
                       <p>{post.comment.length || 0}</p>
@@ -182,7 +182,7 @@ export default function Posts({ userId, loggedInUserId }) {
                     <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
                       <img
                         src={heart}
-                        className="w-5 h-5 no-underline text base-content"
+                        className="w-5 h-5 text base-content"
                         alt="Likes"
                       />
                       <p>{post.like.length || 0}</p>

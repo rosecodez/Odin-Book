@@ -157,11 +157,11 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
 
             return (
               <div>
-                <a href={`/posts/${post.id}`}>
+                <a href={`/posts/${post.id}`} className="no-underline">
                   <li key={post.id} className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition">
                     <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
                       <div className="shrink-0 w-[45px] h-[45px]">
-                        <a href={`/users/${post.user.username}`}>
+                        <a href={`/users/${post.user.username}`} className="no-underline">
                           <img
                             src={post.user.profile_image}
                             className="rounded-full w-[60px] h-[45px]"
@@ -172,7 +172,7 @@ export default function Feed({ isAuthenticated, isVisitor, setIsVisitor }) {
 
                       <div className="flex gap-2 mt-[7px] w-full justify-between">
                         <div className="flex gap-2">
-                          <a href={`/users/${post.user.username}`} className="no-underline text-base-content hover:underline">
+                          <a href={`/users/${post.user.username}`} className="no-underline text-base-content">
                             {post.user.username}
                           </a>
                           <p className="no-underline text base-content">{formattedDate}</p>
