@@ -105,26 +105,18 @@ export default function Posts({ userId, loggedInUserId }) {
           ).toLocaleString({ month: "short", day: "2-digit" });
 
           return (
-            <div className="flex flex-row mr-[20px] w-full">
-              <a href={`/posts/${post.id}`} className="no-underline">
-                <li key={post.id} className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition">
-                  <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
-                    <div className="shrink-0 w-[45px] h-[45px]">
-                      <a href={`/users/${post.user.username}`} className="no-underline">
-                        <img
-                          src={post.user.profile_image}
-                          className="rounded-full w-[60px] h-[45px]"
-                          alt="Profile"
-                        />
-                      </a>
-                    </div>
-
-                    <div className="flex gap-2 mt-[7px] w-full justify-between">
-                      <div className="flex gap-2">
-                        <a href={`/users/${post.user.username}`} className="no-underline text-base-content">
-                          {post.user.username}
+            <li key={post.id} className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition">
+              <a href={`/posts/${post.id}`} className="no-underline block w-full">
+                  <div className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition w-full">
+                    <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between w-full">
+                      <div className="flex items-center gap-2">
+                        <a href={`/users/${post.user.username}`}>
+                          <img src={post.user.profile_image} alt="Profile" className="rounded-full w-[45px] h-[45px]" />
                         </a>
-                        <p className="text base-content">{formattedDate}</p>
+                        <div className="flex flex-col">
+                          <a href={`/users/${post.user.username}`} className="no-underline text-base-content">{post.user.username}</a>
+                          <p className="text-sm text-base-content">{formattedDate}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -170,27 +162,26 @@ export default function Posts({ userId, loggedInUserId }) {
                   </div>
 
                   <div className="flex flex-row gap-4 mt-3 pl-16">
-                    <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
+                    <div className="flex items-center gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
                       <img
                         src={message}
-                        className="w-5 h-5 text base-content"
+                        className="w-5 h-5 text"
                         alt="Messages"
                       />
                       <p>{post.comment.length || 0}</p>
                     </div>
 
-                    <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
+                    <div className="flex items-center gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
                       <img
                         src={heart}
-                        className="w-5 h-5 text base-content"
+                        className="w-5 h-5 text"
                         alt="Likes"
                       />
                       <p>{post.like.length || 0}</p>
                     </div>
                   </div>
-                </li>
               </a>
-            </div>
+            </li>
           );
         })
       ) : (
