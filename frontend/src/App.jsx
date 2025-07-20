@@ -46,6 +46,25 @@ function App() {
 
   return (
     <Router>
+      <AppContent
+        isVisitor={isVisitor}
+        setIsVisitor={setIsVisitor}
+        isAuthenticated={isAuthenticated}
+        setIsAuthenticated={setIsAuthenticated}
+        username={username}
+      />
+    </Router>
+  );
+}
+
+function AppContent({ isVisitor, setIsVisitor, isAuthenticated, setIsAuthenticated, username }) {
+  const location = useLocation();
+
+  const publicRoutes = ["/signup", "/login", "/about", "/terms", "/privacy-policy"];
+  const isPublicRoute = publicRoutes.includes(location.pathname);
+
+  return (
+    <>
       <Header
         isVisitor={isVisitor}
         setIsVisitor={setIsVisitor}
@@ -54,7 +73,7 @@ function App() {
       />
 
       <div className="flex flex-row min-h-[41rem] justify-center">
-        {isAuthenticated && <AllUsers />}
+        {isAuthenticated && !isPublicRoute && <AllUsers />}
         <Routes>
           <Route
             path="/"
@@ -114,8 +133,7 @@ function App() {
       </div>
 
       <Footer />
-    </Router>
+    </>
   );
 }
-
 export default App;
