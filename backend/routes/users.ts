@@ -30,4 +30,4 @@ router.put(
   userController.user_update_profile_picture
 );
 
-module.exports = router;
+export default router

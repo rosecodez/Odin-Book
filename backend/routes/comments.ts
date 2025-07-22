@@ -19,5 +19,4 @@ router.post(
   isAuthenticated,
   commentController.comment_new_post
 );
-
-module.exports = router;
+export default router

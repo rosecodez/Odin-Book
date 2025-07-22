@@ -11,4 +11,4 @@ router.post(
   messageController.message_new_post
 );
 
-module.exports = router;
+export default router

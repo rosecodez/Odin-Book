@@ -31,5 +31,4 @@ router.put('/:postId/update', isAuthenticated, postController.update_post);
 // DELETE Routes
 router.delete('/:postId/delete', isAuthenticated, postController.delete_post);
 router.delete('/:postId/unlike', isAuthenticated, postController.unlike_post);
-
-module.exports = router;
+export default router

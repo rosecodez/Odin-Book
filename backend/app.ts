@@ -1,16 +1,16 @@
 require('dotenv').config();
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const passport = require('passport');
-const prisma = require('./prisma/prisma.js');
-const session = require('express-session');
-const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const cors = require('cors');
-const cloudinary = require('cloudinary').v2;
+import createError from 'http-errors';
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import passport from 'passport';
+import prisma from './prisma/prisma';
+import session from 'express-session';
+import { PrismaSessionStore } from '@quixo3/prisma-session-store';
+import cors from 'cors';
+import { v2 as cloudinary } from 'cloudinary';
+import { Strategy as GoogleStrategy, Profile, VerifyCallback  } from 'passport-google-oauth20';
 
 const app = express();
 
@@ -29,10 +29,11 @@ prisma
   .then(() => console.log('Connected to database'))
   .catch(console.error);
 
+// suppresses ts possibly undefined warning, and acknowledges expecting them to be set
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_KEY,
-  api_secret: process.env.CLOUDINARY_SECRET,
+  cloud_name: process.env.CLOUD_NAME!,
+  api_key: process.env.CLOUDINARY_KEY!,
+  api_secret: process.env.CLOUDINARY_SECRET!,
 });
 
 app.use(
@@ -46,15 +47,15 @@ app.use(
   })
 );
 
-const prismaSessionStore = new PrismaSessionStore(prisma, {
+const prismaSessionStore = new PrismaSessionStore(prisma as any, {
   checkPeriod: 2 * 60 * 1000,
   dbRecordIdIsSessionId: true,
-  sessionModel: 'Session',
+  sessionModelName: 'Session',
 });
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET!,
     resave: false,
     saveUninitialized: false,
     store: prismaSessionStore,
@@ -62,7 +63,7 @@ app.use(
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
       secure: true,
-      sameSite: 'None',
+      sameSite: 'none',
     },
   })
 );
@@ -73,18 +74,17 @@ app.use(passport.session());
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
+      clientID: process.env.CLIENT_ID!,
+      clientSecret: process.env.CLIENT_SECRET!,
       callbackURL: 'https://odin-book-d8do.onrender.com/auth/google/callback',
       scope: ['profile', 'email'],
       passReqToCallback: true,
-      prompt: 'select_account',
     },
-    async function (req, accessToken, refreshToken, profile, cb) {
+    
+    async function (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, cb: VerifyCallback) {
       try {
-        const defaultProfileImage =
-          'https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png';
-        const googleProfileImage = profile.photos[0].value;
+        const defaultProfileImage = 'https://res.cloudinary.com/dbmnceulk/image/upload/v1726786843/MessagingApp/xwhnyzgqeliffxa9lsrm.png';
+        const googleProfileImage = profile._json.picture ?? defaultProfileImage;
 
         let user = await prisma.user.findFirst({
           where: { googleId: profile.id },
@@ -98,13 +98,12 @@ passport.use(
           }
         );
 
-        const profileImageUrl =
-          cloudinaryResult.secure_url || defaultProfileImage;
+        const profileImageUrl = cloudinaryResult.secure_url || defaultProfileImage;
 
         if (!user) {
           user = await prisma.user.create({
             data: {
-              username: profile.displayName,
+              username: profile._json.name!,
               profile_image: profileImageUrl,
               googleId: profile.id,
             },
@@ -132,16 +131,15 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  console.log('serialize user' + user);
-  done(null, user.id);
+  done(null, (user as { id: number }).id);
 });
 
-passport.deserializeUser(async (id, done) => {
+
+passport.deserializeUser(async (id: number, done) => {
   try {
     const user = await prisma.user.findUnique({ where: { id } });
     if (!user) return done(null, false);
 
-    console.log('deserialize user', user);
     done(null, user);
   } catch (err) {
     done(err);
@@ -184,11 +182,11 @@ app.get('/check-authentication', (req, res) => {
   return res.status(200).json({ isAuthenticated: false });
 });
 
-const authRouter = require('./routes/googleAuth.js');
-const usersRouter = require('./routes/users');
-const messagesRouter = require('./routes/messages.js');
-const postsRouter = require('./routes/posts.js');
-const commentsRouter = require('./routes/comments.js');
+import authRouter from './routes/googleAuth';
+import usersRouter from './routes/users';
+import messagesRouter from './routes/messages';
+import postsRouter from './routes/posts';
+import commentsRouter from './routes/comments';
 
 app.use('/', authRouter);
 app.use('/users', usersRouter);
@@ -202,7 +200,12 @@ app.use(function (req, res, next) {
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function (
+  err: any,
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -212,7 +215,7 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-app._router.stack.forEach((middleware) => {
+app._router.stack.forEach((middleware: any) => {
   if (middleware.route) {
     console.log(middleware.route.path);
   }

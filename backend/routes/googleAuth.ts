@@ -24,5 +24,5 @@ router.get(
     return res.redirect('https://odin-book-frontend.onrender.com/profile');
   }
 );
+export default router
 
-module.exports = router;
