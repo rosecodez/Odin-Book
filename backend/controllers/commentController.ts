@@ -1,22 +1,24 @@
-const asyncHandler = require('express-async-handler');
-const { body, validationResult } = require('express-validator');
-const bcrypt = require('bcrypt');
-const session = require('express-session');
-const prisma = require('../prisma/prisma');
+import expressAsyncHandler from "express-async-handler";
+import { Request, Response, NextFunction } from "express";
+import { body } from "express-validator";
+import session from "express-session";
+import prisma from "../prisma/prisma";
 
-exports.comment_new_post = asyncHandler(async (req, res, next) => {
+exports.comment_new_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const user = req.session.user;
+    const user = (req.session as any).user as { id: number };
 
-    const { text } = req.body;
+    const { text } = req.body as { text: string };
     if (!text) {
-      return res.status(400).json({ message: 'Comment does not have a text' });
+      res.status(400).json({ message: 'Comment does not have a text' });
+      return
     }
 
     const postId = parseInt(req.params.postId, 10);
     const post = await prisma.post.findUnique({ where: { id: postId } });
     if (!post) {
-      return res.status(404).json({ message: 'no post found' });
+      res.status(404).json({ message: 'no post found' });
+      return
     }
 
     const newComment = await prisma.comment.create({
@@ -27,27 +29,31 @@ exports.comment_new_post = asyncHandler(async (req, res, next) => {
       },
     });
     console.log(newComment);
-    return res.status(200).json(newComment);
+    res.status(200).json(newComment);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: 'New comment on post failed' });
+    res.status(500).json({ error: 'New comment on post failed' });
+    return
   }
 });
 
-exports.all_comments_get = asyncHandler(async (req, res, next) => {
+exports.all_comments_get = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const user = req.session.user;
+    const postId = parseInt(req.params.postId, 10);
 
-    const { postId } = parseInt(req.params);
+    if (isNaN(postId)) {
+      res.status(400).json({ message: "invalid post id" });
+      return
+    }
 
     const allComments = await prisma.comment.findMany({
       where: { postId: postId },
     });
 
-    return res.status(200).json(allComments);
+    res.status(200).json(allComments);
   } catch (error) {
     console.log(error);
-    return res
+    res
       .status(400)
       .json({ message: 'Error while retrieving comments for post' });
   }

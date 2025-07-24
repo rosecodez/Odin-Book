@@ -1,33 +1,31 @@
-const asyncHandler = require("express-async-handler");
-const { body, validationResult } = require("express-validator");
-const session = require("express-session");
-const prisma = require("../prisma/prisma");
+import expressAsyncHandler from "express-async-handler";
+import { Request, Response, NextFunction } from "express";
+import prisma from "../prisma/prisma";
 
-// message should only allow image type file
-exports.message_new_post = asyncHandler(async (req, res, next) => {
-  try {
-    const user = req.session.user;
-    const { text } = req.body;
+exports.message_new_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const user = (req.session as any).user as { id: number };
+      const { text, conversation_id } = req.body as {
+        text?: string;
+        conversation_id?: string;
+      };
 
-    if (!req.message) {
-      return res.status(400).json({ error: "No message uploaded" });
+      if (!text || !conversation_id) {
+        res.status(400).json({ message: "text and conversation_id are required" });
+        return;
+      }
+
+      const newMessage = await prisma.message.create({
+        data: {
+          content: text.trim(),
+          conversation_id,
+          sender_id: user.id,
+        },
+      });
+
+      res.status(201).json(newMessage);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to send message" });
     }
-
-    if (!req.file) {
-      return res.status(400).json({ error: "No image uploaded" });
-    }
-
-    console.log(req.file);
-
-    const newMessage = await prisma.message.create({
-      data: {
-        content: text,
-        image: req.file ? req.file.path : null,
-      },
-    });
-    return res.status(201).json(newMessage);
-  } catch (error) {
-    console.error("Message error", error);
-    res.status(500).json({ error: "Failed to send message" });
   }
-});
+);

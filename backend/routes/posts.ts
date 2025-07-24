@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const postController = require('../controllers/postsController');
-const isAuthenticated = require('../middleware/authentication');
-const upload = require('../middleware/multer');
+import express from 'express';
+import postController from '../controllers/postsController';
+import isAuthenticated from '../middleware/authentication';
+import upload from "../middleware/multer"
 
 // GET Routes
 router.get('/all-posts', isAuthenticated, postController.posts_all_get);

@@ -1,16 +1,16 @@
-const asyncHandler = require('express-async-handler');
-const { body, validationResult } = require('express-validator');
-const session = require('express-session');
-const prisma = require('../prisma/prisma');
+import expressAsyncHandler from "express-async-handler";
+import { Request, Response, NextFunction } from "express";
+import prisma from "../prisma/prisma";
 
-exports.post_new_post = asyncHandler(async (req, res, next) => {
+exports.post_new_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     console.log('creating new post');
-    const user = req.user;
+    const user = (req.session as any).user as { id: number };
     const { text } = req.body;
 
     if (!text && !req.file) {
-      return res.status(400).json({ message: 'Missing text or image' });
+     res.status(400).json({ message: 'Missing text or image' });
+     return
     }
 
     console.log(req.file);
@@ -28,16 +28,14 @@ exports.post_new_post = asyncHandler(async (req, res, next) => {
 
     console.log(newPost);
 
-    return res.status(201).json(newPost);
+    res.status(201).json(newPost);
   } catch (error) {
     console.error('Error creating new post:', error);
-    return res
-      .status(500)
-      .json({ error: 'An error occurred while creating a new post.' });
+    res.status(500).json({ error: 'An error occurred while creating a new post.' });
   }
 });
 
-exports.posts_all_get = asyncHandler(async (req, res, next) => {
+exports.posts_all_get = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     console.log('fetching all posts');
     const posts = await prisma.post.findMany({
@@ -52,16 +50,14 @@ exports.posts_all_get = asyncHandler(async (req, res, next) => {
         like: true,
       },
     });
-    return res.status(200).json(posts);
+    res.status(200).json(posts);
   } catch (error) {
     console.error('An error occurred while fetching posts', error);
-    return res
-      .status(500)
-      .json({ error: 'An error occurred while fetching posts' });
+    res.status(500).json({ error: 'An error occurred while fetching posts' });
   }
 });
 
-exports.posts_all_get_visitor = asyncHandler(async (req, res, next) => {
+exports.posts_all_get_visitor = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const posts = await prisma.post.findMany({
       orderBy: [
@@ -75,17 +71,22 @@ exports.posts_all_get_visitor = asyncHandler(async (req, res, next) => {
         like: true,
       },
     });
-    return res.status(201).json(posts);
+    res.status(201).json(posts);
   } catch (error) {
     console.error('An error occurred while fetching posts', error);
-    return res
-      .status(500)
-      .json({ error: 'An error occurred while fetching posts' });
+    res.status(500).json({ error: 'An error occurred while fetching posts' });
   }
 });
 
-exports.posts_user_by_id = asyncHandler(async (req, res) => {
+exports.posts_user_by_id = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { userId } = req.params;
+  const parsedUserId = parseInt(userId, 10);
+
+  if (isNaN(parsedUserId)) {
+    res.status(400).json({ message: 'Invalid user ID' });
+    return;
+  }
+
   try {
     const posts = await prisma.post.findMany({
       where: { userId: parseInt(userId) },
@@ -97,21 +98,23 @@ exports.posts_user_by_id = asyncHandler(async (req, res) => {
     });
 
     if (!posts.length) {
-      return res.status(404).json({ message: 'posts not found' });
+      res.status(404).json({ message: 'posts not found' });
     }
 
-    res.json(posts);
+    res.status(200).json(posts);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'failed to fetch posts' });
   }
 });
 
-exports.posts_user_all_get = asyncHandler(async (req, res, next) => {
-  const userId = req.user.id;
+exports.posts_user_all_get = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  const user = (req.session as any).user as { id: number };
+  const userId = user.id;
 
   if (!userId) {
-    return res.status(400).json({ message: 'userId params not found' });
+    res.status(400).json({ message: 'userId params not found' });
+    return
   }
 
   try {
@@ -130,17 +133,20 @@ exports.posts_user_all_get = asyncHandler(async (req, res, next) => {
         like: true,
       },
     });
-    return res.status(201).json(posts);
+    res.status(200).json(posts);
   } catch (error) {
     console.error('An error occurred while fetching posts', error);
-    return res
-      .status(500)
-      .json({ error: 'An error occurred while fetching posts' });
+    res.status(500).json({ error: 'An error occurred while fetching the posts' });
   }
 });
 
-exports.get_post_by_id = asyncHandler(async (req, res, next) => {
+exports.get_post_by_id = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const postId = parseInt(req.params.postId, 10);
+  if (isNaN(postId)) {
+      res.status(400).json({ message: 'Invalid post ID' });
+      return;
+  }
+
   try {
     const post = await prisma.post.findUnique({
       where: {
@@ -161,16 +167,21 @@ exports.get_post_by_id = asyncHandler(async (req, res, next) => {
       },
     });
     if (!post) {
-      return res.status(404).json({ message: 'Post not found' });
+      res.status(404).json({ message: 'Post not found' });
+      return
     }
     res.json(post);
   } catch (err) {
-    next(err);
+    res.status(500).json({ error: 'An error occurred while fetching the post' });
   }
 });
 
-exports.delete_post = asyncHandler(async (req, res, next) => {
+exports.delete_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const postId = parseInt(req.params.postId, 10);
+  if (isNaN(postId)) {
+    res.status(400).json({ message: 'Invalid post ID' });
+    return;
+  }
 
   try {
     const post = await prisma.post.delete({
@@ -179,23 +190,19 @@ exports.delete_post = asyncHandler(async (req, res, next) => {
       },
     });
 
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found' });
-    }
-
-    res.sendStatus(200);
+    res.status(200).json({ message: 'Post deleted successfully' });
   } catch (err) {
-    next(err);
+    res.status(500).json({ error: 'An error occurred while fetching the post' });
   }
 });
 
-exports.update_post = asyncHandler(async (req, res, next) => {
+exports.update_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const postId = parseInt(req.params.postId, 10);
   const { content } = req.body;
 
   try {
     if (!content) {
-      return res.status(400).json({ error });
+      res.status(400).json({message: 'Post content is required'});
     }
 
     const updatedPost = await prisma.post.update({
@@ -205,14 +212,15 @@ exports.update_post = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({ message: 'success on updating post', updatedPost });
   } catch (err) {
-    console.error(err);
-    next(err);
+    console.error('error updating post', err);
+    res.status(500).json({ error: 'an error occurred while updating the post' });
   }
 });
 
-exports.like_post = asyncHandler(async (req, res, next) => {
+exports.like_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const postId = parseInt(req.params.postId, 10);
-  const userId = req.user.id;
+  const user = (req.session as any).user as { id: number };
+  const userId = user.id;
 
   try {
     const existingLike = await prisma.like.findFirst({
@@ -222,7 +230,8 @@ exports.like_post = asyncHandler(async (req, res, next) => {
       },
     });
     if (existingLike) {
-      return res.status(400).json({ message: 'post already liked' });
+      res.status(400).json({ message: 'post already liked' });
+      return
     }
 
     const likedPost = await prisma.like.create({
@@ -239,9 +248,10 @@ exports.like_post = asyncHandler(async (req, res, next) => {
   }
 });
 
-exports.unlike_post = asyncHandler(async (req, res, next) => {
+exports.unlike_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const postId = parseInt(req.params.postId, 10);
-  const userId = req.user.id;
+  const user = (req.session as any).user as { id: number };
+  const userId = user.id;
 
   try {
     const like = await prisma.like.findFirst({
@@ -250,8 +260,10 @@ exports.unlike_post = asyncHandler(async (req, res, next) => {
         userId: userId,
       },
     });
+
     if (!like) {
-      return res.status(404).json({ message: 'like not found' });
+      res.status(404).json({ message: 'like not found' });
+      return
     }
 
     await prisma.like.delete({
