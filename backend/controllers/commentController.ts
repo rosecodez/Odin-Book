@@ -1,7 +1,5 @@
 import expressAsyncHandler from "express-async-handler";
 import { Request, Response, NextFunction } from "express";
-import { body } from "express-validator";
-import session from "express-session";
 import prisma from "../prisma/prisma";
 
 exports.comment_new_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
