@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const messageController = require('../controllers/messageController');
-const isAuthenticated = require('../middleware/authentication');
-const upload = require('../middleware/multer');
+import express, { Router } from 'express';
+import messageController from '../controllers/messageController';
+import isAuthenticated from '../middleware/authentication';
+import upload from '../middleware/multer';
+
+const router: Router = express.Router();
 
 router.post(
   '/new-message',

@@ -1,9 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const commentController = require('../controllers/commentController');
-const isAuthenticated = require('../middleware/authentication');
-const multer = require('multer');
+import express, { Router } from 'express';
+import commentController from '../controllers/commentController';
+import isAuthenticated from '../middleware/authentication';
+import multer from 'multer';
+
 const upload = multer();
+const router: Router = express.Router();
 
 // GET Routes
 router.get(
@@ -19,4 +20,5 @@ router.post(
   isAuthenticated,
   commentController.comment_new_post
 );
-export default router
+
+export default router;

@@ -1,10 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const userController = require('../controllers/userController');
-const upload = require('../middleware/multer');
-const passport = require('passport');
-const isAuthenticated = require('../middleware/authentication');
+import express, { Router } from 'express';
+import userController from '../controllers/userController';
+import upload from '../middleware/multer';
+import isAuthenticated from '../middleware/authentication';
 
+const router: Router = express.Router();
 // GET Routes
 
 router.get('/profile', isAuthenticated, userController.user_profile_get);

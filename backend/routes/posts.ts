@@ -1,7 +1,9 @@
-import express from 'express';
+import express, { Router } from 'express';
 import postController from '../controllers/postsController';
 import isAuthenticated from '../middleware/authentication';
-import upload from "../middleware/multer"
+import upload from '../middleware/multer';
+
+const router: Router = express.Router();
 
 // GET Routes
 router.get('/all-posts', isAuthenticated, postController.posts_all_get);
@@ -30,4 +32,5 @@ router.put('/:postId/update', isAuthenticated, postController.update_post);
 // DELETE Routes
 router.delete('/:postId/delete', isAuthenticated, postController.delete_post);
 router.delete('/:postId/unlike', isAuthenticated, postController.unlike_post);
+
 export default router

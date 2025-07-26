@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-function isAuthenticated(req: Request, res: Response, next: NextFunction) {
+export default function isAuthenticated(req: Request, res: Response, next: NextFunction) {
   console.log(req.session);
   console.log(req.user);
   console.log(req.session?.user);
@@ -21,5 +21,3 @@ function isAuthenticated(req: Request, res: Response, next: NextFunction) {
 
   next();
 }
-
-module.exports = isAuthenticated;
