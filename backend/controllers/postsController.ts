@@ -2,7 +2,7 @@ import expressAsyncHandler from "express-async-handler";
 import { Request, Response, NextFunction } from "express";
 import prisma from "../prisma/prisma";
 
-exports.post_new_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const post_new_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     console.log('creating new post');
     const user = (req.session as any).user as { id: number };
@@ -35,7 +35,7 @@ exports.post_new_post = expressAsyncHandler(async (req: Request, res: Response, 
   }
 });
 
-exports.posts_all_get = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const posts_all_get = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     console.log('fetching all posts');
     const posts = await prisma.post.findMany({
@@ -57,7 +57,7 @@ exports.posts_all_get = expressAsyncHandler(async (req: Request, res: Response, 
   }
 });
 
-exports.posts_all_get_visitor = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const posts_all_get_visitor = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const posts = await prisma.post.findMany({
       orderBy: [
@@ -78,7 +78,7 @@ exports.posts_all_get_visitor = expressAsyncHandler(async (req: Request, res: Re
   }
 });
 
-exports.posts_user_by_id = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const posts_user_by_id = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { userId } = req.params;
   const parsedUserId = parseInt(userId, 10);
 
@@ -108,7 +108,7 @@ exports.posts_user_by_id = expressAsyncHandler(async (req: Request, res: Respons
   }
 });
 
-exports.posts_user_all_get = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const posts_user_all_get = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const user = (req.session as any).user as { id: number };
   const userId = user.id;
 
@@ -140,7 +140,7 @@ exports.posts_user_all_get = expressAsyncHandler(async (req: Request, res: Respo
   }
 });
 
-exports.get_post_by_id = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const get_post_by_id = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const postId = parseInt(req.params.postId, 10);
   if (isNaN(postId)) {
       res.status(400).json({ message: 'Invalid post ID' });
@@ -176,7 +176,7 @@ exports.get_post_by_id = expressAsyncHandler(async (req: Request, res: Response,
   }
 });
 
-exports.delete_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const delete_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const postId = parseInt(req.params.postId, 10);
   if (isNaN(postId)) {
     res.status(400).json({ message: 'Invalid post ID' });
@@ -196,7 +196,7 @@ exports.delete_post = expressAsyncHandler(async (req: Request, res: Response, ne
   }
 });
 
-exports.update_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const update_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const postId = parseInt(req.params.postId, 10);
   const { content } = req.body;
 
@@ -217,7 +217,7 @@ exports.update_post = expressAsyncHandler(async (req: Request, res: Response, ne
   }
 });
 
-exports.like_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const like_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const postId = parseInt(req.params.postId, 10);
   const user = (req.session as any).user as { id: number };
   const userId = user.id;
@@ -248,7 +248,7 @@ exports.like_post = expressAsyncHandler(async (req: Request, res: Response, next
   }
 });
 
-exports.unlike_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const unlike_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const postId = parseInt(req.params.postId, 10);
   const user = (req.session as any).user as { id: number };
   const userId = user.id;
@@ -278,3 +278,16 @@ exports.unlike_post = expressAsyncHandler(async (req: Request, res: Response, ne
     next(err);
   }
 });
+
+export default {
+  post_new_post,
+  posts_all_get,
+  posts_all_get_visitor,
+  posts_user_by_id,
+  posts_user_all_get,
+  get_post_by_id,
+  delete_post,
+  update_post,
+  like_post,
+  unlike_post
+};

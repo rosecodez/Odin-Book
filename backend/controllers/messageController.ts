@@ -2,7 +2,7 @@ import expressAsyncHandler from "express-async-handler";
 import { Request, Response, NextFunction } from "express";
 import prisma from "../prisma/prisma";
 
-exports.message_new_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const message_new_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const user = (req.session as any).user as { id: number };
       const { text, conversation_id } = req.body as {
@@ -29,3 +29,7 @@ exports.message_new_post = expressAsyncHandler(async (req: Request, res: Respons
     }
   }
 );
+
+export default {
+  message_new_post
+};

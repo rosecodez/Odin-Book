@@ -4,7 +4,7 @@ import prisma from "../prisma/prisma";
 import bcrypt from "bcrypt"
 import { body, validationResult } from 'express-validator';
 
-exports.user_signup_post = [
+const user_signup_post = [
   body('username', 'Username must be specified and valid').trim().escape(),
   body('password', 'Password must be specified and at least 10 characters long')
     .trim()
@@ -70,7 +70,7 @@ exports.user_signup_post = [
   }),
 ];
 
-exports.user_login_post = [
+const user_login_post = [
   expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { username, password, visitor } = req.body;
 
@@ -121,7 +121,7 @@ exports.user_login_post = [
   }),
 ];
 
-exports.user_logout_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const user_logout_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     res.setHeader(
       'Access-Control-Allow-Origin',
@@ -194,7 +194,7 @@ exports.user_logout_post = expressAsyncHandler(async (req: Request, res: Respons
   }
 );
 
-exports.user_profile_get = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const user_profile_get = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   console.log(req.sessionID);
   console.log(req.session);
   console.log(req.session.user);
@@ -236,7 +236,7 @@ exports.user_profile_get = expressAsyncHandler(async (req: Request, res: Respons
   }
 });
 
-exports.user_update_profile_picture = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const user_update_profile_picture = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     console.log('Request file object:', req.file);
     if (!req.file) {
@@ -268,7 +268,7 @@ exports.user_update_profile_picture = expressAsyncHandler(async (req: Request, r
   }
 });
 
-exports.user_get_all_contacts = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const user_get_all_contacts = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const userId = req.session.user.id;
     if (!userId) {
@@ -291,7 +291,7 @@ exports.user_get_all_contacts = expressAsyncHandler(async (req: Request, res: Re
   }
 });
 
-exports.user_update_bio_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const user_update_bio_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const userId = req.session.user.id;
     const { bio } = req.body;
@@ -315,7 +315,7 @@ exports.user_update_bio_post = expressAsyncHandler(async (req: Request, res: Res
   }
 });
 
-exports.user_get_by_username = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const user_get_by_username = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { username } = req.params;
 
   try {
@@ -355,7 +355,7 @@ exports.user_get_by_username = expressAsyncHandler(async (req: Request, res: Res
   }
 });
 
-exports.user_follow = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const user_follow = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const userId = req.session.user.id;
   const { username } = req.params;
 
@@ -411,3 +411,15 @@ exports.user_follow = expressAsyncHandler(async (req: Request, res: Response, ne
     res.status(500).json({ message: 'error occured while following user' });
   }
 });
+
+export default {
+  user_signup_post,
+  user_login_post,
+  user_logout_post,
+  user_profile_get,
+  user_update_profile_picture,
+  user_get_all_contacts,
+  user_update_bio_post,
+  user_get_by_username,
+  user_follow
+}

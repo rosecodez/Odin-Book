@@ -2,7 +2,7 @@ import expressAsyncHandler from "express-async-handler";
 import { Request, Response, NextFunction } from "express";
 import prisma from "../prisma/prisma";
 
-exports.comment_new_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const comment_new_post = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const user = (req.session as any).user as { id: number };
 
@@ -35,7 +35,7 @@ exports.comment_new_post = expressAsyncHandler(async (req: Request, res: Respons
   }
 });
 
-exports.all_comments_get = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const all_comments_get = expressAsyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const postId = parseInt(req.params.postId, 10);
 
@@ -56,3 +56,8 @@ exports.all_comments_get = expressAsyncHandler(async (req: Request, res: Respons
       .json({ message: 'Error while retrieving comments for post' });
   }
 });
+
+export default {
+  comment_new_post,
+  all_comments_get,
+};
