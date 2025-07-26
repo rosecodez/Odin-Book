@@ -1,7 +1,10 @@
-function isAuthenticated(req, res, next) {
+import { Request, Response, NextFunction } from "express";
+
+function isAuthenticated(req: Request, res: Response, next: NextFunction) {
   console.log(req.session);
   console.log(req.user);
   console.log(req.session?.user);
+
   res.setHeader(
     'Access-Control-Allow-Origin',
     'https://odin-book-frontend.onrender.com'
@@ -16,7 +19,7 @@ function isAuthenticated(req, res, next) {
   const user = req.user || req.session.user;
   console.log(user);
 
-  return next();
+  next();
 }
 
 module.exports = isAuthenticated;
