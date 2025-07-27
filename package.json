@@ -1,0 +1,24 @@
+{
+  "name": "odin-book",
+  "version": "1.0.0",
+  "description": "**Live Project**: https://odin-book-frontend.onrender.com/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rosecodez/Odin-Book.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rosecodez/Odin-Book/issues"
+  },
+  "homepage": "https://github.com/rosecodez/Odin-Book#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
