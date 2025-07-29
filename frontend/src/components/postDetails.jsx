@@ -1,12 +1,10 @@
 import DropdownComponent from "./dropdown";
 import { DateTime } from "luxon";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import heart from "../assets/heart.png";
 import message from "../assets/message.png";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 
 import API_URL from "../config";
 
@@ -199,18 +197,18 @@ export default function PostDetails({ username }) {
       {post ? (
         <div>
           <div className="flex flex-row gap-4 w-full ">
-            <a href="/profile">
+            <Link to="/profile">
               <img
                 src={post.user.profile_image}
                 className="rounded-full w-[50px] h-[50px]"
               />
-            </a>
+            </Link>
 
             <div className="flex gap-2 mt-[7px] w-full justify-between">
               <div className="flex gap-2">
-                <a href={`/users/${post.user.username}`}>
+                <Link to={`/users/${post.user.username}`}>
                   {post.user.username}
-                </a>
+                </Link>
                 <p>{formattedDate}</p>
               </div>
 
@@ -308,18 +306,18 @@ export default function PostDetails({ username }) {
                   <div>
                     <li key={comment.id} className="list-none">
                       <div className="flex flex-row gap-[19px] w-full">
-                        <a href={`/users/${post.user.username}`}>
+                        <Link to={`/users/${post.user.username}`}>
                           <img
                             src={comment.user.profile_image}
                             className="rounded-full w-[60px] h-[55px]"
                           />
-                        </a>
+                        </Link>
 
                         <div className="flex gap-2 mt-[7px] w-full justify-between">
                           <div className="flex gap-2">
-                            <a href={`/users/${post.user.username}`}>
+                            <Link to={`/users/${post.user.username}`}>
                               {comment.user.username}
-                            </a>
+                            </Link>
                             <p>{formattedDate}</p>
                           </div>
                         </div>

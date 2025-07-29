@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 export default function Terms() {
     return (
         <div className="flex flex-col md:flex-row px-4 max-w-6xl mx-auto text-left">
@@ -30,7 +31,7 @@ export default function Terms() {
                     </h2>
                     <p className="text-base leading-7">
                         By accessing or using OdinBook, you agree to these Terms of Service and our{' '}
-                        <a href="/privacy-policy" className="text-blue-500 hover:underline inline">Privacy Policy</a>.
+                        <Link to="/privacy-policy" className="text-blue-500 hover:underline inline">Privacy Policy</Link>.
                         <br />
                         If you do not agree, please do not use our platform.
                     </p>
@@ -76,7 +77,7 @@ export default function Terms() {
                     </h2>
                     <p className="text-base leading-7">
                        We respect your privacy. Please review our {' '}
-                       <a href="/privacy-policy" className="text-blue-500 hover:underline inline">Privacy Policy </a>
+                       <Link to="/privacy-policy" className="text-blue-500 hover:underline inline">Privacy Policy </Link>
                        to understand how we collect, use, and protect your information.
                     </p>
                 </section>

@@ -1,7 +1,7 @@
 import Dropdown from "react-bootstrap/Dropdown";
 import threedots from "../assets/3dots.png";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { DropdownProps } from "../../../types/dropdown";
+import { DropdownProps } from "../types"
 
 const DropdownComponent: React.FC<DropdownProps> = ({ postId, editPost, deletePost }) => {
   return (

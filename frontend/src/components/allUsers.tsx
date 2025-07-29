@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import API_URL from "../config";
-import { User } from "../../../types/user"
+import { User } from "../types";
 
 const AllUsers: React.FC = () => { 
   const [allUsers, setAllUsers] = useState<User[]>([]);

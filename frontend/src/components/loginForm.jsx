@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import API_URL from "../config";
 
 export default function LoginForm() {
@@ -61,9 +61,9 @@ export default function LoginForm() {
         className="text-[14px] pt-5 flex justify-center gap-2"
       >
         <h6>Don't have an account?</h6>
-        <a href="/signup" className="link link-primary hover:underline">
+        <Link to="/signup" className="link link-primary hover:underline">
           <p>Sign up</p>
-        </a>
+        </Link>
       </div>
 
       <form

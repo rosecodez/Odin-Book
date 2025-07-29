@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import heart from "../assets/heart.png";
 import message from "../assets/message.png";
@@ -152,24 +152,24 @@ const Feed: React.FC<FeedProps> = ({ isVisitor, setIsVisitor }) => {
             return (
               <div key={post.id}>
                 <li className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition">
-                  <a href={`/posts/${post.id}`} className="no-underline" style={{width: "-webkit-fill-available"}}>
+                  <Link to={`/posts/${post.id}`} className="no-underline" style={{width: "-webkit-fill-available"}}>
                     <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
                       <div className="shrink-0 w-[45px] h-[45px]">
-                        <a href={`/users/${post.user.username}`} className="no-underline">
+                        <Link to={`/users/${post.user.username}`} className="no-underline">
                           <img
                             src={post.user.profile_image}
                             className="rounded-full w-[60px] h-[45px]"
                             alt = "Profile"
                           />
-                        </a>
+                        </Link>
                       </div>
                       
 
                       <div className="flex gap-2 mt-[7px] w-full justify-between">
                         <div className="flex gap-2">
-                          <a href={`/users/${post.user.username}`} className="no-underline text-base-content">
+                          <Link to={`/users/${post.user.username}`} className="no-underline text-base-content">
                             {post.user.username}
-                          </a>
+                          </Link>
                           <p className="no-underline text-base-content">{formattedDate}</p>
                         </div>
                       </div>
@@ -234,7 +234,7 @@ const Feed: React.FC<FeedProps> = ({ isVisitor, setIsVisitor }) => {
                         <p>{post.like.length || 0}</p>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </li>
               </div>
             );

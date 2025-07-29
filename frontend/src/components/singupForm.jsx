@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import API_URL from "../config";
+import { Link } from "react-router-dom";
 
 export default function SignupForm() {
   const navigateTo = useNavigate();
@@ -58,9 +59,9 @@ export default function SignupForm() {
         className="text-[14px] pt-5 flex justify-center gap-2 "
       >
         <h6>Already have an account?</h6>
-        <a href="/login" className="link link-primary hover:underline">
+        <Link to="/login" className="link link-primary hover:underline">
           Log in
-        </a>
+        </Link>
       </div>
 
       <form
@@ -136,7 +137,7 @@ export default function SignupForm() {
         </button>
 
       </form>
-      <a href={`${API_URL}/auth/google`} className="flex justify-center">
+      <Link to={`${API_URL}/auth/google`} className="flex justify-center">
         <button className="gsi-material-button">
           <div className="gsi-material-button-state"></div>
           <div className="gsi-material-button-content-wrapper">
@@ -152,7 +153,7 @@ export default function SignupForm() {
             <span className="gsi-material-button-contents">Sign in with Google</span>
           </div>
         </button>
-      </a>
+      </Link>
 
     </div>
   );

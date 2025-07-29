@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const Connect: React.FC = () => { 
     return (
         <div className="flex flex-col items-center justify-center w-full">
@@ -11,9 +12,9 @@ const Connect: React.FC = () => {
             </p>
 
 
-            <a href="/signup" className="btn btn-primary link mt-8">
+            <Link to="/signup" className="btn btn-primary link mt-8">
                 Sign up today
-            </a>
+            </Link>
         </div>
     )
 }

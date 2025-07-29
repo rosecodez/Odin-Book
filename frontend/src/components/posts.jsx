@@ -1,9 +1,9 @@
 import heart from "../assets/heart.png";
 import message from "../assets/message.png";
 import { DateTime } from "luxon";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import API_URL from "../config";
+import { Link } from "react-router-dom";
 
 export default function Posts({ userId, loggedInUserId }) {
   const [posts, setPosts] = useState([]);
@@ -106,24 +106,24 @@ export default function Posts({ userId, loggedInUserId }) {
 
           return (
             <div>
-              <a href={`/posts/${post.id}`} className="no-underline">
+              <Link to={`/posts/${post.id}`} className="no-underline">
                 <li key={post.id} className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition" style={{width: "-webkit-fill-available"}}>
                   <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
                     <div className="shrink-0 w-[45px] h-[45px]">
-                      <a href={`/users/${post.user.username}`} className="no-underline">
+                      <Link to={`/users/${post.user.username}`} className="no-underline">
                         <img
                           src={post.user.profile_image}
                           className="rounded-full w-[60px] h-[45px]"
                           alt="Profile"
                         />
-                      </a>
+                      </Link>
                     </div>
 
                     <div className="flex gap-2 mt-[7px] w-full justify-between">
                       <div className="flex gap-2">
-                        <a href={`/users/${post.user.username}`} className="no-underline text-base-content">
+                        <Link to={`/users/${post.user.username}`} className="no-underline text-base-content">
                           {post.user.username}
-                        </a>
+                        </Link>
                         <p className="no-underline text base-content">{formattedDate}</p>
                       </div>
                     </div>
@@ -189,7 +189,7 @@ export default function Posts({ userId, loggedInUserId }) {
                     </div>
                   </div>
                 </li>
-              </a>
+              </Link>
             </div>
           );
         })

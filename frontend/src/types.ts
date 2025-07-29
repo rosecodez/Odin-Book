@@ -20,3 +20,10 @@ export type NewPostProps = {
   isVisitor: boolean;
   setIsVisitor?: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+export type HeaderProps = {
+  isVisitor: boolean;
+  setIsVisitor: React.Dispatch<React.SetStateAction<boolean>>;
+  isAuthenticated: boolean;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+}
