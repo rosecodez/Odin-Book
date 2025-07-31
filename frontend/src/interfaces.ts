@@ -64,3 +64,9 @@ export interface ConversationParticipant {
   conversation?: Conversation;
   user: User;
 }
+
+export interface LoginFormInputs {
+  username: string;
+  password: string;
+  isVisitor: boolean;
+}

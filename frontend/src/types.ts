@@ -1,14 +1,16 @@
+import React from "react";
+
 export type FeedProps = {
-  isVisitor: boolean,
-  // updater function returned by useState
+  isAuthenticated: boolean,
+  isVisitor: boolean;
   setIsVisitor: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export type User = {
-  id: number;
-  username: string;
-  profile_image: string;
-};
+export type SignupFormInputs = {
+  username: string,
+  password: string,
+  isVisitor: boolean
+}
 
 export type DropdownProps = {
   postId: number;
@@ -27,3 +29,28 @@ export type HeaderProps = {
   isAuthenticated: boolean;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export type ProfileProps = {
+  isVisitor: boolean,
+  setIsVisitor: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface ProfileFormInputs {
+  image: FileList;
+}
+
+export type PostsProps = {
+  userId: number,
+  loggedInUserId: number
+}
+
+export type HomeProps = {
+  isAuthenticated: boolean;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  isVisitor: boolean;
+  setIsVisitor: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type PostDetailsProps = {
+  username: string;
+};
