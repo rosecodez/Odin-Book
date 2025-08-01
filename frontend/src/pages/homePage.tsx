@@ -1,11 +1,13 @@
+import React from "react";
 import Home from "../components/home";
+import { HomePageProps } from "../types";
 
-export default function HomePage({
+const HomePage: React.FC<HomePageProps> = ({
   isAuthenticated,
   setIsAuthenticated,
   isVisitor,
   setIsVisitor,
-}) {
+}) => {
   return (
     <Home
       isAuthenticated={isAuthenticated}
@@ -14,4 +16,6 @@ export default function HomePage({
       setIsVisitor={setIsVisitor}
     />
   );
-}
+};
+
+export default HomePage;

@@ -1,9 +1,11 @@
 import About from "../components/about";
 
-export default function AboutPage() {
+const AboutPage:React.FC = () => {
   return (
     <div className="about-page">
       <About />
     </div>
   );
 }
+
+export default AboutPage;

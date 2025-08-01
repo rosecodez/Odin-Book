@@ -1,5 +1,7 @@
 import SignupForm from "../components/singupForm";
 
-export default function SignupPage() {
+const SignupPage:React.FC = () =>{
   return <SignupForm />;
 }
+
+export default SignupPage;

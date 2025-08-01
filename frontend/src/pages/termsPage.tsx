@@ -1,7 +1,9 @@
 import Terms from "../components/terms";
 
-export default function TermsPage() {
+const TermsPage:React.FC = () => {
     return (
         <Terms />
     )
 }
+
+export default TermsPage;
