@@ -8,7 +8,7 @@ import { DateTime } from "luxon";
 import API_URL from "../config";
 import { Post } from "../interfaces";
 
-const Feed: React.FC<FeedProps> = ({ isVisitor, setIsVisitor }) => {
+const Feed: React.FC<FeedProps> = ({  isVisitor, setIsVisitor }) => {
   const [image, setImage] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const navigate = useNavigate();
@@ -139,7 +139,7 @@ const Feed: React.FC<FeedProps> = ({ isVisitor, setIsVisitor }) => {
           <img src={image} className="rounded-full w-[70px] h-[70px]" />
         )}
 
-        <NewPost isVisitor={isVisitor} setIsVisitor={setIsVisitor} />
+        <NewPost isVisitor={isVisitor}/>
       </div>
 
       <ul className="flex flex-col gap-6 pt-[40px]">

@@ -91,7 +91,7 @@ const Profile: React.FC<ProfileProps> = ({ isVisitor, setIsVisitor }) => {
           alt="profile"
         />
 
-        <NewPost isVisitor={isVisitor} setIsVisitor={setIsVisitor} />
+        <NewPost isVisitor={isVisitor}  />
       </div>
 
       <div className="flex flex-col sm:flex-row items-center  sm:gap-6 mt-6">

@@ -15,7 +15,7 @@ const UserDetails: React.FC = () => {
     const checkAuth = async () => {
       try {
         const response = await fetch(
-          ` ${API_URL}/check-authentication`,
+          `${API_URL}/check-authentication`,
           {
             credentials: "include",
           },
@@ -40,7 +40,7 @@ const UserDetails: React.FC = () => {
     const getUserDetails = async () => {
       try {
         const response = await fetch(
-          ` ${API_URL}/users/${username}`,
+          `${API_URL}/users/${username}`,
           {
             credentials: "include",
           },

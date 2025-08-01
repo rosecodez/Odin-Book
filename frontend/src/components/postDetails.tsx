@@ -378,3 +378,5 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
     </div>
   );
 }
+
+export default PostDetails;

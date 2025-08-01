@@ -16,7 +16,7 @@ import AboutPage from "./pages/aboutPage";
 import TermsPage from "./pages/termsPage";
 import PrivacyPolicyPage from "./pages/privacyPolicyPage";
 import API_URL from "./config";
-
+import {AppContentProps} from "../src/types"
 console.log(API_URL);
 
 
@@ -57,7 +57,13 @@ function App() {
   );
 }
 
-function AppContent({ isVisitor, setIsVisitor, isAuthenticated, setIsAuthenticated, username }) {
+function AppContent({
+  isVisitor,
+  setIsVisitor,
+  isAuthenticated,
+  setIsAuthenticated,
+  username,
+}: AppContentProps) {
   const location = useLocation();
 
   const publicRoutes = ["/signup", "/login", "/about", "/terms", "/privacy-policy"];
@@ -88,6 +94,8 @@ function AppContent({ isVisitor, setIsVisitor, isAuthenticated, setIsAuthenticat
                 <HomePage
                   isAuthenticated={isAuthenticated}
                   setIsAuthenticated={setIsAuthenticated}
+                  isVisitor={isVisitor}
+                  setIsVisitor={setIsVisitor}
                 />
               )
             }
@@ -106,6 +114,8 @@ function AppContent({ isVisitor, setIsVisitor, isAuthenticated, setIsAuthenticat
               <HomePage
                 isAuthenticated={isAuthenticated}
                 setIsAuthenticated={setIsAuthenticated}
+                isVisitor={isVisitor}
+                setIsVisitor={setIsVisitor}
               />
             }
           />
@@ -113,10 +123,7 @@ function AppContent({ isVisitor, setIsVisitor, isAuthenticated, setIsAuthenticat
             path="/posts/:postId"
             element={<PostDetailsPage username={username} />}
           />
-          <Route
-            path="/users/:username"
-            element={<UserDetailsPage username={username} />}
-          />
+          <Route path="/users/:username" element={<UserDetailsPage />} />
           <Route
             path="/about"
             element={<AboutPage />}

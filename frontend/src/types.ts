@@ -1,7 +1,6 @@
 import React from "react";
 
 export type FeedProps = {
-  isAuthenticated: boolean,
   isVisitor: boolean;
   setIsVisitor: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -20,7 +19,6 @@ export type DropdownProps = {
 
 export type NewPostProps = {
   isVisitor: boolean;
-  setIsVisitor?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type HeaderProps = {
@@ -54,3 +52,30 @@ export type HomeProps = {
 export type PostDetailsProps = {
   username: string;
 };
+
+export type AppContentProps = {
+  isVisitor: boolean;
+  setIsVisitor: React.Dispatch<React.SetStateAction<boolean>>;
+  isAuthenticated: boolean;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  username: string;
+};
+
+export type FeedPageProps = {
+  isAuthenticated: boolean,
+  isVisitor: boolean,
+  setIsVisitor: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export type HomePageProps = {
+  isAuthenticated: boolean;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  isVisitor: boolean;
+  setIsVisitor: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type ProfilePageProps = {
+  isVisitor: boolean;
+  setIsVisitor: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
