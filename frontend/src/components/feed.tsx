@@ -151,8 +151,8 @@ const Feed: React.FC<FeedProps> = ({  isVisitor, setIsVisitor }) => {
 
             return (
               <div key={post.id}>
-                <li className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition">
-                  <Link to={`/posts/${post.id}`} className="no-underline flex flex-col">
+                <Link to={`/posts/${post.id}`} className="no-underline flex flex-col">
+                  <li className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition" style={{width: "-webkit-fill-available"}} >
                     <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
                       <div className="shrink-0 w-[45px] h-[45px]">
                         <Link to={`/users/${post.user.username}`} className="no-underline">
@@ -163,7 +163,7 @@ const Feed: React.FC<FeedProps> = ({  isVisitor, setIsVisitor }) => {
                           />
                         </Link>
                       </div>
-                      
+                        
 
                       <div className="flex gap-2 mt-[7px] w-full justify-between">
                         <div className="flex gap-2">
@@ -216,7 +216,7 @@ const Feed: React.FC<FeedProps> = ({  isVisitor, setIsVisitor }) => {
                     </div>
 
                     <div className="flex flex-row gap-4 mt-3 pl-16">
-                       <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
+                      <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
                         <img
                           src={message}
                           className="w-5 h-5 no-underline text base-content"
@@ -225,7 +225,7 @@ const Feed: React.FC<FeedProps> = ({  isVisitor, setIsVisitor }) => {
                         <p>{post.comment.length || 0}</p>
                       </div>
 
-                       <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
+                      <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
                         <img
                           src={heart}
                           className="w-5 h-5 no-underline text base-content"
@@ -233,9 +233,9 @@ const Feed: React.FC<FeedProps> = ({  isVisitor, setIsVisitor }) => {
                         />
                         <p>{post.like.length || 0}</p>
                       </div>
-                    </div>
-                  </Link>
-                </li>
+                    </div>  
+                  </li>
+                </Link>
               </div>
             );
           })

@@ -109,9 +109,9 @@ const Posts: React.FC<PostsProps> = ({ userId, loggedInUserId }) => {
           ).toLocaleString({ month: "short", day: "2-digit" });
 
           return (
-            <div>
+            <div key={post.id}>
               <Link to={`/posts/${post.id}`} className="no-underline">
-                <li key={post.id} className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition" style={{width: "-webkit-fill-available"}}>
+                <li className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition" style={{width: "-webkit-fill-available"}}>
                   <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
                     <div className="shrink-0 w-[45px] h-[45px]">
                       <Link to={`/users/${post.user.username}`} className="no-underline">
@@ -159,7 +159,7 @@ const Posts: React.FC<PostsProps> = ({ userId, loggedInUserId }) => {
                         </div>
                       </div>
                     ) : (
-                      <p className="w-full break-words pl-[40px] mb-[10px] text base-content">
+                      <p className="w-full break-words pl-[40px] mb-[10px] no-underline text base-content">
                         {post.content}
                       </p>
                     )}
