@@ -133,7 +133,7 @@ const Feed: React.FC<FeedProps> = ({  isVisitor, setIsVisitor }) => {
   };
 
   return (
-    <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left p-4 text-base-content no-underline">
+    <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left shadow-md p-4">
       <div className="flex gap-3">
         {!isVisitor && (
           <img src={image} className="rounded-full w-[70px] h-[70px]" />
@@ -151,8 +151,8 @@ const Feed: React.FC<FeedProps> = ({  isVisitor, setIsVisitor }) => {
 
             return (
               <div key={post.id}>
-                <Link to={`/posts/${post.id}`} className="no-underline flex flex-col">
-                  <li className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition" style={{width: "-webkit-fill-available"}} >
+                <Link to={`/posts/${post.id}`} className="no-underline ">
+                  <li className="flex flex-col bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition" style={{width: "-webkit-fill-available"}} >
                     <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
                       <div className="shrink-0 w-[45px] h-[45px]">
                         <Link to={`/users/${post.user.username}`} className="no-underline">
@@ -175,7 +175,7 @@ const Feed: React.FC<FeedProps> = ({  isVisitor, setIsVisitor }) => {
                       </div>
                     </div>
 
-                    <div className="flex flex-col pl-[25px] text-left">
+                    <div className="text-wrap-auto pl-[25px]">
                       {editPostId === post.id ? (
                         <div>
                           <textarea
