@@ -152,7 +152,7 @@ const Feed: React.FC<FeedProps> = ({  isVisitor, setIsVisitor }) => {
             return (
               <div key={post.id}>
                 <li className="bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition">
-                  <Link to={`/posts/${post.id}`} className="no-underline" style={{width: "-webkit-fill-available"}}>
+                  <Link to={`/posts/${post.id}`} className="no-underline flex flex-col">
                     <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
                       <div className="shrink-0 w-[45px] h-[45px]">
                         <Link to={`/users/${post.user.username}`} className="no-underline">
