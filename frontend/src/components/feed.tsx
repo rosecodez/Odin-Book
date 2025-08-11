@@ -164,7 +164,6 @@ const Feed: React.FC<FeedProps> = ({  isVisitor, setIsVisitor }) => {
                         </Link>
                       </div>
                         
-
                       <div className="flex gap-2 mt-[7px] w-full justify-between">
                         <div className="flex gap-2">
                           <Link to={`/users/${post.user.username}`} className="no-underline text-base-content">
