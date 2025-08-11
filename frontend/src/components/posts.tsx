@@ -110,7 +110,7 @@ const Posts: React.FC<PostsProps> = ({ userId, loggedInUserId }) => {
 
           return (
             <div key={post.id}>
-              <Link to={`/posts/${post.id}`} className="no-underline flex flex-col">
+              <a href={`/posts/${post.id}`} className="no-underline flex flex-col">
                 <li className="flex flex-col bg-base-200 p-4 rounded-xl shadow-sm hover:shadow-md transition" style={{width: "-webkit-fill-available"}}>
                   <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
                     <div className="shrink-0 w-[45px] h-[45px]">
@@ -193,7 +193,7 @@ const Posts: React.FC<PostsProps> = ({ userId, loggedInUserId }) => {
                     </div>
                   </div>
                 </li>
-              </Link>
+              </a>
             </div>
           );
         })
