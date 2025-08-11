@@ -142,11 +142,7 @@ const Feed: React.FC<FeedProps> = ({  isVisitor, setIsVisitor }) => {
         <NewPost isVisitor={isVisitor}/>
       </div>
 
-      <ul className="flex flex-col gap-6 pt-[40px]">
-        
-          <p>No posts available</p>
-
-      </ul>
+      <p>No posts available</p>
     </div>
   );
 }

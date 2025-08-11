@@ -101,8 +101,7 @@ const Posts: React.FC<PostsProps> = ({ userId, loggedInUserId }) => {
   };
 
   return (
-   
-              <p>No posts available</p>
+    <p>No posts available</p>
 
   );
 }
