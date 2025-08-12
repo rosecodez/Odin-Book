@@ -197,21 +197,22 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
   return (
     <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left shadow-md p-4">
       {post ? (
-        <div>
+        <div key={post.id}>
           <div className="flex flex-row gap-4 w-full ">
-            <Link to="/profile">
+            <Link to={`/users/${post.user.username}`} className="no-underline">
               <img
                 src={post.user.profile_image}
-                className="rounded-full w-[50px] h-[50px]"
+                className="rounded-full w-[60px] h-[45px]"
+                alt = "Profile"
               />
             </Link>
 
             <div className="flex gap-2 mt-[7px] w-full justify-between">
               <div className="flex gap-2">
-                <Link to={`/users/${post.user.username}`}>
+                <Link to={`/users/${post.user.username}`} className="no-underline text-base-content">
                   {post.user.username}
                 </Link>
-                <p>{formattedDate}</p>
+                <p className="no-underline text-base-content">{formattedDate}</p>
               </div>
 
               {username === post.user.username ? (
@@ -297,7 +298,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
             encType="multipart/form-data"
             onSubmit={handleSubmit(createNewComment)}
           >
-            <p>Comments</p>
+            <h3 className="text-base font-semibold mb-3">Comments</h3>
 
             {postMessages.length ? (
               postMessages.map((comment) => {
@@ -336,7 +337,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
                 );
               })
             ) : (
-              <p>No comments</p>
+              <p className="text-base-content/70">No comments</p>
             )}
             
             {username &&
