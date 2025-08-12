@@ -197,16 +197,18 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
   return (
     <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left shadow-md p-4">
       {post ? (
-        <div key={post.id}>
-          <div className="flex flex-row gap-4 w-full ">
-            <Link to={`/users/${post.user.username}`} className="no-underline">
-              <img
-                src={post.user.profile_image}
-                className="rounded-full w-[60px] h-[45px]"
-                alt = "Profile"
-              />
-            </Link>
-
+        <div key={post.id} className="flex flex-col gap-6 pt-[40px]">
+          <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
+            <div className="shrink-0 w-[45px] h-[45px]">
+              <Link to={`/users/${post.user.username}`} className="no-underline">
+                <img
+                  src={post.user.profile_image}
+                  className="rounded-full w-[60px] h-[45px]"
+                  alt = "Profile"
+                />
+              </Link>
+            </div>
+            
             <div className="flex gap-2 mt-[7px] w-full justify-between">
               <div className="flex gap-2">
                 <Link to={`/users/${post.user.username}`} className="no-underline text-base-content">
@@ -227,7 +229,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 pl-16">
+          <div className="text-wrap-auto pl-[25px]">
             {isEditMode ? (
               <div>
                 <textarea
@@ -253,19 +255,24 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
             ) : (
               <p className="w-full break-words">{post.content}</p>
             )}
+
+            {post.post_image && (
+              <img
+                src={post.post_image}
+                className="max-w-full rounded-md object-contain"
+                alt="post image"
+              />
+            )}
+
           </div>
 
-          <div className="flex flex-col gap-2 pl-16">
-            {post.post_image && <img src={post.post_image} alt="post image" />}
-          </div>
-
-          <div className="flex flex-row justify-between pl-[64px] py-[15px]">
-            <div className="flex flex-row gap-2 items-start">
-              <img src={message} className="w-[25px] h-[25px]" alt="Messages" />
+          <div className="flex flex-row gap-4 mt-3 pl-16">
+            <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
+              <img src={message} className="w-5 h-5 no-underline text base-content" alt="Messages" />
               <p>{commentCount}</p>
             </div>
 
-            <div className="flex flex-row gap-2 items-start pr-[3px]">
+            <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
               <button
                 type="button"
                 onClick={(e) => {
@@ -283,9 +290,8 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
               >
                 <img
                   src={heart}
-                  className="w-[25px] h-[25px]"
+                  className="w-5 h-5 no-underline text base-content"
                   alt="Likes"
-                  style={{ backgroundColor, borderRadius: "50%" }}
                 />
               </button>
               <p>{post.like.length || 0}</p>
