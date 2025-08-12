@@ -195,189 +195,202 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
     : "";
 
   return (
-    <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left shadow-md p-4">
-      {post ? (
-        <div key={post.id}>
-          <div className="flex flex-row gap-4 w-full ">
-            <Link to={`/users/${post.user.username}`} className="no-underline">
-              <img
-                src={post.user.profile_image}
-                className="rounded-full w-[60px] h-[45px]"
-                alt = "Profile"
-              />
-            </Link>
+  <div className="w-full max-w-3xl mx-auto p-5">
+    {post ? (
+      <div
+        key={post.id}
+        className="bg-base-100 shadow-lg rounded-2xl border border-base-200 overflow-hidden"
+      >
+        <header className="flex items-start gap-4 p-5">
+          <Link to={`/users/${post.user.username}`} className="shrink-0">
+            <img
+              src={post.user.profile_image}
+              className="rounded-full w-12 h-12 ring-2 ring-base-200 object-cover"
+              alt="Profile"
+            />
+          </Link>
 
-            <div className="flex gap-2 mt-[7px] w-full justify-between">
-              <div className="flex gap-2">
-                <Link to={`/users/${post.user.username}`} className="no-underline text-base-content">
-                  {post.user.username}
-                </Link>
-                <p className="no-underline text-base-content">{formattedDate}</p>
-              </div>
-
-              {username === post.user.username ? (
-                <DropdownComponent
-                  postId={post.id}
-                  editPost={() => handleEditToggle(post.content)}
-                  deletePost={() => handleDelete(postId)}
-                />
-              ) : (
-                <div></div>
-              )}
+          <div className="flex w-full items-start justify-between">
+            <div className="flex flex-col">
+              <Link
+                to={`/users/${post.user.username}`}
+                className="font-semibold hover:underline text-base-content"
+              >
+                {post.user.username}
+              </Link>
+              <p className="text-sm text-base-content/70">{formattedDate}</p>
             </div>
-          </div>
 
-          <div className="flex flex-col gap-2 pl-16">
-            {isEditMode ? (
-              <div>
-                <textarea
-                  value={editedContent}
-                  onChange={(e) => setEditedContent(e.target.value)}
-                  className="w-full p-2 border rounded"
-                />
-                <div className="flex gap-2 mt-2">
-                  <button
-                    onClick={editPost}
-                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded"
-                  >
-                    Save
-                  </button>
-                  <button
-                    onClick={() => setIsEditMode(false)}
-                    className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
+            {username === post.user.username ? (
+              <DropdownComponent
+                postId={post.id}
+                editPost={() => handleEditToggle(post.content)}
+                deletePost={() => handleDelete(postId)}
+              />
             ) : (
-              <p className="w-full break-words">{post.content}</p>
+              <div />
             )}
           </div>
+        </header>
 
-          <div className="flex flex-col gap-2 pl-16">
-            {post.post_image && <img src={post.post_image} alt="post image" />}
+        <div className="px-5 pb-3">
+          {isEditMode ? (
+            <div className="space-y-3">
+              <textarea
+                value={editedContent}
+                onChange={(e) => setEditedContent(e.target.value)}
+                className="w-full p-3 border border-base-300 rounded-xl bg-base-100 focus:outline-none focus:ring-2 focus:ring-sky-500"
+              />
+              <div className="flex gap-2 mt-2">
+                <button
+                  onClick={editPost}
+                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => setIsEditMode(false)}
+                  className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            <p className="whitespace-pre-wrap break-words leading-relaxed text-base">
+              {post.content}
+            </p>
+          )}
+        </div>
+
+        {post.post_image && (
+          <div className="px-5 pb-2">
+            <img
+              src={post.post_image}
+              alt="Post image"
+              className="w-full rounded-xl border border-base-200 object-cover"
+            />
+          </div>
+        )}
+
+        <div className="flex items-center justify-between px-5 py-3 border-t border-base-200">
+          <div className="flex items-center gap-2">
+            <img src={message} className="w-6 h-6" alt="Comments" />
+            <span className="text-sm">{commentCount}</span>
           </div>
 
-          <div className="flex flex-row justify-between pl-[64px] py-[15px]">
-            <div className="flex flex-row gap-2 items-start">
-              <img src={message} className="w-[25px] h-[25px]" alt="Messages" />
-              <p>{commentCount}</p>
-            </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                const likedUsernames = post.like.map(
+                  (like) => like.user.username
+                );
 
-            <div className="flex flex-row gap-2 items-start pr-[3px]">
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const likedUsernames = post.like.map(
-                    (like) => like.user.username,
-                  );
-
-                  if (!likedUsernames.includes(username)) {
-                    likePost();
-                  } else {
-                    unlikePost();
-                  }
-                }}
-              >
-                <img
-                  src={heart}
-                  className="w-[25px] h-[25px]"
-                  alt="Likes"
-                  style={{ backgroundColor, borderRadius: "50%" }}
-                />
-              </button>
-              <p>{post.like.length || 0}</p>
-            </div>
+                if (!likedUsernames.includes(username)) {
+                  likePost();
+                } else {
+                  unlikePost();
+                }
+              }}
+              className="flex items-center justify-center"
+            >
+              <img
+                src={heart}
+                className="w-[25px] h-[25px] rounded-full"
+                alt="Likes"
+                style={{ backgroundColor }}
+              />
+            </button>
+            <p>{post.like.length || 0}</p>
           </div>
+        </div>
 
-          <form
-            className="pl-[60px] flex flex-col"
-            method="POST"
-            encType="multipart/form-data"
-            onSubmit={handleSubmit(createNewComment)}
-          >
-            <h3 className="text-base font-semibold mb-3">Comments</h3>
+        <form
+          className="px-5 pb-5"
+          method="POST"
+          encType="multipart/form-data"
+          onSubmit={handleSubmit(createNewComment)}
+        >
+          <h3 className="text-base font-semibold mb-3 mt-4">Comments</h3>
 
-            {postMessages.length ? (
-              postMessages.map((comment) => {
+          {postMessages.length ? (
+            <ul className="space-y-4">
+              {postMessages.map((comment) => {
                 const formattedDate = DateTime.fromISO(
-                  comment.created_at,
+                  comment.created_at
                 ).toLocaleString({ month: "short", day: "2-digit" });
 
                 return (
-                  <div>
-                    <li key={comment.id} className="list-none">
-                      <div className="flex flex-row gap-[19px] w-full">
-                        <Link to={`/users/${post.user.username}`}>
-                          <img
-                            src={comment.user.profile_image}
-                            className="rounded-full w-[60px] h-[55px]"
-                          />
-                        </Link>
+                  <li key={comment.id} className="list-none">
+                    <div className="flex gap-4">
+                      <Link to={`/users/${post.user.username}`}>
+                        <img
+                          src={comment.user.profile_image}
+                          className="rounded-full w-[60px] h-[55px] object-cover"
+                          alt="Profile"
+                        />
+                      </Link>
 
-                        <div className="flex gap-2 mt-[7px] w-full justify-between">
-                          <div className="flex gap-2">
-                            <Link to={`/users/${post.user.username}`}>
-                              {comment.user.username}
-                            </Link>
-                            <p>{formattedDate}</p>
-                          </div>
+                      <div className="flex flex-col flex-1">
+                        <div className="flex items-center gap-2">
+                          <Link
+                            to={`/users/${post.user.username}`}
+                            className="font-medium hover:underline"
+                          >
+                            {comment.user.username}
+                          </Link>
+                          <p className="text-sm text-base-content/70">
+                            {formattedDate}
+                          </p>
                         </div>
-                      </div>
-
-                      <div className="flex flex-col pl-4 md:pl-8">
-                        <p className="w-full break-words pl-[44px]">
+                        <p className="w-full break-words mt-1">
                           {comment.content}
                         </p>
                       </div>
-                    </li>
-                  </div>
+                    </div>
+                  </li>
                 );
-              })
-            ) : (
-              <p className="text-base-content/70">No comments</p>
-            )}
-            
-            {username &&
-              <div>
-                <h4>Leave a comment</h4>
-                <div className="flex flex-row gap-2">
-                  <textarea
-                    name="textComment"
-                    value={textComment}
-                    maxLength={8000}
-                    onInput={(e) => {
-                      const target = e.target as HTMLTextAreaElement;
-                      setTextComment(target.value);
-                      if (target.value === "") {
-                        target.style.height = "30px";
-                      } else {
-                        target.style.height = "auto";
-                        target.style.height = `${target.scrollHeight}px`;
-                      }
-                    }}
-                    className="min-h-[100px] max-h-[400px] w-full px-4 py-2 bg-base-100 border shadow-sm border-slate-300 
-                    placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 
-                    block rounded-md sm:text-sm focus:ring-1 overflow-auto resize-none"
-                    placeholder="Leave a comment, max 8000 characters"
-                  ></textarea>
-                </div>
-                <button
-                type="submit"
-                className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-2 rounded focus:outline-none focus:shadow-outline w-[150px]"
-                >
-                Comment
-                </button>
-              </div>
-            }
+              })}
+            </ul>
+          ) : (
+            <p className="text-base-content/70">No comments</p>
+          )}
 
-          </form>
-        </div>
-      ) : null}
-    </div>
-  );
+          {username && (
+            <div className="mt-6">
+              <h4 className="mb-2 font-semibold">Leave a comment</h4>
+              <div className="flex flex-row gap-2">
+                <textarea
+                  name="textComment"
+                  value={textComment}
+                  maxLength={8000}
+                  onInput={(e) => {
+                    const target = e.target as HTMLTextAreaElement;
+                    setTextComment(target.value);
+                    target.style.height = target.value ? "auto" : "30px";
+                    target.style.height = `${target.scrollHeight}px`;
+                  }}
+                  className="min-h-[100px] max-h-[400px] w-full px-4 py-2 bg-base-100 border shadow-sm border-slate-300 
+                  placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 
+                  block rounded-md sm:text-sm focus:ring-1 overflow-auto resize-none"
+                  placeholder="Leave a comment, max 8000 characters"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                className="mt-4 bg-blue-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-[150px]"
+              >
+                Comment
+              </button>
+            </div>
+          )}
+        </form>
+      </div>
+    ) : null}
+  </div>
+);
 }
 
 export default PostDetails;
