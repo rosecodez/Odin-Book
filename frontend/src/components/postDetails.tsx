@@ -197,7 +197,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
   return (
     <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left shadow-md p-4">
       {post ? (
-        <div key={post.id} className="flex flex-col gap-6 pt-[40px]">
+        <div key={post.id} className="flex flex-col pt-[40px]">
           <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
             <div className="shrink-0 w-[45px] h-[45px]">
               <Link to={`/users/${post.user.username}`} className="no-underline">
@@ -229,7 +229,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
             </div>
           </div>
 
-          <div className="text-wrap-auto pl-[25px]">
+          <div className="text-wrap-auto pl-[65px]">
             {isEditMode ? (
               <div>
                 <textarea
@@ -325,7 +325,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
 
                         <div className="flex gap-2 mt-[7px] w-full justify-between">
                           <div className="flex gap-2">
-                            <Link to={`/users/${post.user.username}`}>
+                            <Link to={`/users/${post.user.username}`} className="no-underline text-base-content">
                               {comment.user.username}
                             </Link>
                             <p>{formattedDate}</p>

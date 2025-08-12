@@ -200,7 +200,7 @@ const Feed: React.FC<FeedProps> = ({  isVisitor, setIsVisitor }) => {
                           </div>
                         </div>
                       ) : (
-                        <p className="w-full break-words pl-[40px] mb-[10px] no-underline text base-content">
+                        <p className="w-full break-words mb-[10px] no-underline text base-content">
                           {post.content}
                         </p>
                       )}

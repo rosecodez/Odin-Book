@@ -41,7 +41,7 @@ const Home: React.FC<HomeProps> = ({
   }, [isAuthenticated, setIsAuthenticated]);
 
   return (
-    <div className="flex flex-col w-full mx-auto px-4 text-left shadow-md p-4 gap-4">
+    <div className="flex flex-col w-full mx-auto px-4 text-left p-4 gap-4">
       {isAuthenticated ? (
         <Feed
           isVisitor={isVisitor}
