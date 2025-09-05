@@ -198,7 +198,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
     <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left shadow-md p-4">
       {post ? (
         <div key={post.id} className="flex flex-col pt-[40px]">
-          <div className="flex flex-row gap-[19px] mt-[7px] items-center">
+          <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
             <div className="shrink-0 w-[45px] h-[45px]">
               <Link to={`/users/${post.user.username}`} className="no-underline">
                 <img
@@ -209,7 +209,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
               </Link>
             </div>
             
-            <div className="flex items-center gap-2 mt-[7px] w-full">
+            <div className="flex gap-2 mt-[7px] w-full justify-between">
               <div className="flex gap-2">
                 <Link to={`/users/${post.user.username}`} className="no-underline text-base-content">
                   {post.user.username}
@@ -217,14 +217,14 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
                 <p className="no-underline text-base-content">{formattedDate}</p>
               </div>
 
-              {username === post.user.username && (
-                <div className="ml-auto">
-                  <DropdownComponent
-                    postId={post.id}
-                    editPost={() => handleEditToggle(post.content)}
-                    deletePost={() => handleDelete(postId)}
-                  />
-                </div>
+              {username === post.user.username ? (
+                <DropdownComponent
+                  postId={post.id}
+                  editPost={() => handleEditToggle(post.content)}
+                  deletePost={() => handleDelete(postId)}
+                />
+              ) : (
+                <div></div>
               )}
             </div>
           </div>
