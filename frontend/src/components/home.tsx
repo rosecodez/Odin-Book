@@ -48,7 +48,7 @@ const Home: React.FC<HomeProps> = ({
           setIsVisitor={setIsVisitor}
         />
       ) : (
-        <div className="flex flex-col md:flex-row justify-center items-center gap-8 pb-12">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-8 pb-12 mx-[80px]">
           <AppScreenshot />
           <Connect />
         </div>
