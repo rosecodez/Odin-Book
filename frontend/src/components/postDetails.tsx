@@ -297,16 +297,8 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
               <p>{post.like.length || 0}</p>
             </div>
           </div>
-
-          <form
-            className="pl-[60px] flex flex-col"
-            method="POST"
-            encType="multipart/form-data"
-            onSubmit={handleSubmit(createNewComment)}
-          >
-            <h3 className="text-base font-semibold mb-3">Comments</h3>
-
-            {postMessages.length ? (
+          <h3 className="text-base font-semibold mb-3">Comments</h3>
+          {postMessages.length ? (
               postMessages.map((comment) => {
                 const formattedDate = DateTime.fromISO(
                   comment.created_at,
@@ -315,11 +307,11 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
                 return (
                   <div>
                     <li key={comment.id} className="list-none">
-                      <div className="flex flex-row gap-[19px] w-full">
+                      <div className="shrink-0 w-[45px] h-[45px]">
                         <Link to={`/users/${post.user.username}`}>
                           <img
                             src={comment.user.profile_image}
-                            className="rounded-full w-[60px] h-[55px]"
+                            className="rounded-full w-[60px] h-[45px]"
                           />
                         </Link>
 
@@ -342,44 +334,51 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
                   </div>
                 );
               })
-            ) : (
-              <p className="text-base-content/70">No comments</p>
-            )}
-            
-            {username &&
-              <div>
-                <h4>Leave a comment</h4>
-                <div className="flex flex-row gap-2">
-                  <textarea
-                    name="textComment"
-                    value={textComment}
-                    maxLength={8000}
-                    onInput={(e) => {
-                      const target = e.target as HTMLTextAreaElement;
-                      setTextComment(target.value);
-                      if (target.value === "") {
-                        target.style.height = "30px";
-                      } else {
-                        target.style.height = "auto";
-                        target.style.height = `${target.scrollHeight}px`;
-                      }
-                    }}
-                    className="min-h-[100px] max-h-[400px] w-full px-4 py-2 bg-base-100 border shadow-sm border-slate-300 
-                    placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 
-                    block rounded-md sm:text-sm focus:ring-1 overflow-auto resize-none"
-                    placeholder="Leave a comment, max 8000 characters"
-                  ></textarea>
-                </div>
-                <button
-                type="submit"
-                className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-2 rounded focus:outline-none focus:shadow-outline w-[150px]"
-                >
-                Comment
-                </button>
-              </div>
-            }
+          ) : (
+            <p className="text-base-content/70">No comments</p>
+          )}
 
+          <form
+            className="pl-[60px] flex flex-col"
+            method="POST"
+            encType="multipart/form-data"
+            onSubmit={handleSubmit(createNewComment)}
+          >
+            {username &&
+                <div>
+                  <h4>Leave a comment</h4>
+                  <div className="flex flex-row gap-2">
+                    <textarea
+                      name="textComment"
+                      value={textComment}
+                      maxLength={8000}
+                      onInput={(e) => {
+                        const target = e.target as HTMLTextAreaElement;
+                        setTextComment(target.value);
+                        if (target.value === "") {
+                          target.style.height = "30px";
+                        } else {
+                          target.style.height = "auto";
+                          target.style.height = `${target.scrollHeight}px`;
+                        }
+                      }}
+                      className="min-h-[100px] max-h-[400px] w-full px-4 py-2 bg-base-100 border shadow-sm border-slate-300 
+                      placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 
+                      block rounded-md sm:text-sm focus:ring-1 overflow-auto resize-none"
+                      placeholder="Leave a comment, max 8000 characters"
+                    ></textarea>
+                  </div>
+                  <button
+                  type="submit"
+                  className="mt-6 bg-blue-500 hover:bg-indigo-600 text-white font-bold mb-2 py-2 px-2 rounded focus:outline-none focus:shadow-outline w-[150px]"
+                  >
+                  Comment
+                  </button>
+                </div>
+              }  
           </form>
+          
+
         </div>
       ) : null}
     </div>
