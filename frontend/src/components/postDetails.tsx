@@ -198,116 +198,116 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
     <div className="flex flex-col w-full max-w-4xl mx-auto px-4 text-left shadow-md p-4">
       {post ? (
         <div key={post.id} className="flex flex-col pt-[40px]">
+          
           {/* User, post section */}
           <div>
-            
-          </div>
-          {/* User profile section */}
-          <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
-            <div className="shrink-0 w-[45px] h-[45px]">
-              <Link to={`/users/${post.user.username}`} className="no-underline">
-                <img
-                  src={post.user.profile_image}
-                  className="rounded-full w-[60px] h-[45px]"
-                  alt = "Profile"
-                />
-              </Link>
-            </div>
-            
-            <div className="flex gap-2 mt-[7px] w-full justify-between">
-              <div className="flex gap-2">
-                <Link to={`/users/${post.user.username}`} className="no-underline text-base-content">
-                  {post.user.username}
+            {/* User profile section */}
+            <div className="flex flex-row gap-[19px] mt-[7px] items-center justify-between">
+              <div className="shrink-0 w-[45px] h-[45px]">
+                <Link to={`/users/${post.user.username}`} className="no-underline">
+                  <img
+                    src={post.user.profile_image}
+                    className="rounded-full w-[60px] h-[45px]"
+                    alt = "Profile"
+                  />
                 </Link>
-                <p className="no-underline text-base-content">{formattedDate}</p>
               </div>
-
-              {username === post.user.username ? (
-                <DropdownComponent
-                  postId={post.id}
-                  editPost={() => handleEditToggle(post.content)}
-                  deletePost={() => handleDelete(postId)}
-                />
-              ) : (
-                <div></div>
-              )}
-            </div>
-          </div>
-
-          {/* Post content section */}
-          <div className="text-wrap-auto pl-[65px]">
-            {isEditMode ? (
-              <div>
-                <textarea
-                  value={editedContent}
-                  onChange={(e) => setEditedContent(e.target.value)}
-                  className="w-full p-2 border rounded"
-                />
-                <div className="flex gap-2 mt-2">
-                  <button
-                    onClick={editPost}
-                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded"
-                  >
-                    Save
-                  </button>
-                  <button
-                    onClick={() => setIsEditMode(false)}
-                    className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded"
-                  >
-                    Cancel
-                  </button>
+              
+              <div className="flex gap-2 mt-[7px] w-full justify-between">
+                <div className="flex gap-2">
+                  <Link to={`/users/${post.user.username}`} className="no-underline text-base-content">
+                    {post.user.username}
+                  </Link>
+                  <p className="no-underline text-base-content">{formattedDate}</p>
                 </div>
+
+                {username === post.user.username ? (
+                  <DropdownComponent
+                    postId={post.id}
+                    editPost={() => handleEditToggle(post.content)}
+                    deletePost={() => handleDelete(postId)}
+                  />
+                ) : (
+                  <div></div>
+                )}
               </div>
-            ) : (
-              <p className="w-full break-words">{post.content}</p>
-            )}
-
-            {post.post_image && (
-              <img
-                src={post.post_image}
-                className="max-w-full rounded-md object-contain"
-                alt="post image"
-              />
-            )}
-
-          </div>
-
-          {/* Likes and comments count section */}
-          <div className="flex flex-row gap-4 mt-3 pl-16">
-            <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
-              <img src={message} className="w-5 h-5 no-underline text base-content" alt="Messages" />
-              <p>{commentCount}</p>
             </div>
 
-            <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  const likedUsernames = post.like.map(
-                    (like) => like.user.username,
-                  );
+            {/* Post content section */}
+            <div className="text-wrap-auto pl-[65px]">
+              {isEditMode ? (
+                <div>
+                  <textarea
+                    value={editedContent}
+                    onChange={(e) => setEditedContent(e.target.value)}
+                    className="w-full p-2 border rounded"
+                  />
+                  <div className="flex gap-2 mt-2">
+                    <button
+                      onClick={editPost}
+                      className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-4 rounded"
+                    >
+                      Save
+                    </button>
+                    <button
+                      onClick={() => setIsEditMode(false)}
+                      className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <p className="w-full break-words">{post.content}</p>
+              )}
 
-                  if (!likedUsernames.includes(username)) {
-                    likePost();
-                  } else {
-                    unlikePost();
-                  }
-                }}
-              >
+              {post.post_image && (
                 <img
-                  src={heart}
-                  className="w-5 h-5 no-underline text base-content"
-                  alt="Likes"
+                  src={post.post_image}
+                  className="max-w-full rounded-md object-contain"
+                  alt="post image"
                 />
-              </button>
-              <p>{post.like.length || 0}</p>
+              )}
+
             </div>
+
+            {/* Likes and comments count section */}
+            <div className="flex flex-row gap-4 mt-3 pl-16">
+              <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
+                <img src={message} className="w-5 h-5 no-underline text base-content" alt="Messages" />
+                <p>{commentCount}</p>
+              </div>
+
+              <div className="flex items-start gap-1 text-sm text-gray-400 hover:text-primary cursor-pointer">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const likedUsernames = post.like.map(
+                      (like) => like.user.username,
+                    );
+
+                    if (!likedUsernames.includes(username)) {
+                      likePost();
+                    } else {
+                      unlikePost();
+                    }
+                  }}
+                >
+                  <img
+                    src={heart}
+                    className="w-5 h-5 no-underline text base-content"
+                    alt="Likes"
+                  />
+                </button>
+                <p>{post.like.length || 0}</p>
+              </div>
+            </div>  
           </div>
           
           {/* Comments section */}
           <div className="flex flex-col pl-[60px]">
-            <div>
+            <div className="flex flex-col gap-4">
               <h3 className="text-base font-semibold mb-3">Comments</h3>
               {postMessages.length ? (
                   postMessages.map((comment) => {
@@ -316,7 +316,7 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
                     ).toLocaleString({ month: "short", day: "2-digit" });
 
                     return (
-                      <div>
+                      <div className="flex gap-4">
                         <li key={comment.id} className="list-none">
                           <div className="shrink-0 w-[45px] h-[45px]">
                             <Link to={`/users/${post.user.username}`}>
@@ -351,13 +351,13 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
             </div>
 
             {/* New comment section */}
-            <form
+            <form className="py-50px"
                 method="POST"
                 encType="multipart/form-data"
                 onSubmit={handleSubmit(createNewComment)}
               >
                 {username &&
-                    <div>
+                    <div >
                       <h4>Leave a comment</h4>
                       <div className="flex flex-row gap-2">
                         <textarea
