@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import camera from "../assets/camera.png";
@@ -12,7 +12,7 @@ const Profile: React.FC<ProfileProps> = ({ isVisitor, setIsVisitor }) => {
   const { register, handleSubmit } = useForm<ProfileFormInputs>();
   const [username, setUsername] = useState<string>("");
   const [image, setImage] = useState<string>("");
-
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [modalVisibility, setModalVisibility] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
@@ -53,33 +53,41 @@ const Profile: React.FC<ProfileProps> = ({ isVisitor, setIsVisitor }) => {
   const showModal = () => setModalVisibility(true);
   const hideModal = () => setModalVisibility(false);
 
-  const onSubmit = async (data: ProfileFormInputs) => {
-    const file = data.image[0];
+  const onSubmit = async () => {
+  const file = fileInputRef.current?.files?.[0];
 
-    const formData = new FormData();
-    formData.append("file", file);
+  if (!file) {
+    console.error("No file selected");
+    return;
+  }
 
-    try {
-      const response = await fetch(
-        `${API_URL}/users/update-profile-picture`,
-        {
-          method: "PUT",
-          body: formData,
-          credentials: "include",
-        },
-      );
+  console.log("Uploading:", file);
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error);
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const response = await fetch(
+      `${API_URL}/users/update-profile-picture`,
+      {
+        method: "PUT",
+        body: formData,
+        credentials: "include",
       }
-      const uploadData = await response.json();
-      hideModal();
-      setImage(uploadData.profile_image);
-      window.location.reload();
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    }
+    );
+
+    const text = await response.text();
+    console.log("Server:", text);
+
+    if (!response.ok) throw new Error(text);
+
+    const uploadData = JSON.parse(text);
+    hideModal();
+    setImage(uploadData.profileImage);
+    window.location.reload();
+  } catch (error) {
+    console.error(error);
+  }
   };
 
   return (
@@ -117,7 +125,10 @@ const Profile: React.FC<ProfileProps> = ({ isVisitor, setIsVisitor }) => {
         <div id="profileModal" className="pt-6 w-fit">
           <form
             id="UpdateProfilePicture"
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={(e) => {
+              e.preventDefault();
+              onSubmit();
+            }}
             className="flex flex-col"
             method="POST"
             encType="multipart/form-data"
@@ -129,9 +140,8 @@ const Profile: React.FC<ProfileProps> = ({ isVisitor, setIsVisitor }) => {
               </label>
               <input
                 type="file"
-                {...register("image")}
+                ref={fileInputRef}
                 id="profilePicture"
-                name="file"
                 accept="image/png, image/jpeg"
                 required
               />
