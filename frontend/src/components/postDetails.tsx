@@ -306,48 +306,55 @@ const PostDetails: React.FC<PostDetailsProps> = ({ username }) => {
           </div>
           
           {/* Comments section */}
-          <div className="flex flex-col pl-[60px]">
-            <div className="flex flex-col gap-4">
+          <div className="flex flex-col pl-[60px] ">
+            <div className="flex flex-col">
               <h3 className="text-base font-semibold mb-3">Comments</h3>
               {postMessages.length ? (
-                  postMessages.map((comment) => {
-                    const formattedDate = DateTime.fromISO(
-                      comment.created_at,
-                    ).toLocaleString({ month: "short", day: "2-digit" });
+                postMessages.map((comment) => {
+                  const formattedDate = DateTime.fromISO(
+                    comment.created_at
+                  ).toLocaleString({ month: "short", day: "2-digit" });
 
-                    return (
-                      <div className="flex gap-4">
-                        <li key={comment.id} className="list-none">
-                          <div className="shrink-0 w-[45px] h-[45px]">
-                            <Link to={`/users/${post.user.username}`}>
-                              <img
-                                src={comment.user.profile_image}
-                                className="rounded-full w-[60px] h-[45px]"
-                              />
-                            </Link>
+                  return (
+                    <div key={comment.id} className="flex flex-row gap-3 mt-4 items-start">
+                      
+                      {/* Avatar */}
+                      <Link to={`/users/${comment.user.username}`}>
+                        <img
+                          src={comment.user.profile_image}
+                          className="rounded-full w-[45px] h-[45px] object-cover"
+                          alt="Profile"
+                        />
+                      </Link>
 
-                            <div className="flex gap-2 mt-[7px] w-full justify-between">
-                              <div className="flex gap-2">
-                                <Link to={`/users/${post.user.username}`} className="no-underline text-base-content">
-                                  {comment.user.username}
-                                </Link>
-                                <p>{formattedDate}</p>
-                              </div>
-                            </div>
-                          </div>
+                      {/* Content */}
+                      <div className="flex flex-col w-full">
+                        
+                        {/* Username + date */}
+                        <div className="flex gap-2 items-center">
+                          <Link
+                            to={`/users/${comment.user.username}`}
+                            className="no-underline font-medium text-base-content"
+                          >
+                            {comment.user.username}
+                          </Link>
+                          <span className="text-sm text-gray-400">
+                            {formattedDate}
+                          </span>
+                        </div>
 
-                          <div className="flex flex-col pl-4 md:pl-8">
-                            <p className="w-full break-words pl-[44px]">
-                              {comment.content}
-                            </p>
-                          </div>
-                        </li>
+                        {/* Comment text */}
+                        <p className="text-sm mt-1 break-words">
+                          {comment.content}
+                        </p>
+
                       </div>
-                    );
-                  })
+                    </div>
+                  );
+                })
               ) : (
                 <p className="text-base-content/70">No comments</p>
-              )}  
+              )}
             </div>
 
             {/* New comment section */}

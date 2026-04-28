@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
         <ThemeToggleButton/>
       </div>
 
-      <p className="text-[12px] pt-[15px]">Roxana Dandu @ The Odin Project 2024</p>
+      <p className="text-[12px] pt-[15px]">Roxana Dandu @ The Odin Project 2026</p>
     </footer >
     
   );
